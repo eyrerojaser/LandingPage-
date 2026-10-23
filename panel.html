@@ -661,7 +661,10 @@ function buildExport(c, photo){
   var font = FONTS[c.font] || FONTS.dm;
   var run = "(" + lpRuntime.toString() + ")(" + (hasForm(c) ? JSON.stringify({ep:safeUrl(c.endpoint), tt:String(c.thanksTitle||""), pg:String(c.fileName||"")}) : "null") + ");";
   run = run.replace(/<\//g, "<\\/");
-  var og = photo && /^\/img\//.test(photo) ? '<meta property="og:image" content="' + esc(photo) + '">\n' : "";
+  var origin = /^https?:$/.test(location.protocol) ? location.origin : "";
+  var pageUrl = origin + "/" + (c.fileName === "index.html" ? "" : (c.fileName || ""));
+  var og = (origin ? '<meta property="og:url" content="' + esc(pageUrl) + '">\n' : "") + '<meta property="og:type" content="website">\n' +
+    (photo && /^\/img\//.test(photo) ? '<meta property="og:image" content="' + esc(origin + photo) + '">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="' + esc(origin + photo) + '">\n' : "");
   return '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n' +
     '<title>' + esc(plain) + '</title>\n<meta name="description" content="' + esc(desc) + '">\n' +
     '<meta property="og:title" content="' + esc(plain) + '">\n<meta property="og:description" content="' + esc(desc) + '">\n' + og +
