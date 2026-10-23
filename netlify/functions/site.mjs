@@ -18,6 +18,18 @@ export default async (req) => {
     return new Response(r.data, { headers: { "content-type": (r.metadata && r.metadata.type) || "image/jpeg", "cache-control": "public, max-age=31536000, immutable" } });
   }
 
+  if (path.startsWith("/pdf/")) {
+    const id = path.slice(5).replace(/\.pdf$/, "");
+    if (!/^[a-z0-9-]{1,90}$/.test(id)) return new Response("No encontrado", { status: 404 });
+    const r = await getStore({ name: "pdf", consistency: "strong" }).getWithMetadata(id, { type: "stream" });
+    if (!r) return new Response("No encontrado", { status: 404 });
+    const name = id.replace(/-[a-z0-9]{6,9}$/, "") + ".pdf";
+    const dl = new URL(req.url).searchParams.get("dl") === "1";
+    const h = { "content-type": "application/pdf", "content-disposition": (dl ? "attachment" : "inline") + '; filename="' + name + '"', "cache-control": "public, max-age=86400" };
+    if (r.metadata && r.metadata.size) h["content-length"] = String(r.metadata.size);
+    return new Response(r.data, { headers: h });
+  }
+
   let key = path === "/" ? "index.html" : path.slice(1);
   if (!/\.html$/.test(key)) key += ".html";
   const html = /^[a-z0-9][a-z0-9-]{0,60}\.html$/.test(key) ? await getStore({ name: "site", consistency: "strong" }).get(key) : null;
@@ -25,4 +37,4 @@ export default async (req) => {
   return new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=0, must-revalidate" } });
 };
 
-export const config = { path: ["/", "/:page", "/img/:id"], preferStatic: true };
+export const config = { path: ["/", "/:page", "/img/:id", "/pdf/:file"], preferStatic: true };
