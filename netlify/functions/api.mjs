@@ -94,6 +94,34 @@ export default async (req) => {
       return json({ path: "/img/" + id });
     }
 
+    if (route === "pdf-part" && m === "POST") {
+      const id = url.searchParams.get("id") || "", part = Number(url.searchParams.get("part"));
+      if (!/^[a-z0-9-]{1,90}$/.test(id) || !Number.isInteger(part) || part < 0 || part > 9) return json({ error: "bad" }, 400);
+      const buf = await req.arrayBuffer();
+      if (!buf.byteLength || buf.byteLength > 5_000_000) return json({ error: "size" }, 413);
+      await store("pdfparts").set(id + "-" + part, buf);
+      return json({ ok: true });
+    }
+
+    if (route === "pdf-done" && m === "POST") {
+      const { id, parts } = await req.json().catch(() => ({}));
+      if (!/^[a-z0-9-]{1,90}$/.test(id || "") || !Number.isInteger(parts) || parts < 1 || parts > 10) return json({ error: "bad" }, 400);
+      const ps = store("pdfparts"), chunks = [];
+      for (let i = 0; i < parts; i++) {
+        const b = await ps.get(id + "-" + i, { type: "arrayBuffer" });
+        if (!b) return json({ error: "missing" }, 400);
+        chunks.push(new Uint8Array(b));
+      }
+      const size = chunks.reduce((s, c) => s + c.length, 0);
+      const all = new Uint8Array(size); let o = 0;
+      for (const c of chunks) { all.set(c, o); o += c.length; }
+      const head = new TextDecoder().decode(all.slice(0, 5));
+      if (head !== "%PDF-") return json({ error: "notpdf" }, 400);
+      await store("pdf").set(id, all.buffer, { metadata: { type: "application/pdf", size } });
+      for (let i = 0; i < parts; i++) await ps.delete(id + "-" + i);
+      return json({ path: "/pdf/" + id + ".pdf", size });
+    }
+
     if (route === "leads" && m === "GET") {
       const s = store("leads");
       const { blobs } = await s.list();

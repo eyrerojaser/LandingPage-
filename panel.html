@@ -405,7 +405,7 @@ var FIELDS = {
   bullets:["Beneficios (uno por línea)","area","Vacío = no aparecen."],
   cta:["Texto del botón","text"],
   note:["Nota bajo el botón","text"],
-  pdfUrl:["Enlace de tu PDF en Google Drive","url","En Drive: clic derecho al PDF → Compartir → «Cualquier persona con el enlace» → Copiar enlace."],
+  pdfUrl:["Tu PDF","url","Pulsa «Subir mi PDF» y elige tu archivo. Se guarda en tu web y se abre directo en todas partes, también en Pinterest. (También puedes pegar un enlace.)"],
   thanksTitle:["Título después de registrarse","text","{nombre} se cambia por el nombre de la persona."],
   thanks:["Mensaje después de registrarse","area"],
   sticker:["Círculo «Descarga…»","text","Ej.: GRATIS. Vacío = no aparece."],
@@ -489,8 +489,11 @@ function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(
 function safeUrl(u){ try{ var x = new URL(String(u||"").trim()); return /^https?:$/.test(x.protocol) && x.hostname ? x.href : ""; }catch(_){ return ""; } }
 function pdfLink(u){
   u = safeUrl(u); if (!u) return "";
-  var m = u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/) || (/drive\.google\.com/.test(u) && u.match(/[?&]id=([^&#]+)/));
-  return m ? "https://drive.google.com/file/d/" + m[1] + "/view" : u;
+  if (/(^|\.)google\.com$/.test(new URL(u).hostname) && /drive|docs/.test(new URL(u).hostname)){
+    var m = u.match(/\/d\/([\w-]{10,})/) || u.match(/[?&]id=([\w-]{10,})/);
+    if (m) return "https://drive.google.com/file/d/" + m[1] + "/view?usp=sharing";
+  }
+  return u;
 }
 function lines(s){ return String(s||"").split("\n").map(function(x){ return x.trim(); }).filter(Boolean); }
 function rich(s){ return esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>"); }
@@ -646,6 +649,11 @@ function lpRuntime(cfg){
     }
   }
   if (document.querySelector(".cd[data-deadline]")){ tick(); setInterval(tick, 1000); }
+  var inApp = /Pinterest|Instagram|FBAN|FBAV|FB_IAB|Line\/|TikTok|musical_ly|Snapchat|Twitter/i.test(navigator.userAgent || "");
+  var dlA = document.querySelectorAll('#thanks a[href*="/pdf/"]');
+  for (var q = 0; q < dlA.length; q++){
+    if (!inApp){ var hu = dlA[q].getAttribute("href"); if (!/[?&]dl=1/.test(hu)) dlA[q].setAttribute("href", hu + (hu.indexOf("?") < 0 ? "?" : "&") + "dl=1"); dlA[q].setAttribute("download", ""); dlA[q].removeAttribute("target"); }
+  }
   if (!cfg) return;
   var f = document.getElementById("lead-form"); if (!f) return;
   f.addEventListener("submit", function(e){
@@ -1045,8 +1053,42 @@ function field(k){
   } else if (type === "select") i.addEventListener("change", function(){ set(k, i.value); });
   else i.addEventListener("input", function(){ set(k, i.value); });
   w.appendChild(i);
+  if (k === "pdfUrl") w.appendChild(pdfUploader(i));
   if (def[2]){ var s = document.createElement("small"); s.textContent = def[2]; s.style.whiteSpace = "pre-line"; w.appendChild(s); }
   return w;
+}
+function pdfUploader(input){
+  var box = document.createElement("div"); box.style.cssText = "display:grid;gap:6px;margin-top:4px";
+  box.innerHTML = '<div class="photo-actions" style="grid-auto-flow:column;justify-content:start"><button class="btn primary sm" type="button">Subir mi PDF</button><input type="file" accept="application/pdf,.pdf" hidden></div><div class="photo-msg" role="status"></div>';
+  var btn = box.querySelector("button"), fi = box.querySelector("input"), msg = box.querySelector(".photo-msg");
+  if (/\/pdf\//.test(input.value)) msg.textContent = "PDF guardado en tu web ✓";
+  btn.onclick = function(){ fi.click(); };
+  fi.onchange = function(){
+    var f = fi.files[0]; fi.value = ""; if (!f) return;
+    if (!/pdf$/i.test(f.type) && !/\.pdf$/i.test(f.name)){ msg.textContent = "Ese archivo no es un PDF."; return; }
+    var mb = (f.size / 1048576).toFixed(1);
+    if (f.size > 19.5e6){ msg.textContent = "Tu PDF pesa " + mb + " MB y el máximo es 19 MB. Hazlo más ligero en ilovepdf.com (Comprimir PDF) y vuelve a subirlo."; return; }
+    if (!authed){ openLogin("Escribe tu contraseña para subir tu PDF."); return; }
+    var id = slug(f.name.replace(/\.pdf$/i, "")).slice(0, 60) + "-" + Date.now().toString(36);
+    var CH = 4000000, n = Math.max(1, Math.ceil(f.size / CH)), i = 0, page = cur;
+    btn.disabled = true;
+    (function next(){
+      if (i >= n){
+        msg.textContent = "Terminando…";
+        api("POST", "pdf-done", {id:id, parts:n}).then(function(r){
+          var url = location.origin + r.path;
+          page.data.pdfUrl = url; if (cur === page){ input.value = url; render(); }
+          changed(); btn.disabled = false;
+          msg.textContent = "PDF subido ✓ (" + mb + " MB). Pulsa «Publicar» para que tu landing lo use.";
+        }, fail);
+        return;
+      }
+      msg.textContent = "Subiendo tu PDF… " + Math.round(i / n * 100) + "%";
+      api("POST", "pdf-part?id=" + encodeURIComponent(id) + "&part=" + i, undefined, f.slice(i * CH, (i + 1) * CH, "application/pdf")).then(function(){ i++; next(); }, fail);
+    })();
+    function fail(e){ btn.disabled = false; msg.textContent = e && e.code === "notpdf" ? "Ese archivo no parece un PDF válido." : apiError(e); }
+  };
+  return box;
 }
 function buildPanel(){
   var box = $("fields"); box.innerHTML = "";
