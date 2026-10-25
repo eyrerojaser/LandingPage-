@@ -1,0 +1,782 @@
+{
+ "version": 1,
+ "collections": [
+  {
+   "id": "moda",
+   "name": "Moda",
+   "items": [
+    {
+     "id": "perfume",
+     "name": "Perfume",
+     "file": "moda/perfume.webp",
+     "w": 276,
+     "h": 481
+    },
+    {
+     "id": "labial",
+     "name": "Labial",
+     "file": "moda/labial.webp",
+     "w": 162,
+     "h": 536
+    },
+    {
+     "id": "bolso",
+     "name": "Bolso",
+     "file": "moda/bolso.webp",
+     "w": 472,
+     "h": 398
+    },
+    {
+     "id": "tacon",
+     "name": "Tacón",
+     "file": "moda/tacon.webp",
+     "w": 514,
+     "h": 313
+    },
+    {
+     "id": "gafas",
+     "name": "Gafas de sol",
+     "file": "moda/gafas.webp",
+     "w": 640,
+     "h": 218
+    },
+    {
+     "id": "labios",
+     "name": "Labios",
+     "file": "moda/labios.webp",
+     "w": 486,
+     "h": 248
+    },
+    {
+     "id": "vestido",
+     "name": "Vestido en percha",
+     "file": "moda/vestido.webp",
+     "w": 394,
+     "h": 636
+    },
+    {
+     "id": "bolsa-compras",
+     "name": "Bolsa de compras",
+     "file": "moda/bolsa-compras.webp",
+     "w": 372,
+     "h": 441
+    },
+    {
+     "id": "esmalte",
+     "name": "Esmalte de uñas",
+     "file": "moda/esmalte.webp",
+     "w": 246,
+     "h": 441
+    },
+    {
+     "id": "anillo",
+     "name": "Anillo",
+     "file": "moda/anillo.webp",
+     "w": 294,
+     "h": 332
+    }
+   ]
+  },
+  {
+   "id": "linea",
+   "name": "Botánico en línea",
+   "items": [
+    {
+     "id": "olivo",
+     "name": "Rama de olivo",
+     "file": "linea/olivo.webp",
+     "w": 281,
+     "h": 528
+    },
+    {
+     "id": "helecho",
+     "name": "Helecho",
+     "file": "linea/helecho.webp",
+     "w": 244,
+     "h": 569
+    },
+    {
+     "id": "eucalipto-linea",
+     "name": "Eucalipto en línea",
+     "file": "linea/eucalipto-linea.webp",
+     "w": 168,
+     "h": 574
+    },
+    {
+     "id": "tulipan-linea",
+     "name": "Tulipán en línea",
+     "file": "linea/tulipan-linea.webp",
+     "w": 181,
+     "h": 474
+    },
+    {
+     "id": "rosa-linea",
+     "name": "Rosa en línea",
+     "file": "linea/rosa-linea.webp",
+     "w": 188,
+     "h": 475
+    },
+    {
+     "id": "margarita-linea",
+     "name": "Margarita en línea",
+     "file": "linea/margarita-linea.webp",
+     "w": 344,
+     "h": 344
+    },
+    {
+     "id": "laurel",
+     "name": "Corona de laurel",
+     "file": "linea/laurel.webp",
+     "w": 578,
+     "h": 539
+    },
+    {
+     "id": "flores-silvestres",
+     "name": "Flores silvestres en línea",
+     "file": "linea/flores-silvestres.webp",
+     "w": 534,
+     "h": 265
+    },
+    {
+     "id": "mariposa-linea",
+     "name": "Mariposa en línea",
+     "file": "linea/mariposa-linea.webp",
+     "w": 378,
+     "h": 270
+    },
+    {
+     "id": "luna-estrellas",
+     "name": "Luna y estrellas",
+     "file": "linea/luna-estrellas.webp",
+     "w": 294,
+     "h": 364
+    }
+   ]
+  },
+  {
+   "id": "flores",
+   "name": "Flores en acuarela",
+   "items": [
+    {
+     "id": "rosa",
+     "name": "Rosa",
+     "file": "flores/rosa.webp",
+     "w": 515,
+     "h": 432
+    },
+    {
+     "id": "peonia",
+     "name": "Peonía",
+     "file": "flores/peonia.webp",
+     "w": 559,
+     "h": 452
+    },
+    {
+     "id": "cerezo",
+     "name": "Flor de cerezo",
+     "file": "flores/cerezo.webp",
+     "w": 326,
+     "h": 337
+    },
+    {
+     "id": "margarita",
+     "name": "Margarita",
+     "file": "flores/margarita.webp",
+     "w": 354,
+     "h": 333
+    },
+    {
+     "id": "tulipan",
+     "name": "Tulipán",
+     "file": "flores/tulipan.webp",
+     "w": 187,
+     "h": 532
+    },
+    {
+     "id": "lavanda",
+     "name": "Lavanda",
+     "file": "flores/lavanda.webp",
+     "w": 139,
+     "h": 505
+    },
+    {
+     "id": "eucalipto",
+     "name": "Eucalipto",
+     "file": "flores/eucalipto.webp",
+     "w": 193,
+     "h": 601
+    },
+    {
+     "id": "rama",
+     "name": "Rama de hojas",
+     "file": "flores/rama.webp",
+     "w": 622,
+     "h": 215
+    },
+    {
+     "id": "ramo",
+     "name": "Ramo silvestre",
+     "file": "flores/ramo.webp",
+     "w": 379,
+     "h": 562
+    }
+   ]
+  },
+  {
+   "id": "dorado",
+   "name": "Dorado y brillos",
+   "items": [
+    {
+     "id": "destello",
+     "name": "Destello dorado",
+     "file": "dorado/destello.webp",
+     "w": 280,
+     "h": 280
+    },
+    {
+     "id": "destellos",
+     "name": "Destellos dorados",
+     "file": "dorado/destellos.webp",
+     "w": 350,
+     "h": 290
+    },
+    {
+     "id": "pan-de-oro",
+     "name": "Pan de oro",
+     "file": "dorado/pan-de-oro.webp",
+     "w": 499,
+     "h": 373
+    },
+    {
+     "id": "confeti-dorado",
+     "name": "Confeti dorado",
+     "file": "dorado/confeti-dorado.webp",
+     "w": 582,
+     "h": 386
+    },
+    {
+     "id": "pincelada-dorada",
+     "name": "Pincelada dorada",
+     "file": "dorado/pincelada-dorada.webp",
+     "w": 715,
+     "h": 98
+    },
+    {
+     "id": "corazon-dorado",
+     "name": "Corazón dorado",
+     "file": "dorado/corazon-dorado.webp",
+     "w": 278,
+     "h": 246
+    },
+    {
+     "id": "circulo-dorado",
+     "name": "Círculo dorado",
+     "file": "dorado/circulo-dorado.webp",
+     "w": 466,
+     "h": 466
+    },
+    {
+     "id": "linea-dorada",
+     "name": "Línea con destello",
+     "file": "dorado/linea-dorada.webp",
+     "w": 660,
+     "h": 80
+    }
+   ]
+  },
+  {
+   "id": "perlas",
+   "name": "Perlas y lazos",
+   "items": [
+    {
+     "id": "perlas-fila",
+     "name": "Fila de perlas",
+     "file": "perlas/perlas-fila.webp",
+     "w": 746,
+     "h": 56
+    },
+    {
+     "id": "collar-perlas",
+     "name": "Collar de perlas",
+     "file": "perlas/collar-perlas.webp",
+     "w": 662,
+     "h": 266
+    },
+    {
+     "id": "lazo-satin-rosa",
+     "name": "Lazo de satén rosa",
+     "file": "perlas/lazo-satin-rosa.webp",
+     "w": 464,
+     "h": 357
+    },
+    {
+     "id": "lazo-negro",
+     "name": "Lazo negro",
+     "file": "perlas/lazo-negro.webp",
+     "w": 464,
+     "h": 357
+    },
+    {
+     "id": "lazo-champan",
+     "name": "Lazo champán",
+     "file": "perlas/lazo-champan.webp",
+     "w": 464,
+     "h": 357
+    }
+   ]
+  },
+  {
+   "id": "sellos",
+   "name": "Sellos chic",
+   "items": [
+    {
+     "id": "sello-hecho-con-amor",
+     "name": "Sello «hecho con amor»",
+     "file": "sellos/sello-hecho-con-amor.webp",
+     "w": 452,
+     "h": 452
+    },
+    {
+     "id": "sello-handmade",
+     "name": "Sello «handmade with love»",
+     "file": "sellos/sello-handmade.webp",
+     "w": 452,
+     "h": 452
+    },
+    {
+     "id": "sello-nuevo",
+     "name": "Sello «nueva colección»",
+     "file": "sellos/sello-nuevo.webp",
+     "w": 452,
+     "h": 452
+    },
+    {
+     "id": "sello-limited",
+     "name": "Sello «limited edition»",
+     "file": "sellos/sello-limited.webp",
+     "w": 452,
+     "h": 452
+    },
+    {
+     "id": "sello-favorito",
+     "name": "Sello «mi favorito»",
+     "file": "sellos/sello-favorito.webp",
+     "w": 452,
+     "h": 452
+    }
+   ]
+  },
+  {
+   "id": "acuarela",
+   "name": "Acuarela",
+   "items": [
+    {
+     "id": "mancha-rosa",
+     "name": "Mancha rosa",
+     "file": "acuarela/mancha-rosa.webp",
+     "w": 375,
+     "h": 405
+    },
+    {
+     "id": "mancha-durazno",
+     "name": "Mancha durazno",
+     "file": "acuarela/mancha-durazno.webp",
+     "w": 335,
+     "h": 414
+    },
+    {
+     "id": "mancha-salvia",
+     "name": "Mancha salvia",
+     "file": "acuarela/mancha-salvia.webp",
+     "w": 375,
+     "h": 355
+    },
+    {
+     "id": "mancha-lila",
+     "name": "Mancha lila",
+     "file": "acuarela/mancha-lila.webp",
+     "w": 433,
+     "h": 405
+    },
+    {
+     "id": "mancha-dorada",
+     "name": "Mancha dorada",
+     "file": "acuarela/mancha-dorada.webp",
+     "w": 398,
+     "h": 341
+    },
+    {
+     "id": "pincelada",
+     "name": "Pincelada",
+     "file": "acuarela/pincelada.webp",
+     "w": 720,
+     "h": 102
+    }
+   ]
+  },
+  {
+   "id": "mariposas",
+   "name": "Mariposas",
+   "items": [
+    {
+     "id": "mariposa-rosa",
+     "name": "Mariposa rosa",
+     "file": "mariposas/mariposa-rosa.webp",
+     "w": 410,
+     "h": 294
+    },
+    {
+     "id": "mariposa-azul",
+     "name": "Mariposa azul",
+     "file": "mariposas/mariposa-azul.webp",
+     "w": 407,
+     "h": 294
+    },
+    {
+     "id": "mariposa-durazno",
+     "name": "Mariposa durazno",
+     "file": "mariposas/mariposa-durazno.webp",
+     "w": 408,
+     "h": 292
+    },
+    {
+     "id": "mariposa-lila",
+     "name": "Mariposa lila",
+     "file": "mariposas/mariposa-lila.webp",
+     "w": 407,
+     "h": 293
+    }
+   ]
+  },
+  {
+   "id": "papel",
+   "name": "Papel rasgado",
+   "items": [
+    {
+     "id": "papel-blanco",
+     "name": "Papel blanco",
+     "file": "papel/papel-blanco.webp",
+     "w": 620,
+     "h": 160
+    },
+    {
+     "id": "papel-kraft",
+     "name": "Papel kraft",
+     "file": "papel/papel-kraft.webp",
+     "w": 619,
+     "h": 160
+    },
+    {
+     "id": "papel-rosa",
+     "name": "Papel rosa",
+     "file": "papel/papel-rosa.webp",
+     "w": 620,
+     "h": 160
+    },
+    {
+     "id": "papel-cuaderno",
+     "name": "Hoja de cuaderno",
+     "file": "papel/papel-cuaderno.webp",
+     "w": 620,
+     "h": 298
+    },
+    {
+     "id": "papel-cuadricula",
+     "name": "Papel cuadriculado",
+     "file": "papel/papel-cuadricula.webp",
+     "w": 620,
+     "h": 301
+    },
+    {
+     "id": "papel-crema",
+     "name": "Papel crema alto",
+     "file": "papel/papel-crema.webp",
+     "w": 420,
+     "h": 530
+    }
+   ]
+  },
+  {
+   "id": "washi",
+   "name": "Washi tapes",
+   "items": [
+    {
+     "id": "washi-rayas",
+     "name": "Washi rayas rosa",
+     "file": "washi/washi-rayas.webp",
+     "w": 640,
+     "h": 110
+    },
+    {
+     "id": "washi-puntos",
+     "name": "Washi lunares",
+     "file": "washi/washi-puntos.webp",
+     "w": 640,
+     "h": 110
+    },
+    {
+     "id": "washi-cuadros",
+     "name": "Washi cuadros salvia",
+     "file": "washi/washi-cuadros.webp",
+     "w": 639,
+     "h": 110
+    },
+    {
+     "id": "washi-corazones",
+     "name": "Washi corazones",
+     "file": "washi/washi-corazones.webp",
+     "w": 640,
+     "h": 110
+    },
+    {
+     "id": "washi-flores",
+     "name": "Washi flores durazno",
+     "file": "washi/washi-flores.webp",
+     "w": 640,
+     "h": 110
+    },
+    {
+     "id": "washi-dorado",
+     "name": "Washi crema y oro",
+     "file": "washi/washi-dorado.webp",
+     "w": 640,
+     "h": 110
+    },
+    {
+     "id": "washi-negro",
+     "name": "Washi negro y oro",
+     "file": "washi/washi-negro.webp",
+     "w": 639,
+     "h": 110
+    },
+    {
+     "id": "cinta-adhesiva",
+     "name": "Cinta de papel",
+     "file": "washi/cinta-adhesiva.webp",
+     "w": 355,
+     "h": 110
+    }
+   ]
+  },
+  {
+   "id": "cintas",
+   "name": "Cintas",
+   "items": [
+    {
+     "id": "banner",
+     "name": "Cinta banner",
+     "file": "cintas/banner.webp",
+     "w": 694,
+     "h": 183
+    },
+    {
+     "id": "cinta-ondulada",
+     "name": "Cinta ondulada",
+     "file": "cintas/cinta-ondulada.webp",
+     "w": 740,
+     "h": 55
+    },
+    {
+     "id": "roseta",
+     "name": "Roseta",
+     "file": "cintas/roseta.webp",
+     "w": 372,
+     "h": 491
+    },
+    {
+     "id": "encaje",
+     "name": "Encaje",
+     "file": "cintas/encaje.webp",
+     "w": 900,
+     "h": 55
+    }
+   ]
+  },
+  {
+   "id": "marcos",
+   "name": "Marcos",
+   "items": [
+    {
+     "id": "corona",
+     "name": "Corona de flores",
+     "file": "marcos/corona.webp",
+     "w": 616,
+     "h": 615
+    },
+    {
+     "id": "polaroid",
+     "name": "Polaroid",
+     "file": "marcos/polaroid.webp",
+     "w": 520,
+     "h": 608
+    },
+    {
+     "id": "marco-ondas",
+     "name": "Marco de ondas",
+     "file": "marcos/marco-ondas.webp",
+     "w": 552,
+     "h": 552
+    },
+    {
+     "id": "sello",
+     "name": "Marco de sello postal",
+     "file": "marcos/sello.webp",
+     "w": 500,
+     "h": 620
+    },
+    {
+     "id": "arco-dorado",
+     "name": "Arco dorado",
+     "file": "marcos/arco-dorado.webp",
+     "w": 406,
+     "h": 576
+    },
+    {
+     "id": "marco-fino",
+     "name": "Marco fino dorado",
+     "file": "marcos/marco-fino.webp",
+     "w": 602,
+     "h": 602
+    }
+   ]
+  },
+  {
+   "id": "etiquetas",
+   "name": "Etiquetas",
+   "items": [
+    {
+     "id": "etiqueta-regalo",
+     "name": "Etiqueta de regalo",
+     "file": "etiquetas/etiqueta-regalo.webp",
+     "w": 324,
+     "h": 537
+    },
+    {
+     "id": "ticket",
+     "name": "Ticket",
+     "file": "etiquetas/ticket.webp",
+     "w": 620,
+     "h": 240
+    },
+    {
+     "id": "etiqueta-kraft",
+     "name": "Etiqueta kraft",
+     "file": "etiquetas/etiqueta-kraft.webp",
+     "w": 540,
+     "h": 150
+    },
+    {
+     "id": "insignia",
+     "name": "Insignia",
+     "file": "etiquetas/insignia.webp",
+     "w": 460,
+     "h": 453
+    },
+    {
+     "id": "circulo-sticker",
+     "name": "Círculo sticker",
+     "file": "etiquetas/circulo-sticker.webp",
+     "w": 430,
+     "h": 430
+    },
+    {
+     "id": "burbuja",
+     "name": "Burbuja de diálogo",
+     "file": "etiquetas/burbuja.webp",
+     "w": 528,
+     "h": 386
+    },
+    {
+     "id": "nota-adhesiva",
+     "name": "Nota adhesiva",
+     "file": "etiquetas/nota-adhesiva.webp",
+     "w": 360,
+     "h": 364
+    }
+   ]
+  },
+  {
+   "id": "scrapbook",
+   "name": "Scrapbook",
+   "items": [
+    {
+     "id": "esquina-foto",
+     "name": "Esquinas de foto",
+     "file": "scrapbook/esquina-foto.webp",
+     "w": 280,
+     "h": 280
+    },
+    {
+     "id": "corazon-dibujo",
+     "name": "Corazón dibujado",
+     "file": "scrapbook/corazon-dibujo.webp",
+     "w": 239,
+     "h": 216
+    },
+    {
+     "id": "estrella-dibujo",
+     "name": "Estrella dibujada",
+     "file": "scrapbook/estrella-dibujo.webp",
+     "w": 268,
+     "h": 258
+    },
+    {
+     "id": "flecha-dibujo",
+     "name": "Flecha a mano",
+     "file": "scrapbook/flecha-dibujo.webp",
+     "w": 438,
+     "h": 97
+    },
+    {
+     "id": "espiral",
+     "name": "Espiral",
+     "file": "scrapbook/espiral.webp",
+     "w": 221,
+     "h": 201
+    },
+    {
+     "id": "subrayado",
+     "name": "Subrayado",
+     "file": "scrapbook/subrayado.webp",
+     "w": 606,
+     "h": 61
+    },
+    {
+     "id": "circulo-mano",
+     "name": "Círculo a mano",
+     "file": "scrapbook/circulo-mano.webp",
+     "w": 480,
+     "h": 282
+    },
+    {
+     "id": "brillos",
+     "name": "Brillos",
+     "file": "scrapbook/brillos.webp",
+     "w": 270,
+     "h": 226
+    },
+    {
+     "id": "grapas",
+     "name": "Grapas",
+     "file": "scrapbook/grapas.webp",
+     "w": 160,
+     "h": 87
+    },
+    {
+     "id": "espiral-cuaderno",
+     "name": "Espiral de cuaderno",
+     "file": "scrapbook/espiral-cuaderno.webp",
+     "w": 564,
+     "h": 96
+    },
+    {
+     "id": "clip-dorado",
+     "name": "Clip dorado",
+     "file": "scrapbook/clip-dorado.webp",
+     "w": 92,
+     "h": 316
+    }
+   ]
+  }
+ ]
+}
