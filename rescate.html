@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Rescatar mis páginas</title>
+<link rel="icon" href="/favicon.png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F6F0F2;color:#21181C;font:16px/1.55 Jost,Helvetica,Arial,sans-serif;padding:28px 16px}
+.wrap{max-width:640px;margin:0 auto;display:grid;gap:16px}
+h1{font:400 2rem/1.1 Georgia,serif;margin:0}
+.box{background:#fff;border:1px solid #EADDE2;border-radius:14px;padding:18px;display:grid;gap:10px}
+.pg{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #EADDE2;padding:8px 0}
+.pg:last-child{border-bottom:0}
+.pg small{color:#76666D}
+button{font:inherit;font-weight:500;border:0;border-radius:10px;padding:12px 16px;background:#B9617F;color:#fff;cursor:pointer}
+button[disabled]{opacity:.6}
+input{font:inherit;border:1px solid #EADDE2;border-radius:10px;padding:10px 12px;width:100%}
+.msg{font-weight:500}
+.ok{color:#2E8B57}.err{color:#B4233F}
+a{color:#B9617F}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Rescatar mis páginas</h1>
+  <p style="margin:0">Esta página busca las landing pages que quedaron guardadas <b>en este navegador</b> y las devuelve a tu panel, sin borrar nada de lo que ya tienes.</p>
+  <div class="box" id="found"><p style="margin:0">Buscando…</p></div>
+  <div class="box" id="act" hidden>
+    <div id="passrow" hidden><label for="pass">Tu contraseña del panel</label><input type="password" id="pass" autocomplete="current-password"></div>
+    <button type="button" id="go">Devolver estas páginas a mi panel</button>
+    <div class="msg" id="msg" role="status"></div>
+  </div>
+</div>
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+  var draft = null, pass = "";
+  try{ draft = JSON.parse(localStorage.getItem("lp-draft") || "null"); pass = localStorage.getItem("lp-pass") || ""; }catch(_){}
+  var pages = draft && Array.isArray(draft.pages) ? draft.pages.filter(function(p){ return p && p.data; }) : [];
+  if (!pages.length){
+    $("found").innerHTML = "<p style='margin:0'>En este navegador no hay páginas guardadas.</p><p style='margin:0;color:#76666D'>Prueba a abrir esta misma dirección en el otro navegador o dispositivo donde usabas tu panel (por ejemplo Chrome o Edge en tu computadora).</p>";
+    return;
+  }
+  $("found").innerHTML = "<b>Encontré " + pages.length + " página" + (pages.length === 1 ? "" : "s") + " en este navegador:</b>" +
+    pages.map(function(p){ var d = p.data; return "<div class='pg'><span>" + esc(d.name || d.fileName) + "</span><small>/" + esc(d.fileName || "") + "</small></div>"; }).join("");
+  $("act").hidden = false; if (!pass) $("passrow").hidden = false;
+  $("go").onclick = function(){
+    var pw = pass || $("pass").value; if (!pw){ $("pass").focus(); return; }
+    var b = $("go"), msg = $("msg"); b.disabled = true; msg.className = "msg"; msg.textContent = "Devolviendo tus páginas…";
+    var h = {"x-panel-pass":pw, "Content-Type":"application/json"};
+    fetch("/api/draft", {headers:h, cache:"no-store"}).then(function(r){ if (r.status === 401) throw "auth"; if (!r.ok) throw "net"; return r.json(); }).then(function(server){
+      var list = Array.isArray(server.pages) ? server.pages.slice() : [], have = {}, files = {}, added = 0;
+      list.forEach(function(p){ have[p.id] = 1; if (p.data) files[p.data.fileName] = 1; });
+      pages.forEach(function(p){
+        if (have[p.id]) return;
+        var f = p.data.fileName || "pagina.html", base = f.replace(/\.html$/, ""), n = 2;
+        while (files[f]){ f = base + "-" + n + ".html"; n++; }
+        p.data.fileName = f; files[f] = 1; list.push(p); added++;
+      });
+      var at = Date.now();
+      return fetch("/api/draft", {method:"PUT", headers:h, body:JSON.stringify({pages:list, deleted:[], dirty:true, savedAt:at})}).then(function(r){
+        if (!r.ok) throw "net";
+        try{ localStorage.setItem("lp-draft", JSON.stringify({pages:list, deleted:[], dirty:true, savedAt:at})); localStorage.setItem("lp-lastsync", String(at)); }catch(_){}
+        msg.className = "msg ok";
+        msg.innerHTML = (added ? "Listo ✓ Devolví " + added + " página" + (added === 1 ? "" : "s") + " a tu panel." : "Tus páginas ya estaban en tu panel ✓") +
+          "<br>Ahora abre <a href='/panel.html'>tu panel</a>, revisa «Mis páginas» y pulsa <b>Publicar</b>.";
+      });
+    }).catch(function(e){ b.disabled = false; msg.className = "msg err"; msg.textContent = e === "auth" ? "La contraseña no es correcta." : "No se pudo conectar. Revisa tu internet e inténtalo otra vez."; if (e === "auth"){ pass = ""; $("passrow").hidden = false; } });
+  };
+})();
+</script>
+</body>
+</html>
