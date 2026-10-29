@@ -2175,7 +2175,7 @@ function aiErr(e){
   if (e && e.code === "aicredit") return "Tu cuenta de Anthropic no tiene saldo. Añade crédito en console.anthropic.com → Billing (con 5 dólares tienes para mucho) y vuelve a intentarlo.";
   if (e && e.code === "aibusy") return "La IA está muy ocupada en este momento. Espera un minuto y vuelve a pulsar.";
   if (e && e.code === "aifail") return "La IA no respondió" + (e.message ? " (" + String(e.message).replace(/^ai\s*/, "").slice(0, 120) + ")" : "") + ". Revisa tu clave de Anthropic y tu saldo, e inténtalo de nuevo.";
-  if (e && e.code === "aiparse") return "La IA respondió algo raro. Pulsa otra vez.";
+  if (e && e.code === "aiparse") return "La IA respondió algo raro. Pulsa otra vez." + (e.message ? " Si se repite, ve a «Cuenta → Conexiones → Probar la IA» y mándame lo que sale." : "");
   return apiError(e);
 }
 
@@ -2303,8 +2303,19 @@ function openConnections(intro){
       "<div class='f'><label for='c-se'>Tu correo (remitente y contacto)</label><input type='text' id='c-se' value='" + esc(SET.senderEmail) + "' placeholder='tucorreo@gmail.com'><small>Sale también como correo de contacto en tu Política de privacidad. Para enviar correos tiene que estar verificado en Brevo: Senders, Domains & Dedicated IPs → Senders → Add a sender.</small></div>" +
       "<div class='f'><label for='c-sn'>Tu nombre o marca (como verán tus correos)</label><input type='text' id='c-sn' value='" + esc(SET.senderName) + "' placeholder='Eyre Digital Studio'></div>" +
       "<div class='f'><label for='c-ad'>Dirección postal para el pie de tus correos</label><input type='text' id='c-ad' value='" + esc(SET.address || "") + "' placeholder='Ciudad, estado, código postal, país'><small>En EE. UU. la ley pide una dirección postal en los correos de venta. Puede ser un apartado postal (P.O. Box).</small></div>" +
-      "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='button' id='c-save'>Guardar conexiones</button></div>" +
+      "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='button' id='c-save'>Guardar conexiones</button><button class='btn' type='button' id='c-aitest'>Probar la IA</button></div><div id='c-aiout' style='font-size:14px'></div>" +
       "<div class='photo-msg' id='c-msg' role='status'></div></div>");
+    $("c-aitest").onclick = function(){
+      var b = $("c-aitest"), o = $("c-aiout"); b.disabled = true; o.textContent = "Probando la IA…";
+      api("POST", "ai-test").then(function(d){
+        b.disabled = false;
+        var rs = d.results || [], good = rs.filter(function(x){ return x.ok; });
+        var why = {aikey:"la clave no es válida o fue borrada", aicredit:"esa cuenta no tiene saldo", aibusy:"Anthropic está ocupado ahora", aifail:"Anthropic rechazó la petición"};
+        o.innerHTML = (good.length ? "<p style='margin:0;color:#2E8B57;font-weight:600'>La IA funciona ✓</p>" : "<p style='margin:0;color:#B4233F;font-weight:600'>La IA no responde: " + esc(why[(rs[0] || {}).code] || "error") + "</p>") +
+          rs.map(function(x){ return "<div style='margin-top:4px'><b>" + esc(x.model) + "</b>: " + (x.ok ? "bien ✓ (" + Math.round(x.ms / 100) / 10 + " s)" : "error " + x.status + " · <span style='color:var(--muted)'>" + esc(x.detail) + "</span>") + "</div>"; }).join("") +
+          "<div style='margin-top:4px;color:var(--muted)'>Clave guardada: " + esc((rs[0] || {}).key || "") + "</div>";
+      }, function(e){ b.disabled = false; o.textContent = e && e.code === "noai" ? "Primero pega tu clave de Anthropic y pulsa «Guardar conexiones»." : apiError(e); });
+    };
     $("c-save").onclick = function(){
       var b = {senderEmail:$("c-se").value.trim(), senderName:$("c-sn").value.trim(), address:$("c-ad").value.trim()};
       if ($("c-ai").value.trim()) b.anthropicKey = $("c-ai").value.trim();
