@@ -91,8 +91,25 @@ function aiReason(status, txt) {
   return "aifail";
 }
 function parseJSON(text) {
-  const m = String(text).match(/\{[\s\S]*\}|\[[\s\S]*\]/);
-  return JSON.parse(m ? m[0] : text);
+  // La IA a veces escribe los párrafos (por ejemplo de un correo) con saltos de línea de verdad dentro del texto,
+  // o envuelve la respuesta en ```json … ```. Eso no es JSON válido: aquí lo arreglamos antes de leerlo.
+  let t = String(text).trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+  const a = t.search(/[{[]/), z = Math.max(t.lastIndexOf("}"), t.lastIndexOf("]"));
+  if (a >= 0 && z > a) t = t.slice(a, z + 1);
+  try { return JSON.parse(t); } catch (_) {}
+  let out = "", inStr = false, esc = false;
+  for (const ch of t) {
+    if (!inStr) { if (ch === '"') inStr = true; out += ch; continue; }
+    if (esc) { esc = false; out += ch; continue; }
+    if (ch === "\\") { esc = true; out += ch; continue; }
+    if (ch === '"') { inStr = false; out += ch; continue; }
+    if (ch === "\n") out += "\\n";
+    else if (ch === "\r") out += "\\r";
+    else if (ch === "\t") out += "\\t";
+    else if (ch < " ") out += "\\u" + ch.charCodeAt(0).toString(16).padStart(4, "0");
+    else out += ch;
+  }
+  return JSON.parse(out.replace(/,(\s*[}\]])/g, "$1"));
 }
 const AI_STRATEGY = "Eres una estratega senior de marketing y ventas para emprendedoras que venden productos digitales. Trabajas SOLO con los datos reales que te dan (perfil, productos, precios, páginas, números). Reglas: 1) Nada genérico: cada idea nombra el producto, la clienta y el canal concretos. 2) Cada recomendación dice exactamente qué hacer, dónde y cuándo. 3) Usa los números reales y haz las cuentas; si falta un dato, haz una suposición conservadora y dila. 4) Prohibido: 'crea contenido de valor', 'conoce a tu audiencia', 'sé constante', 'aporta valor' y frases parecidas. 5) Escribe claro, cálido y directo, sin relleno. Respondes SOLO con JSON válido, sin markdown.";
 const AI_SYSTEM = "Eres la redactora de marketing de una emprendedora que vende productos digitales (planners, guías, plantillas) a mujeres. Escribes con calidez, claridad y frases cortas, sin exagerar ni usar clichés. Respondes SOLO con JSON válido, sin explicaciones ni markdown.";
