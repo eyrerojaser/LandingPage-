@@ -13,7 +13,14 @@ async function askClaude(s, system, prompt, maxTokens, best) {
       headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
       body: JSON.stringify({ model, max_tokens: maxTokens || 1500, system, messages: [{ role: "user", content: prompt }] }),
     });
-    if (r.ok) { const d = await r.json(); return (d.content || []).map((c) => c.text || "").join(""); }
+    if (r.ok) {
+      const d = await r.json();
+      const text = (d.content || []).filter((c) => c.type === "text").map((c) => c.text || "").join("");
+      // Si la respuesta se cortó por largo, la pedimos otra vez con más espacio (una sola vez).
+      if (d.stop_reason === "max_tokens" && !(maxTokens >= 8000)) return askClaude(s, system, prompt, Math.min((maxTokens || 1500) * 2, 8000), best);
+      if (d.stop_reason === "max_tokens") { const e = new Error("respuesta cortada por largo"); e.code = "aiparse"; throw e; }
+      return text;
+    }
     const txt = (await r.text()).slice(0, 400);
     last = { status: r.status, txt };
     if (r.status !== 404 && !(r.status === 400 && /model/i.test(txt))) break;
@@ -59,7 +66,7 @@ export default async (req) => {
   if (!s.anthropicKey) { await jobs.setJSON(id, { status: "error", error: "noai" }); return; }
   try {
     const text = await askClaude(s, j.mode === "strategy" ? AI_STRATEGY : j.mode === "coach" ? AI_COACH : AI_SYSTEM, j.prompt, j.max, j.mode === "coach");
-    let result; try { result = parseJSON(text); } catch (_) { await jobs.setJSON(id, { status: "error", error: "aiparse" }); return; }
+    let result; try { result = parseJSON(text); } catch (_) { await jobs.setJSON(id, { status: "error", error: "aiparse", message: "no se pudo leer: " + String(text).slice(0, 160) }); return; }
     await jobs.setJSON(id, { status: "done", result });
   } catch (e) {
     await jobs.setJSON(id, { status: "error", error: /^ai/.test(e.code || "") ? e.code : "aifail", message: String(e.message).slice(0, 300) });

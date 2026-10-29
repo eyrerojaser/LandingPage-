@@ -77,7 +77,14 @@ async function askClaude(s, system, prompt, maxTokens, best) {
       headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
       body: JSON.stringify({ model, max_tokens: maxTokens || 1500, system, messages: [{ role: "user", content: prompt }] }),
     });
-    if (r.ok) { const d = await r.json(); return (d.content || []).map((c) => c.text || "").join(""); }
+    if (r.ok) {
+      const d = await r.json();
+      const text = (d.content || []).filter((c) => c.type === "text").map((c) => c.text || "").join("");
+      // Si la respuesta se cortó por largo, la pedimos otra vez con más espacio (una sola vez).
+      if (d.stop_reason === "max_tokens" && !(maxTokens >= 8000)) return askClaude(s, system, prompt, Math.min((maxTokens || 1500) * 2, 8000), best);
+      if (d.stop_reason === "max_tokens") { const e = new Error("respuesta cortada por largo"); e.code = "aiparse"; throw e; }
+      return text;
+    }
     const txt = (await r.text()).slice(0, 400);
     last = { status: r.status, txt };
     if (r.status !== 404 && !(r.status === 400 && /model/i.test(txt))) break;
@@ -307,6 +314,19 @@ async function handle(req, url, route, m) {
       }
     }
     /* La IA también puede trabajar «en segundo plano» para respuestas largas: el panel crea un trabajo y pregunta hasta que esté listo. */
+    /* Prueba la conexión con la IA y devuelve el error exacto de Anthropic, si lo hay. */
+    if (route === "ai-test" && m === "POST") {
+      const s = await getSettings();
+      if (!s.anthropicKey) return json({ error: "noai" }, 409);
+      const out = [];
+      for (const model of ["claude-haiku-5-5", "claude-sonnet-5-5"]) {
+        const t0 = Date.now();
+        const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model, max_tokens: 30, messages: [{ role: "user", content: "Responde solo: ok" }] }) }).catch((e) => ({ ok: false, status: 0, text: async () => String(e.message) }));
+        const txt = r.ok ? "" : (await r.text()).slice(0, 300);
+        out.push({ model, ok: r.ok, status: r.status, ms: Date.now() - t0, code: r.ok ? "" : aiReason(r.status, txt), detail: txt, key: s.anthropicKey.slice(0, 10) + "…" + s.anthropicKey.slice(-4) + " (" + s.anthropicKey.length + ")" });
+      }
+      return json({ results: out });
+    }
     if (route === "ai-start" && m === "POST") {
       const s = await getSettings();
       if (!s.anthropicKey) return json({ error: "noai" }, 409);
