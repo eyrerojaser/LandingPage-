@@ -7,12 +7,32 @@ const NOT_FOUND = `<!doctype html><html lang="es"><head><meta charset="utf-8"><m
 h1{font-weight:400;font-size:2rem;margin:0 0 8px}p{color:#D8CCD1;margin:0}i{display:block;width:56px;height:56px;margin:0 auto 18px;border-radius:50%;background:#F4D3DE}</style></head>
 <body><div><i></i><h1>Esta página todavía no existe</h1><p>Vuelve pronto.</p></div></body></html>`;
 
+const SOON = (d) => {
+  const en = d.lang === "en", when = new Date(Number(d.publishAt));
+  const t = String(d.title || d.name || "").replace(/\*/g, "");
+  return `<!doctype html><html lang="${en ? "en" : "es"}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>${escH(t)}</title><link rel="icon" href="/favicon.png">
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:${escH(d.paper || "#0D0B0C")};color:#fff;font:16px/1.5 Georgia,serif;text-align:center;padding:24px}
+h1{font-weight:400;font-size:2rem;margin:0 0 8px;max-width:22ch}p{color:#D8CCD1;margin:0}i{display:block;width:56px;height:56px;margin:0 auto 18px;border-radius:50%;background:${escH(d.blush || "#F4D3DE")}}</style></head>
+<body><div><i></i><h1>${escH(t)}</h1><p>${en ? "Coming very soon" : "Muy pronto"} · <span id="w"></span></p></div>
+<script>try{document.getElementById("w").textContent=new Date(${when.getTime()}).toLocaleString(${en ? '"en"' : '"es"'},{day:"numeric",month:"long",hour:"numeric",minute:"2-digit"})}catch(e){}</script></body></html>`;
+};
 const escH = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 async function menuPage(live) {
   const saved = (await getStore({ name: "panel", consistency: "strong" }).get("pages", { type: "json" }).catch(() => null)) || { pages: [] };
   const info = {};
   (saved.pages || []).forEach((p) => { if (p && p.data && p.data.fileName) info[p.data.fileName] = p.data; });
-  live = live.filter((k) => !info[k] || info[k].inMenu !== "no");
+  // Páginas sin datos en el panel (por ejemplo, la antigua principal): sacamos título, foto y descripción de la propia página.
+  const st = getStore({ name: "site", consistency: "strong" });
+  for (const k of live) {
+    if (info[k]) continue;
+    const h = String((await st.get(k)) || ""), src = h.match(/<script type="application\/json" id="lp-src">([\s\S]*?)<\/script>/);
+    if (src) { try { info[k] = JSON.parse(src[1]); continue; } catch (_) {} }
+    const meta = (n) => ((h.match(new RegExp('<meta (?:property|name)="' + n + '" content="([^"]*)"')) || [])[1] || "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+    const img = meta("og:image");
+    info[k] = { name: ((h.match(/<title>([^<]*)<\/title>/) || [])[1] || k).replace(/&amp;/g, "&"), sub: meta("description"), photo: img ? img.replace(/^https?:\/\/[^/]+/, "") : "", category: "Mis páginas", inMenu: "si" };
+  }
+  live = live.filter((k) => !info[k] || (info[k].inMenu !== "no" && !(Number(info[k].publishAt) > Date.now())));
   if (!live.length) return null;
   const first = info[live[0]] || {};
   const brand = (Object.values(info).map((d) => d.brand).filter((b) => b && b !== "Tu marca")[0]) || "";
@@ -95,8 +115,23 @@ export default async (req) => {
   let key = path === "/" ? "index.html" : path.slice(1);
   if (!/\.html$/.test(key)) key += ".html";
   const siteStore = getStore({ name: "site", consistency: "strong" });
-  let html = /^[a-z0-9][a-z0-9-]{0,60}\.html$/.test(key) ? await siteStore.get(key) : null;
-  if (html == null && key === "index.html") {
+  let html = null;
+  if (path === "/") {
+    // El inicio de tu web es siempre el menú con todas tus páginas, ordenadas por categoría.
+    const { blobs } = await siteStore.list();
+    const live = blobs.map((b) => b.key).filter((k) => /\.html$/.test(k) && !/^(privacidad|privacy|index)\.html$/.test(k));
+    if (live.length) html = await menuPage(live);
+  } else if (/^[a-z0-9][a-z0-9-]{0,60}\.html$/.test(key)) {
+    html = await siteStore.get(key);
+    // Página programada: hasta su fecha muestra «Muy pronto» (tú puedes verla añadiendo ?vista=previa).
+    if (html != null && new URL(req.url).searchParams.get("vista") !== "previa") {
+      const saved = (await getStore({ name: "panel", consistency: "strong" }).get("pages", { type: "json" }).catch(() => null)) || { pages: [] };
+      const d = ((saved.pages || []).find((p) => p && p.data && p.data.fileName === key) || {}).data;
+      if (d && Number(d.publishAt) > Date.now()) return new Response(SOON(d), { status: 200, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
+    }
+  }
+  if (html == null && key === "index.html") html = await siteStore.get("index.html");
+  if (html == null && key === "__nunca__") {
     // Si ninguna página es la principal (index.html), la dirección principal muestra un menú con todas tus páginas.
     const { blobs } = await siteStore.list();
     const live = blobs.map((b) => b.key).filter((k) => /\.html$/.test(k) && !/^(privacidad|privacy)\.html$/.test(k));

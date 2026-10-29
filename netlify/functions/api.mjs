@@ -67,8 +67,9 @@ async function brevoSend(s, payload) {
   if (!r.ok) { const e = new Error("brevo " + r.status + " " + (await r.text()).slice(0, 300)); e.code = "brevo"; e.http = r.status; throw e; }
   return r.json().catch(() => ({}));
 }
-async function askClaude(s, system, prompt, maxTokens) {
-  const models = ["claude-haiku-5-5", "claude-sonnet-5-5"];
+async function askClaude(s, system, prompt, maxTokens, best) {
+  // Para guiones y contenido («best») usamos primero el modelo que mejor escribe.
+  const models = best ? ["claude-sonnet-5-5", "claude-haiku-5-5"] : ["claude-haiku-5-5", "claude-sonnet-5-5"];
   let last;
   for (const model of models) {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
@@ -77,10 +78,17 @@ async function askClaude(s, system, prompt, maxTokens) {
       body: JSON.stringify({ model, max_tokens: maxTokens || 1500, system, messages: [{ role: "user", content: prompt }] }),
     });
     if (r.ok) { const d = await r.json(); return (d.content || []).map((c) => c.text || "").join(""); }
-    last = r.status + " " + (await r.text()).slice(0, 300);
-    if (r.status !== 404 && r.status !== 400) break;
+    const txt = (await r.text()).slice(0, 400);
+    last = { status: r.status, txt };
+    if (r.status !== 404 && !(r.status === 400 && /model/i.test(txt))) break;
   }
-  const e = new Error("ai " + last); e.code = "ai"; throw e;
+  const e = new Error("ai " + last.status + " " + last.txt); e.code = aiReason(last.status, last.txt); throw e;
+}
+function aiReason(status, txt) {
+  if (status === 401 || status === 403) return "aikey";
+  if (/credit balance|billing|purchase credits/i.test(txt)) return "aicredit";
+  if (status === 429 || status === 529 || status >= 500) return "aibusy";
+  return "aifail";
 }
 function parseJSON(text) {
   const m = String(text).match(/\{[\s\S]*\}|\[[\s\S]*\]/);
@@ -88,6 +96,11 @@ function parseJSON(text) {
 }
 const AI_STRATEGY = "Eres una estratega senior de marketing y ventas para emprendedoras que venden productos digitales. Trabajas SOLO con los datos reales que te dan (perfil, productos, precios, páginas, números). Reglas: 1) Nada genérico: cada idea nombra el producto, la clienta y el canal concretos. 2) Cada recomendación dice exactamente qué hacer, dónde y cuándo. 3) Usa los números reales y haz las cuentas; si falta un dato, haz una suposición conservadora y dila. 4) Prohibido: 'crea contenido de valor', 'conoce a tu audiencia', 'sé constante', 'aporta valor' y frases parecidas. 5) Escribe claro, cálido y directo, sin relleno. Respondes SOLO con JSON válido, sin markdown.";
 const AI_SYSTEM = "Eres la redactora de marketing de una emprendedora que vende productos digitales (planners, guías, plantillas) a mujeres. Escribes con calidez, claridad y frases cortas, sin exagerar ni usar clichés. Respondes SOLO con JSON válido, sin explicaciones ni markdown.";
+const AI_COACH = "Eres la directora creativa y coach de contenido de una emprendedora que vende productos digitales a mujeres. Ella muchas veces no sabe qué decir: tú le das el contenido listo para grabar o publicar. Reglas: 1) Escribe como habla ella: cercana, cálida, frases cortas, en primera persona, nada de clichés de marketing. 2) Todo concreto y usable tal cual: palabras exactas que decir, qué mostrar en pantalla, cuánto dura cada parte. 3) Conecta el tema con sus productos y páginas reales cuando tenga sentido, sin sonar a anuncio. 4) Recomendaciones prácticas y específicas (formato, hora, cómo grabarlo con el teléfono), nunca genéricas. 5) Si te da un idioma, escribe en ese idioma. Respondes SOLO con JSON válido, sin markdown.";
+const aiMode = (b) => (b.mode === "strategy" || b.mode === "coach" ? b.mode : "copy");
+const aiSys = (mode) => (mode === "strategy" ? AI_STRATEGY : mode === "coach" ? AI_COACH : AI_SYSTEM);
+const aiMax = (b) => Math.min(Number(b.max) || 1500, aiMode(b) === "copy" ? 4000 : 6000);
+const aiPrompt = (b) => String(b.prompt || "").slice(0, aiMode(b) === "copy" ? 12000 : 24000);
 const dayKey = (t) => new Date(t).toISOString().slice(0, 10);
 
 const clip = (v, n = 120) => String(v == null ? "" : v).replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
@@ -97,6 +110,71 @@ export default async (req) => {
   const url = new URL(req.url);
   const route = url.pathname.replace(/^\/api\/?/, "").replace(/\/+$/, "");
   const m = req.method;
+  // Las páginas descargadas y puestas en otra web también pueden enviar registros y visitas a tu panel.
+  const cors = { "access-control-allow-origin": "*", "access-control-allow-methods": "POST, OPTIONS", "access-control-allow-headers": "content-type" };
+  if (m === "OPTIONS" && (route === "lead" || route === "track")) return new Response(null, { status: 204, headers: cors });
+  if ((route === "lead" || route === "track") && m === "POST") {
+    const res = await handle(req, url, route, m);
+    const h = new Headers(res.headers); Object.entries(cors).forEach(([k, v]) => h.set(k, v));
+    return new Response(res.body, { status: res.status, headers: h });
+  }
+  return handle(req, url, route, m);
+};
+/* Envía un correo a todas las suscriptoras (cada una en el idioma de la página donde se registró). */
+async function sendToAll(s, origin, msg) {
+  const { subject, body, subjectEn, bodyEn } = msg, hasEn = !!(subjectEn && bodyEn);
+  const mk = async (email) => origin + "/api/unsub?e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
+      const pagesPub = ((await store("panel").get("pages", { type: "json" })) || {}).pages || [];
+      const langOf = {}; for (const pg of pagesPub) if (pg.data && pg.data.fileName) langOf[pg.data.fileName] = pg.data.lang === "en" ? "en" : "es";
+      const ls = store("leads"), { blobs } = await ls.list();
+      const all = (await Promise.all(blobs.map((x) => ls.get(x.key, { type: "json" })))).filter(Boolean);
+      const us = store("unsub"), unsubbed = new Set((await us.list()).blobs.map((x) => x.key));
+      const seen = new Map();
+      for (const l of all) { const e = (l.email || "").toLowerCase(); if (e && !seen.has(e) && !unsubbed.has(e.replace(/[^a-z0-9@._+-]/g, "_"))) seen.set(e, l); }
+      const list = [...seen.values()];
+      if (!list.length) return { error: "nobody" };
+      if (list.length > 290) return { error: "toomany", count: list.length };
+      const groups = { es: [], en: [] };
+      for (const l of list) groups[hasEn && langOf[l.pagina] === "en" ? "en" : "es"].push(l);
+      for (const lg of ["es", "en"]) {
+        const ls2 = groups[lg]; if (!ls2.length) continue;
+        const sub = lg === "en" ? subjectEn : subject, bd = lg === "en" ? bodyEn : body;
+        const html = mailHtml(bd.replace(/\{nombre\}/g, "{{params.nombre}}"), { brand: s.senderName, address: s.address, unsub: "{{params.unsub}}", footer: lg === "en" ? "You're receiving this because you signed up on my page." : "" });
+        for (let i = 0; i < ls2.length; i += 90) {
+          const chunk = ls2.slice(i, i + 90);
+          const versions = await Promise.all(chunk.map(async (l) => ({ to: [{ email: l.email, name: ((l.nombre || "") + " " + (l.apellido || "")).trim() || l.email }], params: { nombre: l.nombre || "", unsub: await mk(l.email) } })));
+          await brevoSend(s, { subject: sub, htmlContent: html, messageVersions: versions });
+        }
+      }
+      const hist = (await store("panel").get("mails", { type: "json" })) || { list: [] };
+      hist.list.unshift({ at: Date.now(), subject, count: list.length });
+      hist.list = hist.list.slice(0, 100);
+      await store("panel").setJSON("mails", hist);
+  return { sent: list.length };
+}
+/* Lo que está programado (correos) sale cuando llega su hora. Lo llama la función programada cada hora y también el panel al abrirse. */
+async function runCron(origin) {
+  const ob = (await store("panel").get("outbox", { type: "json" })) || { items: [] };
+  const due = (ob.items || []).filter((x) => x.status === "queued" && x.sendAt <= Date.now());
+  if (!due.length) return { ok: true, sent: 0 };
+  // Un candado para que el mismo correo no salga dos veces si dos avisos llegan a la vez.
+  const lock = await store("panel").get("cron-lock", { type: "json" }).catch(() => null);
+  if (lock && Date.now() - lock.at < 120000) return { ok: true, busy: true };
+  await store("panel").setJSON("cron-lock", { at: Date.now() });
+  const s = await getSettings();
+  for (const it of due) {
+    it.status = "sending"; await store("panel").setJSON("outbox", ob);
+    try {
+      if (!s.brevoKey || !s.senderEmail) throw Object.assign(new Error("nomail"), { code: "nomail" });
+      const r = await sendToAll(s, origin, it);
+      if (r.error) { it.status = "error"; it.error = r.error; } else { it.status = "sent"; it.sent = r.sent; it.sentAt = Date.now(); }
+    } catch (e) { it.status = "error"; it.error = e.code || "fail"; it.message = String(e.message).slice(0, 200); }
+    await store("panel").setJSON("outbox", ob);
+  }
+  await store("panel").delete("cron-lock");
+  return { ok: true, sent: due.length };
+}
+async function handle(req, url, route, m) {
   try {
     /* ---- público ---- */
     if (route === "status" && m === "GET") return json({ setup: await hasPassword() });
@@ -160,6 +238,12 @@ export default async (req) => {
       return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#0D0B0C;color:#fff;font-family:Georgia,serif;text-align:center;padding:24px"><div><h1 style="font-weight:400">' + (okTk ? "Listo, ya no recibirás más correos." : "Este enlace no es válido.") + '</h1><p style="color:#D8CCD1">' + (okTk ? "Gracias por haber estado aquí. 🤍" : "") + "</p></div></body>", { headers: { "content-type": "text/html; charset=utf-8" } });
     }
 
+    if (route === "cron-tick" && m === "POST") {
+      const s = await getSettings();
+      if (!s.secret || req.headers.get("x-cron") !== s.secret) return json({ error: "auth" }, 401);
+      return json(await runCron(url.origin));
+    }
+
     /* ---- solo con tu contraseña ---- */
     if (!(await checkPass(req))) return json({ error: "auth" }, 401);
 
@@ -196,14 +280,32 @@ export default async (req) => {
       const s = await getSettings();
       if (!s.anthropicKey) return json({ error: "noai" }, 409);
       const b = await req.json().catch(() => ({}));
-      const prompt = String(b.prompt || "").slice(0, 12000);
+      const prompt = aiPrompt(b);
       if (!prompt) return json({ error: "bad" }, 400);
       try {
-        const text = await askClaude(s, b.mode === "strategy" ? AI_STRATEGY : AI_SYSTEM, prompt, Math.min(Number(b.max) || 1500, 4000));
+        const text = await askClaude(s, aiSys(aiMode(b)), prompt, aiMax(b), false);
         return json({ result: parseJSON(text) });
       } catch (e) {
-        return json({ error: e.code === "ai" ? "aifail" : "aiparse", message: String(e.message).slice(0, 300) }, 502);
+        return json({ error: /^ai/.test(e.code || "") ? e.code : "aiparse", message: String(e.message).slice(0, 300) }, 502);
       }
+    }
+    /* La IA también puede trabajar «en segundo plano» para respuestas largas: el panel crea un trabajo y pregunta hasta que esté listo. */
+    if (route === "ai-start" && m === "POST") {
+      const s = await getSettings();
+      if (!s.anthropicKey) return json({ error: "noai" }, 409);
+      const b = await req.json().catch(() => ({}));
+      const prompt = aiPrompt(b);
+      if (!prompt) return json({ error: "bad" }, 400);
+      const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+      await store("aijobs").setJSON(id, { status: "pending", prompt, max: aiMax(b), mode: aiMode(b), at: Date.now() });
+      return json({ job: id });
+    }
+    if (route.startsWith("ai-job/") && m === "GET") {
+      const id = route.slice(7); if (!/^[a-z0-9]{8,30}$/.test(id)) return json({ error: "bad" }, 400);
+      const j = await store("aijobs").get(id, { type: "json" });
+      if (!j) return json({ error: "notfound" }, 404);
+      if (j.status === "done" || j.status === "error") await store("aijobs").delete(id);
+      return json({ status: j.status, result: j.result, error: j.error, message: j.message });
     }
 
     if (route === "stats" && m === "GET") {
@@ -282,6 +384,19 @@ export default async (req) => {
       return json({ ok: true });
     }
 
+    /* ---- páginas que están en tu web (con sus datos) ---- */
+    if (route === "orphans" && m === "GET") {
+      const site = store("site"), { blobs } = await site.list(), items = [];
+      for (const b of blobs) {
+        if (!/\.html$/.test(b.key) || /^(privacidad|privacy|index)\.html$/.test(b.key)) continue;
+        const h = String((await site.get(b.key)) || ""), mm = h.match(/<script type="application\/json" id="lp-src">([\s\S]*?)<\/script>/);
+        let data = null; if (mm) { try { data = JSON.parse(mm[1]); } catch (_) {} }
+        const title = (h.match(/<title>([^<]*)<\/title>/) || [])[1] || "";
+        items.push({ file: b.key, title, data });
+      }
+      return json({ items });
+    }
+
     /* ---- copias de seguridad de tus páginas ---- */
     if (route === "backups" && m === "GET") {
       const ps = store("panel"), { blobs } = await ps.list({ prefix: "bak-" });
@@ -313,34 +428,32 @@ export default async (req) => {
         if (hasEn) await brevoSend(s, { to: [{ email: to }], subject: "[Test] " + subjectEn, htmlContent: mailHtml(bodyEn.replace(/\{nombre\}/g, "Mary"), { brand: s.senderName, address: s.address, unsub: await mk(to), footer: "You're receiving this because you signed up on my page." }) });
         return json({ ok: true, sent: hasEn ? 2 : 1 });
       }
-      const pagesPub = ((await store("panel").get("pages", { type: "json" })) || {}).pages || [];
-      const langOf = {}; for (const pg of pagesPub) if (pg.data && pg.data.fileName) langOf[pg.data.fileName] = pg.data.lang === "en" ? "en" : "es";
-      const ls = store("leads"), { blobs } = await ls.list();
-      const all = (await Promise.all(blobs.map((x) => ls.get(x.key, { type: "json" })))).filter(Boolean);
-      const us = store("unsub"), unsubbed = new Set((await us.list()).blobs.map((x) => x.key));
-      const seen = new Map();
-      for (const l of all) { const e = (l.email || "").toLowerCase(); if (e && !seen.has(e) && !unsubbed.has(e.replace(/[^a-z0-9@._+-]/g, "_"))) seen.set(e, l); }
-      const list = [...seen.values()];
-      if (!list.length) return json({ error: "nobody" }, 400);
-      if (list.length > 290) return json({ error: "toomany", count: list.length }, 400);
-      const groups = { es: [], en: [] };
-      for (const l of list) groups[hasEn && langOf[l.pagina] === "en" ? "en" : "es"].push(l);
-      for (const lg of ["es", "en"]) {
-        const ls2 = groups[lg]; if (!ls2.length) continue;
-        const sub = lg === "en" ? subjectEn : subject, bd = lg === "en" ? bodyEn : body;
-        const html = mailHtml(bd.replace(/\{nombre\}/g, "{{params.nombre}}"), { brand: s.senderName, address: s.address, unsub: "{{params.unsub}}", footer: lg === "en" ? "You're receiving this because you signed up on my page." : "" });
-        for (let i = 0; i < ls2.length; i += 90) {
-          const chunk = ls2.slice(i, i + 90);
-          const versions = await Promise.all(chunk.map(async (l) => ({ to: [{ email: l.email, name: ((l.nombre || "") + " " + (l.apellido || "")).trim() || l.email }], params: { nombre: l.nombre || "", unsub: await mk(l.email) } })));
-          await brevoSend(s, { subject: sub, htmlContent: html, messageVersions: versions });
-        }
-      }
-      const hist = (await store("panel").get("mails", { type: "json" })) || { list: [] };
-      hist.list.unshift({ at: Date.now(), subject, count: list.length });
-      hist.list = hist.list.slice(0, 100);
-      await store("panel").setJSON("mails", hist);
-      return json({ ok: true, sent: list.length });
+      const r = await sendToAll(s, origin, { subject, body, subjectEn, bodyEn });
+      if (r.error) return json(r, 400);
+      return json({ ok: true, sent: r.sent });
     }
+
+    /* ---- correos programados ---- */
+    if (route === "outbox" && m === "GET") return json((await store("panel").get("outbox", { type: "json" })) || { items: [] });
+    if (route === "outbox" && m === "POST") {
+      const s = await getSettings();
+      if (!s.brevoKey || !s.senderEmail) return json({ error: "nomail" }, 409);
+      const b = await req.json().catch(() => ({}));
+      const it = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7), sendAt: Number(b.sendAt) || 0, subject: clip(b.subject, 200), body: String(b.body || "").slice(0, 20000), subjectEn: clip(b.subjectEn, 200), bodyEn: String(b.bodyEn || "").slice(0, 20000), status: "queued", at: Date.now() };
+      if (!it.subject || !it.body || !it.sendAt) return json({ error: "bad" }, 400);
+      const ob = (await store("panel").get("outbox", { type: "json" })) || { items: [] };
+      ob.items = [it].concat(ob.items || []).slice(0, 200);
+      await store("panel").setJSON("outbox", ob);
+      return json({ ok: true, id: it.id });
+    }
+    if (route.startsWith("outbox/") && m === "DELETE") {
+      const id = route.slice(7), ob = (await store("panel").get("outbox", { type: "json" })) || { items: [] };
+      ob.items = (ob.items || []).filter((x) => !(x.id === id && x.status === "queued"));
+      await store("panel").setJSON("outbox", ob);
+      return json({ ok: true });
+    }
+    if (route === "cron" && m === "POST") return json(await runCron(url.origin));
+
 
     if (route === "draft" && m === "GET") {
       const d = await store("panel").get("draft", { type: "json" });
@@ -389,6 +502,16 @@ export default async (req) => {
       for (const n of names) await site.set(n, String(html[n]));
       // Solo se quitan de tu web las páginas que borraste o a las que cambiaste el enlace.
       const removed = (Array.isArray(body.removed) ? body.removed : []).filter((f) => validFile(f) && !names.includes(f));
+      // La antigua página principal (index.html) no se borra: pasa a ser una página más, con su propio enlace.
+      if (!names.includes("index.html")) {
+        const old = await site.get("index.html");
+        if (old != null) {
+          const t = (String(old).match(/<title>([^<]*)<\/title>/) || [])[1] || "pagina-principal";
+          let base = t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&[a-z]+;/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "pagina-principal", f = base + ".html", n = 2;
+          while (names.includes(f) || (await site.get(f)) != null) f = base + "-" + (n++) + ".html";
+          await site.set(f, old); await site.delete("index.html");
+        }
+      }
       for (const f of removed) await site.delete(f);
       const incoming = Array.isArray(body.pages) ? body.pages : [];
       const ids = new Set(incoming.map((p) => p && p.id));
