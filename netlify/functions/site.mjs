@@ -137,6 +137,12 @@ export default async (req) => {
     const live = blobs.map((b) => b.key).filter((k) => /\.html$/.test(k) && !/^(privacidad|privacy)\.html$/.test(k));
     if (live.length) html = await menuPage(live);
   }
+  // Popups marcados «también en mis landing pages»: se añaden solos a cada página (no al menú de inicio).
+  if (html != null && path !== "/") {
+    const pops = ((await getStore({ name: "panel", consistency: "strong" }).get("popups", { type: "json" }).catch(() => null)) || {}).items || [];
+    const tags = pops.filter((x) => x && x.active && x.data && x.data.onSite && /^[a-z0-9-]+$/.test(x.slug || "")).map((x) => '<script src="/popup/' + x.slug + '.js" async></script>').join("");
+    if (tags) html = String(html).replace(/<\/body>(?![\s\S]*<\/body>)/i, tags + "</body>");
+  }
   if (html == null) return new Response(NOT_FOUND, { status: 404, headers: { "content-type": "text/html; charset=utf-8" } });
   return new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=0, must-revalidate" } });
 };

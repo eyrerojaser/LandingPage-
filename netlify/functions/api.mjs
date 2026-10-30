@@ -68,26 +68,39 @@ async function brevoSend(s, payload) {
   return r.json().catch(() => ({}));
 }
 async function askClaude(s, system, prompt, maxTokens, best) {
-  // Para guiones y contenido («best») usamos primero el modelo que mejor escribe.
+  // Los modelos Claude 5.5 «piensan» antes de responder y ese pensamiento gasta parte de max_tokens.
+  // Con un límite pequeño se quedaban sin espacio y no llegaban a escribir la respuesta («La IA respondió algo raro»).
+  // Por eso: en Haiku apagamos el pensamiento; en Sonnet (que no deja apagarlo) le damos un esfuerzo medio y mucho más espacio.
   const models = best ? ["claude-sonnet-5-5", "claude-haiku-5-5"] : ["claude-haiku-5-5", "claude-sonnet-5-5"];
+  const want = maxTokens || 1500;
   let last;
   for (const model of models) {
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model, max_tokens: maxTokens || 1500, system, messages: [{ role: "user", content: prompt }] }),
-    });
-    if (r.ok) {
-      const d = await r.json();
-      const text = (d.content || []).filter((c) => c.type === "text").map((c) => c.text || "").join("");
-      // Si la respuesta se cortó por largo, la pedimos otra vez con más espacio (una sola vez).
-      if (d.stop_reason === "max_tokens" && !(maxTokens >= 8000)) return askClaude(s, system, prompt, Math.min((maxTokens || 1500) * 2, 8000), best);
-      if (d.stop_reason === "max_tokens") { const e = new Error("respuesta cortada por largo"); e.code = "aiparse"; throw e; }
-      return text;
+    const haiku = /haiku/.test(model);
+    let body = { model, max_tokens: haiku ? want : Math.min(want + 8000, 32000), system, messages: [{ role: "user", content: prompt }] };
+    if (haiku) body.thinking = { type: "disabled" }; else body.output_config = { effort: "medium" };
+    for (let round = 0; round < 3; round++) {
+      const r = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (r.ok) {
+        const d = await r.json();
+        const text = (d.content || []).filter((c) => c.type === "text").map((c) => c.text || "").join("");
+        if (d.stop_reason === "refusal") { const e = new Error("la IA no quiso responder a esta petición"); e.code = "aifail"; throw e; }
+        // Si se cortó por largo, la pedimos otra vez con más espacio.
+        if (d.stop_reason === "max_tokens" && round < 2 && body.max_tokens < 32000) { body = { ...body, max_tokens: Math.min(body.max_tokens * 2 + 4000, 32000) }; continue; }
+        if (d.stop_reason === "max_tokens" && !text.trim()) { const e = new Error("respuesta cortada por largo"); e.code = "aiparse"; throw e; }
+        return text;
+      }
+      const txt = (await r.text()).slice(0, 400);
+      last = { status: r.status, txt };
+      // Si este modelo no acepta alguna opción (pensamiento o esfuerzo), lo intentamos sin ella.
+      if (r.status === 400 && /thinking|output_config|effort/i.test(txt) && (body.thinking || body.output_config)) { body = { ...body }; delete body.thinking; delete body.output_config; body.max_tokens = Math.min(want + 8000, 32000); continue; }
+      break;
     }
-    const txt = (await r.text()).slice(0, 400);
-    last = { status: r.status, txt };
-    if (r.status !== 404 && !(r.status === 400 && /model/i.test(txt))) break;
+    if (!last || last.status === 200) continue;
+    if (last.status !== 404 && !(last.status === 400 && /model/i.test(last.txt))) break;
   }
   const e = new Error("ai " + last.status + " " + last.txt); e.code = aiReason(last.status, last.txt); throw e;
 }
@@ -321,7 +334,7 @@ async function handle(req, url, route, m) {
       const out = [];
       for (const model of ["claude-haiku-5-5", "claude-sonnet-5-5"]) {
         const t0 = Date.now();
-        const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model, max_tokens: 30, messages: [{ role: "user", content: "Responde solo: ok" }] }) }).catch((e) => ({ ok: false, status: 0, text: async () => String(e.message) }));
+        const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify(Object.assign({ model, max_tokens: /haiku/.test(model) ? 50 : 4000, messages: [{ role: "user", content: "Responde solo: ok" }] }, /haiku/.test(model) ? { thinking: { type: "disabled" } } : { output_config: { effort: "medium" } })) }).catch((e) => ({ ok: false, status: 0, text: async () => String(e.message) }));
         const txt = r.ok ? "" : (await r.text()).slice(0, 300);
         out.push({ model, ok: r.ok, status: r.status, ms: Date.now() - t0, code: r.ok ? "" : aiReason(r.status, txt), detail: txt, key: s.anthropicKey.slice(0, 10) + "…" + s.anthropicKey.slice(-4) + " (" + s.anthropicKey.length + ")" });
       }
@@ -350,7 +363,10 @@ async function handle(req, url, route, m) {
       const st = store("stats"), out = [];
       for (let i = days - 1; i >= 0; i--) {
         const k = dayKey(Date.now() - i * 864e5);
-        out.push({ day: k, pages: (await st.get("d-" + k, { type: "json" })) || {} });
+        const pages = (await st.get("d-" + k, { type: "json" })) || {};
+        // Las vistas de los popups se cuentan aparte (sección Popups), no como visitas de tus páginas.
+        if (url.searchParams.get("popups") !== "1") for (const key of Object.keys(pages)) if (key.indexOf("popup-") === 0) delete pages[key];
+        out.push({ day: k, pages });
       }
       const ls = store("leads"), { blobs } = await ls.list(), since = Date.now() - days * 864e5;
       const leads = await Promise.all(blobs.map((b) => ls.get(b.key, { type: "json" })));
@@ -383,6 +399,27 @@ async function handle(req, url, route, m) {
     }
 
     /* ---- diseños del editor ---- */
+    /* ---- popups para websites ---- */
+    if (route === "popups" && m === "GET") return json((await store("panel").get("popups", { type: "json" })) || { items: [] });
+    if (route.startsWith("popups/") && (m === "PUT" || m === "DELETE")) {
+      const id = route.slice(7); if (!/^[a-z0-9]{4,40}$/i.test(id)) return json({ error: "bad" }, 400);
+      const all = (await store("panel").get("popups", { type: "json" })) || { items: [] };
+      let items = all.items || [];
+      if (m === "DELETE") { items = items.filter((x) => x.id !== id); await store("panel").setJSON("popups", { items }); return json({ ok: true }); }
+      const b = await req.json().catch(() => ({}));
+      const it = b.item || {};
+      if (JSON.stringify(it).length > 60000) return json({ error: "size" }, 413);
+      let slug = String(it.slug || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 60) || "popup";
+      const prev = items.find((x) => x.id === id);
+      // El enlace se crea con el nombre y queda fijo la primera vez que se activa (así el código ya pegado en otros websites no cambia nunca).
+      if (prev && prev.everActive) slug = prev.slug;
+      else { let n = 2, base = slug; while (items.some((x) => x.slug === slug && x.id !== id)) slug = base + "-" + n++; }
+      const clean = { id, slug, name: clip(it.name, 80) || "Popup", tpl: clip(it.tpl, 30), active: !!it.active, everActive: !!(it.active || (prev && prev.everActive)), data: it.data && typeof it.data === "object" ? it.data : {}, updatedAt: Date.now(), createdAt: prev ? prev.createdAt : Date.now() };
+      items = prev ? items.map((x) => (x.id === id ? clean : x)) : [clean].concat(items);
+      await store("panel").setJSON("popups", { items: items.slice(0, 200) });
+      return json({ ok: true, item: clean });
+    }
+
     if (route === "designs" && m === "GET") return json((await store("panel").get("dsg-index", { type: "json" })) || { items: [] });
     if (route.startsWith("designs/")) {
       const id = route.slice(8), ps = store("panel");
