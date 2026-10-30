@@ -3213,8 +3213,8 @@ function renderCoach(){
 }
 function coachCtx(){
   var pg = COACH.page ? S.pages.filter(function(p){ return p.data.fileName === COACH.page; })[0] : null;
-  return "Mi negocio:\n" + profileText() + "\n\nMis páginas:\n" + pagesText() +
-    (pg ? "\n\nEste contenido promociona «" + (pg.data.name || pg.data.fileName) + "», enlace " + location.origin + pagePath(pg.data) + "." : "\n\nNo hace falta promocionar ningún producto, aunque puedes mencionar mi página principal " + location.origin + "/ si encaja.");
+  if (pg) return "Mi negocio:\n" + profileText() + "\n\nEste contenido promociona «" + (pg.data.name || pg.data.fileName) + "», enlace " + location.origin + pagePath(pg.data) + ". Detalles de esa página:\n" + pagesText().split("\n").filter(function(l){ return l.indexOf(pagePath(pg.data)) >= 0; }).join("\n");
+  return "Mi negocio (solo para conocer mi estilo y mi público):\n" + profileText() + "\n\nIMPORTANTE: esta vez NO promociones ninguno de mis productos ni menciones mis páginas (por ejemplo el planner), salvo que el tema que te doy trate de eso. Céntrate solo en el tema.";
 }
 var KIT_SHAPE = "{\"idea\":\"(el enfoque en 1-2 frases: por qué este ángulo funciona)\",\"hooks\":[\"(3 primeras frases distintas para enganchar, palabras exactas)\"],\"parts\":[{\"label\":\"(Gancho / Parte 1 / Diapositiva 1 / Historia 1…)\",\"time\":\"(0-3 s, o vacío si no aplica)\",\"say\":\"(las palabras EXACTAS que digo o el texto exacto que va escrito)\",\"show\":\"(qué se ve: plano, gesto, texto en pantalla, imagen)\"}],\"caption\":\"(texto para publicar, listo para copiar, con saltos de línea)\",\"hashtags\":\"(5 a 10 hashtags, o vacío si no aplica)\",\"subject\":\"(asunto, solo si es correo)\",\"cta\":\"(la llamada a la acción exacta)\",\"tips\":[\"(4 a 6 recomendaciones prácticas: cómo grabarlo con el teléfono, luz, música o audio, mejor día y hora, qué evitar)\"],\"repurpose\":[\"(2 o 3 formas de reutilizarlo en otros canales)\"]}";
 function coachRun(extra){
@@ -3750,6 +3750,7 @@ function openTool(k, keep){
   if (k === "funnel") html += "<b>📈 Embudo y ventas</b><p style='margin:0;color:var(--muted)'>Analiza tus visitas, registros, clics y descargas de los últimos 30 días, tus páginas y tu lista.</p>";
   if (k === "kit") html += "<b>🧰 Kit de redes</b><div class='plan-form'>" + pageSel +
     "<div class='f'><label for='tl-focus'>Para qué redes</label><select id='tl-focus'><option>Pinterest + Instagram + Facebook</option><option>Solo Pinterest</option><option>Solo Instagram</option></select></div></div>";
+  html += "<div class='f'><label for='tl-focus-x'>¿En qué quieres que se enfoque esta vez? (opcional)</label><input type='text' id='tl-focus-x' value='" + esc(store("lp-ai-focus") || "") + "' placeholder='Ej.: mi nuevo servicio de diseño, otro negocio, ideas que no sean del planner…'><small style='color:var(--muted)'>Si lo llenas, la IA se centra en eso y deja de lado tus otros productos.</small></div>";
   html += "<div style='display:flex;gap:8px;flex-wrap:wrap'>" +
     (k === "funnel" ? "<button class='btn primary sm' type='button' id='tl-go'>Revisar mi embudo</button><button class='btn sm' type='button' id='tl-go2'>💎 Ideas de ingresos recurrentes</button>" :
       "<button class='btn primary sm' type='button' id='tl-go'>✨ Crear</button>") +
@@ -3769,6 +3770,8 @@ function runTool(k){
   busy(true, "Pensando con tus datos… (puede tardar unos 20 segundos)");
   Promise.all([loadStats30(), subsCount()]).then(function(res){
     var ctx = context(res[1]), p = $("tl-page") ? pageById($("tl-page").value) : null, d = p ? p.data : {};
+    var fx = $("tl-focus-x") ? $("tl-focus-x").value.trim() : ""; store("lp-ai-focus", fx);
+    if (fx){ ctx += "\n\nENFOQUE DE ESTA RESPUESTA (manda sobre todo lo demás): " + fx + ". Céntrate en esto. No menciones ni promociones mis otros productos o páginas si no tienen que ver con este enfoque."; if (k !== "campaign" && k !== "kit") { p = null; d = {}; } }
     var prod = p ? "PRODUCTO O PÁGINA ELEGIDA: «" + (d.name || d.fileName) + "», " + location.origin + pagePath(d) + "\n" : "";
     var prompt, max = 3500, title;
     if (k === "video"){
