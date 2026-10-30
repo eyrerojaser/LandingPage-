@@ -5,25 +5,39 @@ const AI_STRATEGY = "Eres una estratega senior de marketing y ventas para empren
 const AI_SYSTEM = "Eres la redactora de marketing de una emprendedora que vende productos digitales (planners, guías, plantillas) a mujeres. Escribes con calidez, claridad y frases cortas, sin exagerar ni usar clichés. Respondes SOLO con JSON válido, sin explicaciones ni markdown.";
 const AI_COACH = "Eres la directora creativa y coach de contenido de una emprendedora que vende productos digitales a mujeres. Ella muchas veces no sabe qué decir: tú le das el contenido listo para grabar o publicar. Reglas: 1) Escribe como habla ella: cercana, cálida, frases cortas, en primera persona, nada de clichés de marketing. 2) Todo concreto y usable tal cual: palabras exactas que decir, qué mostrar en pantalla, cuánto dura cada parte. 3) Conecta el tema con sus productos y páginas reales cuando tenga sentido, sin sonar a anuncio. 4) Recomendaciones prácticas y específicas (formato, hora, cómo grabarlo con el teléfono), nunca genéricas. 5) Si te da un idioma, escribe en ese idioma. Respondes SOLO con JSON válido, sin markdown.";
 async function askClaude(s, system, prompt, maxTokens, best) {
+  // Los modelos Claude 5.5 «piensan» antes de responder y ese pensamiento gasta parte de max_tokens.
+  // Con un límite pequeño se quedaban sin espacio y no llegaban a escribir la respuesta («La IA respondió algo raro»).
+  // Por eso: en Haiku apagamos el pensamiento; en Sonnet (que no deja apagarlo) le damos un esfuerzo medio y mucho más espacio.
   const models = best ? ["claude-sonnet-5-5", "claude-haiku-5-5"] : ["claude-haiku-5-5", "claude-sonnet-5-5"];
+  const want = maxTokens || 1500;
   let last;
   for (const model of models) {
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model, max_tokens: maxTokens || 1500, system, messages: [{ role: "user", content: prompt }] }),
-    });
-    if (r.ok) {
-      const d = await r.json();
-      const text = (d.content || []).filter((c) => c.type === "text").map((c) => c.text || "").join("");
-      // Si la respuesta se cortó por largo, la pedimos otra vez con más espacio (una sola vez).
-      if (d.stop_reason === "max_tokens" && !(maxTokens >= 8000)) return askClaude(s, system, prompt, Math.min((maxTokens || 1500) * 2, 8000), best);
-      if (d.stop_reason === "max_tokens") { const e = new Error("respuesta cortada por largo"); e.code = "aiparse"; throw e; }
-      return text;
+    const haiku = /haiku/.test(model);
+    let body = { model, max_tokens: haiku ? want : Math.min(want + 8000, 32000), system, messages: [{ role: "user", content: prompt }] };
+    if (haiku) body.thinking = { type: "disabled" }; else body.output_config = { effort: "medium" };
+    for (let round = 0; round < 3; round++) {
+      const r = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": s.anthropicKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (r.ok) {
+        const d = await r.json();
+        const text = (d.content || []).filter((c) => c.type === "text").map((c) => c.text || "").join("");
+        if (d.stop_reason === "refusal") { const e = new Error("la IA no quiso responder a esta petición"); e.code = "aifail"; throw e; }
+        // Si se cortó por largo, la pedimos otra vez con más espacio.
+        if (d.stop_reason === "max_tokens" && round < 2 && body.max_tokens < 32000) { body = { ...body, max_tokens: Math.min(body.max_tokens * 2 + 4000, 32000) }; continue; }
+        if (d.stop_reason === "max_tokens" && !text.trim()) { const e = new Error("respuesta cortada por largo"); e.code = "aiparse"; throw e; }
+        return text;
+      }
+      const txt = (await r.text()).slice(0, 400);
+      last = { status: r.status, txt };
+      // Si este modelo no acepta alguna opción (pensamiento o esfuerzo), lo intentamos sin ella.
+      if (r.status === 400 && /thinking|output_config|effort/i.test(txt) && (body.thinking || body.output_config)) { body = { ...body }; delete body.thinking; delete body.output_config; body.max_tokens = Math.min(want + 8000, 32000); continue; }
+      break;
     }
-    const txt = (await r.text()).slice(0, 400);
-    last = { status: r.status, txt };
-    if (r.status !== 404 && !(r.status === 400 && /model/i.test(txt))) break;
+    if (!last || last.status === 200) continue;
+    if (last.status !== 404 && !(last.status === 400 && /model/i.test(last.txt))) break;
   }
   const e = new Error("ai " + last.status + " " + last.txt); e.code = aiReason(last.status, last.txt); throw e;
 }
