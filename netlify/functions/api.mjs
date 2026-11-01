@@ -149,8 +149,8 @@ export default async (req) => {
   const m = req.method;
   // Las páginas descargadas y puestas en otra web también pueden enviar registros y visitas a tu panel.
   const cors = { "access-control-allow-origin": "*", "access-control-allow-methods": "POST, OPTIONS", "access-control-allow-headers": "content-type" };
-  if (m === "OPTIONS" && (route === "lead" || route === "track")) return new Response(null, { status: 204, headers: cors });
-  if ((route === "lead" || route === "track") && m === "POST") {
+  if (m === "OPTIONS" && (route === "lead" || route === "track" || route === "vote")) return new Response(null, { status: 204, headers: cors });
+  if ((route === "lead" || route === "track" || route === "vote") && m === "POST") {
     const res = await handle(req, url, route, m);
     const h = new Headers(res.headers); Object.entries(cors).forEach(([k, v]) => h.set(k, v));
     return new Response(res.body, { status: res.status, headers: h });
@@ -264,6 +264,20 @@ async function handle(req, url, route, m) {
       d[p] = d[p] || { view: 0, click: 0, dl: 0 };
       d[p][e] = (d[p][e] || 0) + 1;
       await st.setJSON(k, d);
+      return json({ ok: true });
+    }
+
+    /* Encuesta rápida de un popup: suma un voto a la respuesta elegida. */
+    if (route === "vote" && m === "POST") {
+      const b = await req.json().catch(() => ({}));
+      const ua = req.headers.get("user-agent") || "";
+      if (/bot|crawl|spider|headless/i.test(ua)) return json({ ok: true });
+      const sl = String(b.p || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 60), o = clip(b.o, 80);
+      if (!sl || !o) return json({ ok: true });
+      const ps = store("polls"), d = (await ps.get(sl, { type: "json" })) || {};
+      if (Object.keys(d).length >= 20 && !(o in d)) return json({ ok: true });
+      d[o] = (d[o] || 0) + 1;
+      await ps.setJSON(sl, d);
       return json({ ok: true });
     }
 
@@ -400,6 +414,11 @@ async function handle(req, url, route, m) {
 
     /* ---- diseños del editor ---- */
     /* ---- popups para websites ---- */
+    if (route === "polls" && m === "GET") {
+      const ps = store("polls"), { blobs } = await ps.list(), out = {};
+      for (const x of blobs) out[x.key] = (await ps.get(x.key, { type: "json" })) || {};
+      return json({ polls: out });
+    }
     if (route === "popups" && m === "GET") return json((await store("panel").get("popups", { type: "json" })) || { items: [] });
     if (route.startsWith("popups/") && (m === "PUT" || m === "DELETE")) {
       const id = route.slice(7); if (!/^[a-z0-9]{4,40}$/i.test(id)) return json({ error: "bad" }, 400);
