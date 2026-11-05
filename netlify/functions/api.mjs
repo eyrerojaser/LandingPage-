@@ -414,10 +414,49 @@ async function handle(req, url, route, m) {
 
     /* ---- diseños del editor ---- */
     /* ---- popups para websites ---- */
+    /* Contactos: etiquetas, notas y compras (de Stripe) de las personas que ya están en tu lista */
+    if (route === "contacts" && m === "GET") return json((await store("panel").get("contacts", { type: "json" })) || { map: {} });
+    if (route.startsWith("contacts/") && m === "PUT") {
+      const email = decodeURIComponent(route.slice(9)).toLowerCase().slice(0, 200);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "email" }, 400);
+      const b = await req.json().catch(() => ({}));
+      const all = (await store("panel").get("contacts", { type: "json" })) || { map: {} };
+      const c = all.map[email] || {};
+      if (Array.isArray(b.tags)) c.tags = b.tags.map((x) => clip(x, 30)).filter(Boolean).slice(0, 12);
+      if (typeof b.note === "string") c.note = clip(b.note, 2000);
+      c.at = Date.now(); all.map[email] = c;
+      await store("panel").setJSON("contacts", all);
+      return json({ ok: true, contact: c });
+    }
+    if (route === "contacts-buy" && m === "POST") {
+      const b = await req.json().catch(() => ({}));
+      const ls = store("leads"), { blobs } = await ls.list(), known = new Set();
+      for (const x of blobs) { const l = await ls.get(x.key, { type: "json" }); if (l && l.email) known.add(String(l.email).toLowerCase()); }
+      const all = (await store("panel").get("contacts", { type: "json" })) || { map: {} };
+      let n = 0;
+      for (const [em, v] of Object.entries(b.buyers || {})) {
+        const e = String(em).toLowerCase(); if (!known.has(e) || !v) continue;   // solo personas que ya están en tu lista
+        const c = all.map[e] || {}; c.buy = { n: Math.max(0, Number(v.n) || 0), v: Math.round((Number(v.v) || 0) * 100) / 100, last: clip(v.last, 10), cur: clip(b.cur, 6), src: clip(b.src, 80) }; all.map[e] = c; n++;
+      }
+      await store("panel").setJSON("contacts", all);
+      return json({ ok: true, matched: n });
+    }
     if (route === "polls" && m === "GET") {
       const ps = store("polls"), { blobs } = await ps.list(), out = {};
       for (const x of blobs) out[x.key] = (await ps.get(x.key, { type: "json" })) || {};
       return json({ polls: out });
+    }
+    /* Websites con el código general de popups: se pega una vez y desde el panel eliges qué popups salen ahí. */
+    if (route === "popsites" && m === "GET") return json((await store("panel").get("popsites", { type: "json" })) || { sites: [] });
+    if (route === "popsites" && m === "PUT") {
+      const b = await req.json().catch(() => ({}));
+      const seen = new Set(), sites = [];
+      for (const x of Array.isArray(b.sites) ? b.sites.slice(0, 50) : []) {
+        const id = String((x && x.id) || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 50), name = clip(x && x.name, 60);
+        if (id && name && !seen.has(id)) { seen.add(id); sites.push({ id, name }); }
+      }
+      await store("panel").setJSON("popsites", { sites });
+      return json({ ok: true, sites });
     }
     if (route === "popups" && m === "GET") return json((await store("panel").get("popups", { type: "json" })) || { items: [] });
     if (route.startsWith("popups/") && (m === "PUT" || m === "DELETE")) {
