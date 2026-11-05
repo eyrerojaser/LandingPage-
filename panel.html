@@ -20,8 +20,8 @@
 html,body{margin:0}
 /* Layout: barra superior con el botón de descarga; panel de campos a la izquierda y vista previa en vivo a la derecha; en celular, pestañas Editar / Ver */
 :root{
-  --bg:#F6F0F2; --panel:#FFFFFF; --fg:#21181C; --muted:#76666D; --line:#EADDE2;
-  --accent:#B9617F; --accent-ink:#FFFFFF; --soft:#FBEFF3; --stage:#E9DFE3;
+  --bg:#F7F3EF; --panel:#FFFFFF; --fg:#1B1517; --muted:#736669; --line:#E7DFDA;
+  --accent:#B9617F; --accent-ink:#FFFFFF; --soft:#F9F1F2; --stage:#ECE5E0;
   --f-ui:"Jost", "Futura", "Helvetica Neue", Arial, sans-serif;
   --f-head:"DM Serif Display", Georgia, serif;
 }
@@ -213,7 +213,20 @@ a.btn{text-decoration:none;color:inherit}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:2px}
 .kpi b{font:400 2rem var(--f-head);font-variant-numeric:tabular-nums;line-height:1.1}
 .kpi span{font-size:13px;color:var(--muted)}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;gap:12px;min-width:0;box-shadow:0 1px 2px rgba(27,21,23,.04)}
+.ct-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ct-bar input,.ct-bar select{font:inherit;font-size:14px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px}.ct-bar input{flex:1;min-width:220px}
+.ct-row{cursor:pointer}.ct-row:hover td{background:var(--soft)}.ct-row.on td{background:var(--soft)}.ct-row small{color:var(--muted)}
+.ct-det td{background:var(--soft)}.ct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;padding:6px 2px}.ct-ev{margin:6px 0 0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+/* acabado editorial */
+.mainview>div>.home-head{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:2px}
+.mainview>div>.home-head h2{font-size:clamp(2rem,4vw,2.7rem);letter-spacing:-.015em}
+.mainview>div>.home-head p{max-width:62ch;line-height:1.5}
+.navit[aria-current="page"]{box-shadow:inset 3px 0 0 var(--accent)}
+.navbadge{margin-left:auto;min-width:20px;height:20px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:600;display:inline-grid;place-items:center;padding:0 6px}
+.kpi{box-shadow:0 1px 2px rgba(27,21,23,.04)}.kpi b{font-size:2.3rem}
+.ov-today{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0}.ov-today:empty{display:none}
+.ov-t{display:grid;gap:4px;text-align:left;font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:0 1px 2px rgba(27,21,23,.04)}
+.ov-t:hover{border-color:var(--accent)}.ov-t small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}.ov-t b{font:400 1.25rem/1.25 var(--f-head)}.ov-t span{font-size:13px;color:var(--muted)}
 details.box summary{cursor:pointer}
 .chart{width:100%;height:auto;display:block}
 .legend{display:flex;gap:16px;font-size:13px;color:var(--muted)}
@@ -267,6 +280,7 @@ table.num small{color:var(--muted)}
 .pp-imgadj{display:grid;gap:10px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft)}
 .pp-rg{display:grid;gap:4px}.pp-rg>div{display:flex;justify-content:space-between;gap:8px;font-size:14px}.pp-rg output{color:var(--muted);font-variant-numeric:tabular-nums}.pp-rg input[type=range]{width:100%;accent-color:var(--accent);margin:0}
 .pp-poll{font-size:13px;line-height:1.5;color:var(--fg)}
+.pp-sites{display:grid;gap:10px;margin-bottom:16px}.pp-slist{display:grid;gap:6px}.pp-srow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pp-srow input{flex:1;min-width:220px;font:inherit;font-size:15px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 /* ---- fin popups ---- */
 /* calendario */
 .cal-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -530,6 +544,36 @@ body.ed-open{overflow:hidden}
 table.leads{width:100%;border-collapse:collapse;font-size:14px}table.leads th,table.leads td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}table.leads th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:860px){ .pname{max-width:46vw;font-size:1.05rem} }
 /* ---- Business Growth AI ---- */
+/* ---- informes (investigación profunda) ---- */
+.inf-hero{display:grid;gap:12px;min-width:0}.inf-hero .co-quick .btn{white-space:normal;text-align:left;line-height:1.35}.inf-hero textarea{width:100%;box-sizing:border-box}.inf-hero h3{margin:0;font-family:var(--f-head);font-weight:400;font-size:26px;line-height:1.15}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.inf-chip{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.02em;border-radius:999px;padding:2px 9px;white-space:nowrap;vertical-align:1px}
+.inf-chip.dato{background:#E3F1E7;color:#1E6B3A}.inf-chip.hipotesis{background:#FBEFD9;color:#8A5A12}.inf-chip.recomendacion{background:#F7E1E9;color:#8E3557}
+.inf-model{border:1px solid var(--line);border-radius:14px;padding:10px 14px;display:grid;gap:8px;margin:0}.inf-model legend{font-size:13px;font-weight:600;padding:0 4px}.inf-model label{display:flex;gap:8px;align-items:flex-start;font-size:14px;cursor:pointer}
+.inf-run{border-color:var(--accent)}.inf-steps{margin:4px 0 0;padding-left:20px;display:grid;gap:4px;font-size:14px;color:var(--muted)}.inf-steps li.on{color:var(--fg);font-weight:600}.inf-steps li.ok{color:#1E6B3A}
+.inf-list{display:grid;gap:8px}.inf-li{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel)}.inf-li>div{flex:1;display:grid;gap:2px;min-width:0}
+.inf-top{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.inf-doc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px clamp(16px,4vw,44px);display:grid;gap:26px;max-width:900px}
+.inf-doc header{display:grid;gap:8px;border-bottom:1px solid var(--line);padding-bottom:18px}.inf-doc h2{margin:0;font-family:var(--f-head);font-weight:400;font-size:clamp(28px,4vw,40px);line-height:1.08}
+#adv-body .inf-doc h3{margin:0 0 10px;font-family:var(--f-head);font-weight:400;font-size:24px;letter-spacing:-.005em}#adv-body .inf-hero h3{font:400 26px/1.15 var(--f-head);margin:0}#adv-body .inf-doc h4{font-size:17px}.inf-doc h4{margin:0;font-size:17px;line-height:1.3}
+.inf-meta{margin:0;font-size:13px;color:var(--muted)}.inf-legend{margin:0;font-size:13px;color:var(--muted);line-height:2}
+.inf-lead{margin:0;font-size:17px;line-height:1.6}
+.inf-claims{list-style:none;margin:0;padding:0;display:grid;gap:8px}.inf-claim{line-height:1.55;font-size:15px}
+.inf-ref{display:inline-block;margin-left:4px;font-size:11px;font-weight:600;min-width:18px;text-align:center;border-radius:6px;padding:0 5px;background:var(--soft);color:var(--fg);text-decoration:none;border:1px solid var(--line);vertical-align:2px}.inf-ref.int{cursor:help}
+.inf-tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}.inf-t{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}.inf-t th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--soft)}.inf-t td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}.inf-t tr:last-child td{border-bottom:0}
+.inf-ev{font-size:12px;font-weight:600;border-radius:999px;padding:2px 8px;background:var(--soft)}.inf-ev.fuerte{background:#E3F1E7;color:#1E6B3A}.inf-ev.media{background:#FBEFD9;color:#8A5A12}.inf-ev.debil{background:#F6E3E3;color:#9B2C2C}
+.inf-op{border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px;display:grid;gap:8px}.inf-op p{margin:0;line-height:1.55}
+.inf-op-h{display:flex;gap:12px;align-items:center}.inf-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:600}
+.inf-scores{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.inf-dots{display:inline-flex;gap:3px;margin-left:4px;vertical-align:middle}.inf-dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}.inf-dots i.on{background:var(--accent)}
+.inf-pasos{margin:0;padding-left:22px;display:grid;gap:4px;line-height:1.5}
+.inf-test{display:flex;gap:10px;flex-wrap:wrap;background:var(--soft);border-radius:12px;padding:10px 14px}.inf-test>div{flex:1;min-width:110px;display:grid;gap:2px}.inf-test small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.inf-op-a{display:flex;justify-content:flex-end}
+.inf-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}.inf-two ul,.inf-det ul{margin:0;padding-left:20px;display:grid;gap:4px;line-height:1.5}
+.inf-det{border:1px solid var(--line);border-radius:12px;padding:10px 14px}.inf-det summary{cursor:pointer}.inf-det ul{margin-top:8px}
+.inf-src a,.inf-t a{color:var(--fg);text-decoration-color:var(--accent);text-underline-offset:3px}.inf-src+.inf-det{margin-top:14px}.inf-src{margin:0;padding-left:24px;display:grid;gap:10px;font-size:14px}.inf-src li{scroll-margin-top:90px;border-radius:8px;transition:background .4s}.inf-src li.hl{background:var(--soft)}.inf-hecho{color:var(--muted);line-height:1.45;margin-top:2px}
+.inf-sales{display:grid;gap:8px;border:1px dashed var(--line);border-radius:14px;padding:12px}.inf-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}.inf-kpis div{background:var(--soft);border-radius:10px;padding:8px 10px;display:grid}.inf-kpis small{font-size:11px;color:var(--muted)}.inf-kpis b{font-size:20px;font-variant-numeric:tabular-nums}
+@media print{.inf-op-a,.inf-top{display:none}}
+/* ---- fin informes ---- */
 .adv-tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}
 .adv-tabs button{font:inherit;font-size:14px;font-weight:500;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
 .adv-tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
@@ -2670,7 +2714,7 @@ var NAV = [
   ["Inicio", [["home","Resumen"],["asesor","Business Growth AI"]]],
   ["Crear", [["pages","Mis páginas"],["popups","Popups"],["designs","Diseños"],["docs","Documentos"]]],
   ["Crecer", [["coach","Asistente IA"],["plan","Calendario"],["ai","Estrategia IA"]]],
-  ["Vender", [["mail","Correos"],["subs","Suscriptoras"]]],
+  ["Vender", [["mail","Correos"],["subs","Contactos"]]],
   ["Medir", [["stats","Números"]]]
 ];
 var ICONS_NAV = {
@@ -2731,6 +2775,21 @@ function showTab(k){
   if (k === "docs") renderDocs();
   var m = document.querySelector(".mainview"); if (m && window.innerWidth < 860) window.scrollTo(0, 0);
 }
+/* «Hoy en tu negocio»: popups activos, suscriptoras nuevas y tu último informe. Si algo no carga, simplemente no sale. */
+function ovToday(){
+  var box = $("ov-today"); if (!box) return;
+  Promise.all([api("GET", "popups").catch(function(){ return null; }), api("GET", "leads").catch(function(){ return null; }), fetch("/asesor-api/reports", {headers:{"x-panel-pass":PASS || ""}, cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(r){
+    if (!$("ov-today")) return;
+    var cards = [];
+    if (r[0]){ var act = (r[0].items || []).filter(function(x){ return x.active; }); cards.push("<button type='button' class='ov-t' data-ovgo='popups'><small>Popups</small><b>" + act.length + " activo" + (act.length === 1 ? "" : "s") + "</b><span>" + (act.length ? esc(act.slice(0, 2).map(function(x){ return x.name; }).join(", ")) : "Ninguno se está mostrando") + "</span></button>"); }
+    if (r[1]){ var wk = Date.now() - 7 * 864e5, nw = {}; (r[1].leads || []).forEach(function(l){ if ((l.at || 0) > wk && l.email) nw[l.email.toLowerCase()] = 1; }); var n = Object.keys(nw).length; cards.push("<button type='button' class='ov-t' data-ovgo='subs'><small>Suscriptoras nuevas</small><b>" + n + " esta semana</b><span>Últimos 7 días</span></button>"); }
+    if (r[2] && r[2].reports){ var last = r[2].reports[0]; cards.push("<button type='button' class='ov-t' data-ovgo='inf'><small>Investigación profunda</small><b>" + (last ? esc(String(last.titulo || last.question).slice(0, 70)) : "Haz tu primer informe") + "</b><span>" + (last ? esc(last.bizName || "") + " · " + esc(fmtDay(todayFromTs(last.at))) : "Mercado, competidoras y oportunidades con fuentes") + "</span></button>"); }
+    box.innerHTML = cards.join("");
+    box.querySelectorAll("[data-ovgo]").forEach(function(b){ b.onclick = function(){ var g = b.getAttribute("data-ovgo"); if (g === "inf"){ ADVTAB = "inf"; store("lp-adv-tab", "inf"); if (typeof ADVREP !== "undefined") ADVREP = null; showTab("asesor"); } else showTab(g); }; });
+    if (r[1]){ var seenAt = Number(store("lp-subs-seen")) || 0, nu = {}; (r[1].leads || []).forEach(function(l){ if ((l.at || 0) > seenAt && l.email) nu[l.email.toLowerCase()] = 1; }); navBadge("subs", Object.keys(nu).length); }
+  });
+}
+function navBadge(k, n){ var b = $("tab-" + k); if (!b) return; var e = b.querySelector(".navbadge"); if (!n){ if (e) e.remove(); return; } if (!e){ e = document.createElement("span"); e.className = "navbadge"; b.appendChild(e); } e.textContent = n > 99 ? "99+" : n; e.setAttribute("aria-label", n + " nuevas"); }
 function renderOverview(){
   var v = $("view-home");
   var hour = new Date().getHours(), hello = hour < 12 ? "Buenos días" : hour < 19 ? "Buenas tardes" : "Buenas noches";
@@ -2747,6 +2806,7 @@ function renderOverview(){
       "<div class='kpi'><b>" + st.view + "</b><span>Visitas · 30 días</span></div>" +
       "<div class='kpi'><b>" + pct + "</b><span>Se registran de cada 100 visitas</span></div>" +
       "<div class='kpi'><b>" + st.click + "</b><span>Clics en «Comprar» · 30 días</span></div></div>";
+    h += "<div class='ov-today' id='ov-today'></div>";
     h += "<div class='ov-grid'><div class='box'><div style='display:flex;justify-content:space-between;align-items:center;gap:8px'><b>Para hoy y los próximos días</b><button class='btn sm' type='button' data-go='plan'>Ver calendario</button></div>" +
       (todo.length ? todo.map(function(it){ return "<div class='plan-item' style='grid-template-columns:auto 1fr'><input type='checkbox' data-ovdone='" + it.id + "' aria-label='Hecho'><div><span class='pdate" + (it.date < today ? " late" : "") + "'>" + esc(fmtDay(it.date)) + "</span> <span class='chip'>" + esc(it.channel) + "</span><div class='ptitle'>" + esc(it.title) + "</div></div></div>"; }).join("") : "<p style='margin:0;color:var(--muted)'>No tienes tareas pendientes. Pide un plan en «Estrategia IA» o en tu «Calendario».</p>") + "</div>";
     var tips = [];
@@ -2760,25 +2820,69 @@ function renderOverview(){
     h += "<div class='box'><b>Siguientes pasos</b>" + (tips.length ? tips.map(function(t){ return "<button class='next' type='button' data-go='" + t[1] + "'>" + esc(t[0]) + "<span aria-hidden='true'>→</span></button>"; }).join("") : "<p style='margin:0;color:var(--muted)'>Todo al día ✓</p>") +
       "<div style='display:flex;gap:8px;flex-wrap:wrap;margin-top:6px'><button class='btn sm primary' type='button' data-go='coach'>✨ Preparar un guion</button><button class='btn sm' type='button' data-go='ai'>Estrategia IA</button><button class='btn sm' type='button' data-go='designs'>Diseñar una imagen</button><button class='btn sm' type='button' data-go='mail'>Escribir un correo</button><button class='btn sm' type='button' data-go='stats'>Ver números</button></div></div></div>";
     $("ov-body").innerHTML = h;
+    ovToday();
     $("ov-body").querySelectorAll("[data-go]").forEach(function(b){ b.onclick = function(){ var g = b.getAttribute("data-go"); if (g === "conn") openConnections(); else if (g === "publish") publishAll(); else showTab(g); }; });
     $("ov-body").querySelectorAll("[data-ovdone]").forEach(function(c){ c.onchange = function(){ PLAN.forEach(function(it){ if (it.id === c.getAttribute("data-ovdone")){ it.status = c.checked ? "hecho" : "listo"; fixItem(it); } }); savePlan(); setTimeout(renderOverview, 300); }; });
   });
 }
+/* ===== CONTACTOS: suscriptoras y clientas en un solo lugar ===== */
+var CT = {q:"", f:"", open:""};
+function ctSource(p){ return /^popup-/.test(p || "") ? "Popup «" + String(p).slice(6) + "»" : pageName(p); }
 function renderSubs(){
-  var v = $("view-subs");
-  v.innerHTML = "<div class='home-head'><div><h2>Suscriptoras</h2><p>Todas las personas que se registraron en tus páginas.</p></div></div><div class='box' id='subs-body'><p style='margin:0'>Cargando…</p></div>";
-  if (!authed){ $("subs-body").innerHTML = "<p style='margin:0'>Entra con tu contraseña.</p>"; return; }
-  api("GET", "leads").then(function(d){
-    var leads = d.leads || [];
-    if (!leads.length){ $("subs-body").innerHTML = "<p style='margin:0'>Todavía no se ha registrado nadie. Comparte el enlace de tu página y aparecerán aquí.</p>"; return; }
-    $("subs-body").innerHTML = "<div style='display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center'><b>" + leads.length + " registro" + (leads.length === 1 ? "" : "s") + "</b><div style='display:flex;gap:8px;flex-wrap:wrap'><button class='btn primary sm' type='button' id='sb-csv'>Descargar lista (Excel)</button><button class='btn sm' type='button' id='sb-copy'>Copiar todos los correos</button></div></div>" +
-      "<div style='overflow-x:auto'><table class='leads'><thead><tr><th>Fecha</th><th>Nombre</th><th>Correo</th><th>Página</th><th></th></tr></thead><tbody>" +
-      leads.map(function(l){ return "<tr><td>" + esc(fmtDate(l.at)) + "</td><td>" + esc(l.nombre) + " " + esc(l.apellido) + "</td><td><span style='user-select:all'>" + esc(l.email) + "</span></td><td>" + esc(pageName(l.pagina)) + "</td><td><button class='btn sm danger' type='button' data-del='" + esc(l.key) + "'>Borrar</button></td></tr>"; }).join("") + "</tbody></table></div>";
-    $("sb-csv").onclick = function(){ var csv = "﻿Fecha;Nombre;Apellido;Correo;Página\n" + leads.map(function(l){ return [fmtDate(l.at), l.nombre, l.apellido, l.email, l.pagina].map(csvCell).join(";"); }).join("\n"); var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"})); a.download = "suscriptoras.csv"; document.body.appendChild(a); a.click(); a.remove(); };
-    $("sb-copy").onclick = function(){ copyText(leads.map(function(l){ return l.email; }).join(", "), $("sb-copy")); };
-    $("subs-body").querySelectorAll("[data-del]").forEach(function(b){ b.onclick = function(){ if (b.dataset.sure !== "1"){ b.dataset.sure = "1"; b.textContent = "¿Seguro?"; return; } b.disabled = true; api("DELETE", "leads/" + encodeURIComponent(b.getAttribute("data-del"))).then(function(){ var tr = b.closest("tr"); if (tr) tr.remove(); }); }; });
-  }, function(e){ $("subs-body").innerHTML = "<p style='margin:0'>" + esc(apiError(e)) + "</p>"; });
+  var v = $("view-subs"); store("lp-subs-seen", String(Date.now())); navBadge("subs", 0);
+  v.innerHTML = "<div class='home-head'><div><h2>Contactos</h2><p>Tus suscriptoras y clientas en un solo lugar: por dónde llegó cada una, qué compró y tus notas.</p></div></div><div id='subs-body'><div class='box'><p style='margin:0'>Cargando…</p></div></div>";
+  if (!authed){ $("subs-body").innerHTML = "<div class='box'><p style='margin:0'>Entra con tu contraseña.</p></div>"; return; }
+  Promise.all([api("GET", "leads"), api("GET", "contacts").catch(function(){ return {map:{}}; })]).then(function(r){
+    var leads = r[0].leads || [], extra = r[1].map || {}, by = {};
+    leads.forEach(function(l){
+      var e = String(l.email || "").toLowerCase(); if (!e) return;
+      var c = by[e] = by[e] || {email:e, nombre:"", apellido:"", first:Infinity, last:0, ev:[], keys:[]};
+      if (l.nombre && !c.nombre){ c.nombre = l.nombre; c.apellido = l.apellido || ""; }
+      c.first = Math.min(c.first, l.at || 0); c.last = Math.max(c.last, l.at || 0); c.ev.push({at:l.at, src:l.pagina}); c.keys.push(l.key);
+    });
+    var list = Object.keys(by).map(function(e){ var c = by[e], x = extra[e] || {}; c.tags = x.tags || []; c.note = x.note || ""; c.buy = x.buy || null; c.ev.sort(function(a, b){ return a.at - b.at; }); c.from = c.ev[0] ? c.ev[0].src : ""; return c; }).sort(function(a, b){ return b.last - a.last; });
+    CT.list = list; ctDraw();
+  }, function(e){ $("subs-body").innerHTML = "<div class='box'><p style='margin:0'>" + esc(apiError(e)) + "</p></div>"; });
 }
+function ctDraw(){
+  var list = CT.list || [], body = $("subs-body"); if (!body) return;
+  if (!list.length){ body.innerHTML = "<div class='box'><p style='margin:0'>Todavía no se ha registrado nadie. Comparte el enlace de tu página o activa un popup de «Captación de emails» y aparecerán aquí.</p></div>"; return; }
+  var wk = Date.now() - 7 * 864e5, buyers = list.filter(function(c){ return c.buy && c.buy.n; }), tags = [];
+  list.forEach(function(c){ c.tags.forEach(function(t){ if (tags.indexOf(t) < 0) tags.push(t); }); });
+  var q = CT.q.toLowerCase(), shown = list.filter(function(c){
+    if (q && (c.email + " " + c.nombre + " " + c.apellido + " " + c.tags.join(" ") + " " + c.note).toLowerCase().indexOf(q) < 0) return false;
+    if (CT.f === "buy") return c.buy && c.buy.n; if (CT.f === "nobuy") return !(c.buy && c.buy.n); if (CT.f === "popup") return c.ev.some(function(x){ return /^popup-/.test(x.src || ""); }); if (CT.f === "new") return c.first > wk;
+    if (/^t:/.test(CT.f)) return c.tags.indexOf(CT.f.slice(2)) >= 0; return true;
+  });
+  var money = function(v){ return "$" + Number(v || 0).toLocaleString("en-US", {minimumFractionDigits:0, maximumFractionDigits:2}); };
+  var h = "<div class='kpis'><div class='kpi'><b>" + list.length + "</b><span>Contactos</span></div><div class='kpi'><b>" + list.filter(function(c){ return c.first > wk; }).length + "</b><span>Nuevos · 7 días</span></div><div class='kpi'><b>" + buyers.length + "</b><span>Ya compraron (Stripe)</span></div><div class='kpi'><b>" + money(buyers.reduce(function(a, c){ return a + c.buy.v; }, 0)) + "</b><span>Lo que han gastado</span></div></div>" +
+    "<div class='box'><div class='ct-bar'><input type='search' id='ct-q' placeholder='Buscar por nombre, correo, etiqueta o nota' value='" + esc(CT.q) + "' aria-label='Buscar contactos'><select id='ct-f' aria-label='Filtrar'>" +
+    [["", "Todos"], ["new", "Nuevos esta semana"], ["buy", "Ya compraron"], ["nobuy", "Todavía no compran"], ["popup", "Llegaron por un popup"]].concat(tags.map(function(t){ return ["t:" + t, "Etiqueta: " + t]; })).map(function(o){ return "<option value='" + esc(o[0]) + "'" + (CT.f === o[0] ? " selected" : "") + ">" + esc(o[1]) + "</option>"; }).join("") + "</select>" +
+    "<i style='flex:1'></i><button class='btn primary sm' type='button' id='sb-csv'>Descargar (Excel)</button><button class='btn sm' type='button' id='sb-copy'>Copiar correos</button></div>" +
+    "<small class='adv-muted'>" + shown.length + " de " + list.length + (buyers.length ? "" : " · Para ver quién compró, sube tu archivo de Stripe en Business Growth AI → Mis negocios.") + "</small>" +
+    "<div style='overflow-x:auto'><table class='leads ct'><thead><tr><th>Persona</th><th>Llegó por</th><th>Compras</th><th>Etiquetas</th><th>Última vez</th></tr></thead><tbody>" +
+    shown.slice(0, 500).map(function(c){
+      var open = CT.open === c.email;
+      return "<tr class='ct-row" + (open ? " on" : "") + "' data-ct='" + esc(c.email) + "' tabindex='0'><td><b>" + esc((c.nombre + " " + c.apellido).trim() || "—") + "</b><br><small>" + esc(c.email) + "</small></td><td>" + esc(ctSource(c.from)) + (c.ev.length > 1 ? " <small class='adv-muted'>+" + (c.ev.length - 1) + "</small>" : "") + "</td><td>" + (c.buy && c.buy.n ? "<b>" + c.buy.n + "</b> · " + money(c.buy.v) : "<span class='adv-muted'>—</span>") + "</td><td>" + c.tags.map(function(t){ return "<span class='chip'>" + esc(t) + "</span>"; }).join(" ") + "</td><td>" + esc(fmtDate(c.last)) + "</td></tr>" +
+        (open ? "<tr class='ct-det'><td colspan='5'><div class='ct-grid'><div><b>Historial</b><ul class='ct-ev'>" + c.ev.slice().reverse().map(function(x){ return "<li><span class='pdate'>" + esc(fmtDate(x.at)) + "</span> Se registró en " + esc(ctSource(x.src)) + "</li>"; }).join("") + (c.buy && c.buy.n ? "<li><span class='pdate'>" + esc(c.buy.last ? fmtDay(c.buy.last) : "") + "</span> Última compra · " + c.buy.n + " compra" + (c.buy.n === 1 ? "" : "s") + " por " + money(c.buy.v) + " en total <small class='adv-muted'>(" + esc(c.buy.src || "Stripe") + ")</small></li>" : "") + "</ul></div>" +
+          "<div style='display:grid;gap:10px'><div class='f'><label for='ct-tags'>Etiquetas (separadas por comas)</label><input type='text' id='ct-tags' value='" + esc(c.tags.join(", ")) + "' placeholder='Ej.: VIP, tarot, comunidad'></div><div class='f'><label for='ct-note'>Notas</label><textarea id='ct-note' rows='3' placeholder='Lo que quieras recordar de ella'>" + esc(c.note) + "</textarea></div>" +
+          "<div style='display:flex;gap:8px;flex-wrap:wrap;align-items:center'><button class='btn sm primary' type='button' id='ct-save'>Guardar</button><a class='btn sm' href='mailto:" + esc(c.email) + "'>Escribirle</a><button class='btn sm danger' type='button' id='ct-del'>Borrar contacto</button><span class='photo-msg' id='ct-msg' role='status'></span></div></div></div></td></tr>" : "");
+    }).join("") + "</tbody></table></div></div>";
+  body.innerHTML = h;
+  var qi = $("ct-q"); qi.oninput = function(){ CT.q = qi.value; clearTimeout(qi._t); qi._t = setTimeout(function(){ var pos = qi.selectionStart; ctDraw(); var n = $("ct-q"); n.focus(); try{ n.setSelectionRange(pos, pos); }catch(_){} }, 250); };
+  $("ct-f").onchange = function(){ CT.f = $("ct-f").value; ctDraw(); };
+  $("sb-csv").onclick = function(){ var csv = "\uFEFFNombre;Apellido;Correo;Llegó por;Registros;Compras;Total gastado;Etiquetas;Notas;Primera vez;Última vez\n" + shown.map(function(c){ return [c.nombre, c.apellido, c.email, ctSource(c.from), c.ev.length, c.buy ? c.buy.n : 0, c.buy ? c.buy.v : 0, c.tags.join(", "), c.note, fmtDate(c.first), fmtDate(c.last)].map(csvCell).join(";"); }).join("\n"); var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"})); a.download = "contactos.csv"; document.body.appendChild(a); a.click(); a.remove(); };
+  $("sb-copy").onclick = function(){ copyText(shown.map(function(c){ return c.email; }).join(", "), $("sb-copy")); };
+  body.querySelectorAll("[data-ct]").forEach(function(tr){ var go = function(){ CT.open = CT.open === tr.getAttribute("data-ct") ? "" : tr.getAttribute("data-ct"); ctDraw(); }; tr.onclick = go; tr.onkeydown = function(e){ if (e.key === "Enter"){ e.preventDefault(); go(); } }; });
+  var c = list.filter(function(x){ return x.email === CT.open; })[0];
+  if (c && $("ct-save")){
+    $("ct-save").onclick = function(){ var tg = $("ct-tags").value.split(",").map(function(x){ return x.trim(); }).filter(Boolean), nt = $("ct-note").value; $("ct-msg").textContent = "Guardando…";
+      api("PUT", "contacts/" + encodeURIComponent(c.email), {tags:tg, note:nt}).then(function(){ c.tags = tg; c.note = nt; $("ct-msg").textContent = "Guardado ✓"; setTimeout(ctDraw, 600); }, function(e){ $("ct-msg").textContent = apiError(e); }); };
+    $("ct-del").onclick = function(){ var b = $("ct-del"); if (b.dataset.sure !== "1"){ b.dataset.sure = "1"; b.textContent = "¿Borrar todos sus registros?"; return; } b.disabled = true;
+      Promise.all(c.keys.map(function(k){ return api("DELETE", "leads/" + encodeURIComponent(k)); })).then(function(){ CT.list = CT.list.filter(function(x){ return x !== c; }); CT.open = ""; ctDraw(); status("Contacto borrado ✓"); }, function(e){ b.disabled = false; status(apiError(e), "err"); }); };
+  }
+}
+/* ===== FIN CONTACTOS ===== */
 
 /* ---------- conexiones (en Cuenta) ---------- */
 function openConnections(intro){
@@ -3413,7 +3517,7 @@ function teleprompter(parts){
 
 /* ================= POPUPS PARA WEBSITES (sección propia; no toca «Mis páginas») ================= */
 var PBP_SRC = "function PBP(c, o){\n  o = o || {};\n  var W = window, D = document, base = o.base || \"\", slug = String(c.slug || \"popup\");\n  var mob = function(){ return (W.innerWidth || 1000) <= 640; };\n  var ls = function(k, v){ try{ if (v === undefined) return W.localStorage.getItem(k); W.localStorage.setItem(k, v); }catch(_){ return null; } };\n  var ss = function(k, v){ try{ if (v === undefined) return W.sessionStorage.getItem(k); W.sessionStorage.setItem(k, v); }catch(_){ return null; } };\n  var KEY = \"pbp-\" + slug + \"-\" + (c.v || 0);\n  if (!o.preview){\n    if (c.device === \"mobile\" && !mob()) return;\n    if (c.device === \"desktop\" && mob()) return;\n    var pg = String(c.pages || \"\").split(/[\\n,]+/).map(function(x){ return x.replace(/^\\s+|\\s+$/g, \"\"); }).filter(Boolean);\n    if (pg.length && !pg.some(function(x){ return W.location.href.indexOf(x) >= 0; })) return;\n    if (c.deadline && c.hideAfter && Date.parse(c.deadline) < Date.now()) return;\n  }\n  function seen(){\n    if (o.preview || c.freq === \"always\") return false;\n    if (c.freq === \"session\") return !!ss(KEY);\n    var last = Number(ls(KEY)) || 0, gap = c.freq === \"week\" ? 6048e5 : c.freq === \"once\" ? Infinity : 864e5;\n    return last && Date.now() - last < gap;\n  }\n  function remember(){ if (o.preview) return; ss(KEY, \"1\"); ls(KEY, String(Date.now())); }\n  function esc(s){ return String(s == null ? \"\" : s).replace(/[&<>\"']/g, function(x){ return {\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",'\"':\"&quot;\",\"'\":\"&#39;\"}[x]; }); }\n  function rich(s){ return esc(s).replace(/\\*([^*]+)\\*/g, \"<em>$1<\/em>\"); }\n  function url(u){ u = String(u || \"\").replace(/^\\s+|\\s+$/g, \"\"); if (!u) return \"\"; if (/^(https?:|mailto:|tel:|#)/i.test(u)) return u; if (/^\\//.test(u)) return base + u; return /^[\\w-]+(\\.[\\w-]+)+/.test(u) ? \"https://\" + u : \"\"; }\n  function abs(u){ u = String(u || \"\"); return /^\\//.test(u) ? base + u : u; }\n  function track(e){\n    if (o.preview || !base) return;\n    try{ var b = JSON.stringify({p:\"popup-\" + slug, e:e}); if (navigator.sendBeacon && navigator.sendBeacon(base + \"/api/track\", new Blob([b], {type:\"text/plain\"}))) return; fetch(base + \"/api/track\", {method:\"POST\", body:b, headers:{\"Content-Type\":\"text/plain\"}, keepalive:true}).catch(function(){}); }catch(_){}\n  }\n  function lum(h){ h = String(h || \"#000\").replace(\"#\", \"\"); if (h.length === 3) h = h.replace(/./g, \"$&$&\"); var n = parseInt(h, 16); if (isNaN(n)) return 0; var r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255; return 0.2126 * r + 0.7152 * g + 0.0722 * b; }\n  var FONTS = {dm:[\"DM Serif Display\",\"DM+Serif+Display\"], playfair:[\"Playfair Display\",\"Playfair+Display:wght@500;700\"], cormorant:[\"Cormorant Garamond\",\"Cormorant+Garamond:wght@500;600\"], bebas:[\"Bebas Neue\",\"Bebas+Neue\"], vibes:[\"Great Vibes\",\"Great+Vibes\"], jost:[\"Jost\",\"Jost:wght@500;600\"]};\n  var F = FONTS[c.font] || FONTS.dm;\n  if (!D.getElementById(\"pbp-fonts\")){ var lk = D.createElement(\"link\"); lk.id = \"pbp-fonts\"; lk.rel = \"stylesheet\"; lk.href = \"https://fonts.googleapis.com/css2?family=\" + F[1] + \"&family=Jost:wght@300;400;500;600&display=swap\"; (D.head || D.documentElement).appendChild(lk); }\n  else if (D.getElementById(\"pbp-fonts\").href.indexOf(F[1].split(\":\")[0]) < 0){ var lk2 = D.createElement(\"link\"); lk2.rel = \"stylesheet\"; lk2.href = \"https://fonts.googleapis.com/css2?family=\" + F[1] + \"&display=swap\"; D.head.appendChild(lk2); }\n\n  var bg = c.bg || \"#0D0B0C\", ink = c.ink || (lum(bg) > 0.5 ? \"#1F161A\" : \"#FFFFFF\"), ac = c.accent || \"#D8A2B4\", onAc = lum(ac) > 0.45 ? \"#1A1215\" : \"#FFFFFF\";\n  var layout = c.layout || \"center\", media = c.media || \"none\", mpos = c.mediaPos || \"top\";\n  if (layout === \"full\") mpos = \"bg\";\n  if (layout === \"bar\") media = \"none\";\n  var hasMedia = (media === \"photo\" && c.photo) || (media === \"video\" && c.video);\n  /* Ajustes de la foto: tama\u00f1o, posici\u00f3n, completa o rellenando, y oscuridad de la capa. Computadora y tel\u00e9fono por separado. */\n  function rgba(h, a){ h = String(h || \"#000\").replace(\"#\", \"\"); if (h.length === 3) h = h.replace(/./g, \"$&$&\"); var n = parseInt(h, 16); if (isNaN(n)) n = 0; return \"rgba(\" + (n >> 16 & 255) + \",\" + (n >> 8 & 255) + \",\" + (n & 255) + \",\" + Math.max(0, Math.min(1, a)).toFixed(3) + \")\"; }\n  function imgCss(im){\n    im = im || {};\n    var cl = function(v, a, b, d){ v = Number(v); return isNaN(v) || v === null ? d : Math.max(a, Math.min(b, v)); };\n    var one = function(s){\n      if (!s) return \"\";\n      var z = cl(s.z, 100, 300, 100) / 100, x = cl(s.x, 0, 100, 50), y = cl(s.y, 0, 100, 50);\n      var r = \"img.m,video.m{object-fit:\" + (s.fit === \"contain\" ? \"contain\" : \"cover\") + \";object-position:\" + x + \"% \" + y + \"%;transform:scale(\" + z + \");transform-origin:\" + x + \"% \" + y + \"%}\";\n      if (s.dark != null && s.dark !== \"\"){ var k = cl(s.dark, 0, 100, 0) / 100;\n        r += hasMedia && mpos === \"bg\" ? \".mbg .mw::after{background:linear-gradient(180deg,\" + rgba(bg, k * 0.25) + \" 0%,\" + rgba(bg, k) + \" 55%,\" + rgba(bg, k * 1.19) + \" 100%)}\" : \".mw::after{content:\\\"\\\";position:absolute;inset:0;pointer-events:none;background:rgba(0,0,0,\" + k.toFixed(3) + \")}\"; }\n      return r;\n    };\n    return one(im.d) + (im.m || im.d ? \"@media (max-width:640px){\" + one(im.m || im.d) + \"}\" : \"\");\n  }\n  var mediaHtml = \"\";\n  if (media === \"video\" && c.video){\n    var v = String(c.video), vm = v.match(/vimeo\\.com\\/(?:video\\/)?(\\d{6,})(?:\\/([\\da-f]{6,}))?/i), yt = v.match(/(?:youtube\\.com\\/(?:watch\\?(?:.*&)?v=|shorts\\/|embed\\/)|youtu\\.be\\/)([\\w-]{11})/);\n    if (vm) mediaHtml = '<iframe class=\"m\" src=\"https://player.vimeo.com/video/' + vm[1] + '?' + (vm[2] ? 'h=' + vm[2] + '&' : '') + 'background=1&autoplay=1&loop=1&muted=1&dnt=1\" allow=\"autoplay; fullscreen\" title=\"\"><\/iframe>';\n    else if (yt) mediaHtml = '<iframe class=\"m\" src=\"https://www.youtube-nocookie.com/embed/' + yt[1] + '?autoplay=1&mute=1&loop=1&playlist=' + yt[1] + '&controls=0&playsinline=1&modestbranding=1&rel=0\" allow=\"autoplay\" title=\"\"><\/iframe>';\n    else mediaHtml = '<video class=\"m\" src=\"' + esc(abs(v)) + '\" autoplay muted loop playsinline preload=\"auto\"' + (c.photo ? ' poster=\"' + esc(abs(c.photo)) + '\"' : '') + '><\/video>';\n  } else if (media === \"photo\" && c.photo) mediaHtml = '<img class=\"m\" src=\"' + esc(abs(c.photo)) + '\" alt=\"\">';\n\n  var en = c.lang === \"en\", i = 0, an = function(){ i++; return ' class=\"an\" style=\"--d:' + (0.12 + i * 0.08).toFixed(2) + 's\"'; };\n  var body = \"\";\n  if (c.logo) body += '<img' + an().replace('class=\"an\"', 'class=\"an logo\"') + ' src=\"' + esc(abs(c.logo)) + '\" alt=\"\">';\n  if (c.eyebrow) body += '<div' + an().replace('class=\"an\"', 'class=\"an eye\"') + '>' + esc(c.eyebrow) + '<\/div>';\n  if (c.title) body += '<h2' + an() + '>' + rich(c.title) + '<\/h2>';\n  if (c.sub && layout !== \"bar\") body += '<p' + an().replace('class=\"an\"', 'class=\"an sub\"') + '>' + esc(c.sub) + '<\/p>';\n  if (c.price || c.oldPrice) body += '<div' + an().replace('class=\"an\"', 'class=\"an price\"') + '>' + (c.oldPrice ? '<s>' + esc(c.oldPrice) + '<\/s>' : '') + (c.price ? '<b>' + esc(c.price) + '<\/b>' : '') + '<\/div>';\n  if (c.code) body += '<div' + an().replace('class=\"an\"', 'class=\"an code\"') + '><span>' + esc(c.code) + '<\/span><button type=\"button\" class=\"cp\">' + (en ? \"Copy\" : \"Copiar\") + '<\/button><\/div>' + (c.codeNote && layout !== \"bar\" ? '<small' + an().replace('class=\"an\"', 'class=\"an note\"') + '>' + esc(c.codeNote) + '<\/small>' : '');\n  var dl = c.deadline ? Date.parse(c.deadline) : NaN;\n  if (!isNaN(dl) && layout !== \"bar\") body += '<div' + an().replace('class=\"an\"', 'class=\"an cd\"') + '>' + (c.deadlineLabel ? '<small>' + esc(c.deadlineLabel) + '<\/small>' : '') + '<div class=\"cdr\">' + (en ? [\"days\",\"hrs\",\"min\",\"sec\"] : [\"d\u00edas\",\"horas\",\"min\",\"seg\"]).map(function(l){ return '<span><b>0<\/b><i>' + l + '<\/i><\/span>'; }).join(\"\") + '<\/div><\/div>';\n  var cu = url(c.url);\n  if (cu && c.code && c.addCode && /^https?:\\/\\/(wa\\.me|api\\.whatsapp\\.com)\\//i.test(cu)) cu = cu.split(\"?\")[0] + \"?text=\" + encodeURIComponent((en ? \"Hi! I'd like to use my coupon \" : \"\u00a1Hola! Quiero usar mi cup\u00f3n \") + c.code + \".\");\n  else if (cu && c.code && c.addCode && /^https?:/i.test(cu)){ var hs = \"\", hi = cu.indexOf(\"#\"); if (hi >= 0){ hs = cu.slice(hi); cu = cu.slice(0, hi); } cu = cu.replace(/([?&])cupon=[^&]*(&|$)/i, function(m, a, b){ return b ? a : \"\"; }).replace(/[?&]$/, \"\"); cu += (cu.indexOf(\"?\") >= 0 ? \"&\" : \"?\") + \"cupon=\" + encodeURIComponent(c.code) + hs; }\n  var col = layout === \"bar\" && c.collect === \"poll\" ? \"none\" : (c.collect || \"none\"), opts = String(c.opts || \"\").split(/\\n+/).map(function(x){ return x.replace(/^\\s+|\\s+$/g, \"\"); }).filter(Boolean).slice(0, 8);\n  if (col === \"poll\" && !opts.length) col = \"none\";\n  if (col === \"email\") body += '<form' + an().replace('class=\"an\"', 'class=\"an fm\"') + ' novalidate>' + (c.formName ? '<input type=\"text\" name=\"n\" autocomplete=\"given-name\" placeholder=\"' + (en ? \"Your name\" : \"Tu nombre\") + '\">' : '') + '<input type=\"email\" name=\"e\" autocomplete=\"email\" required placeholder=\"' + (en ? \"Your email\" : \"Tu correo\") + '\"><input type=\"text\" name=\"bot\" tabindex=\"-1\" autocomplete=\"off\" style=\"position:absolute;left:-9999px\" aria-hidden=\"true\"><button type=\"submit\" class=\"btn fx-' + esc(c.btnFx || \"shine\") + '\"><span>' + esc(c.cta || (en ? \"Sign me up\" : \"Quiero recibirlo\")) + '<\/span><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/><\/svg><\/button><small class=\"fe\" hidden><\/small><\/form>';\n  else if (col === \"poll\") body += '<div' + an().replace('class=\"an\"', 'class=\"an ops\"') + '>' + opts.map(function(x){ return '<button type=\"button\" class=\"op\">' + esc(x) + '<\/button>'; }).join(\"\") + '<\/div>';\n  if (col !== \"none\") body += '<div class=\"ty\" hidden><b>' + esc(c.thanks || (col === \"poll\" ? (en ? \"Thanks for answering! \ud83d\udc97\" : \"\u00a1Gracias por responder! \ud83d\udc97\") : (en ? \"Done! Check your inbox \ud83d\udc8c\" : \"\u00a1Listo! Revisa tu correo \ud83d\udc8c\"))) + '<\/b><\/div>';\n  if (c.cta && col === \"none\") body += '<a' + an().replace('class=\"an\"', 'class=\"an btn fx-' + esc(c.btnFx || \"shine\") + '\"') + (cu ? ' href=\"' + esc(cu) + '\"' + (c.newTab === false || /^#/.test(cu) ? '' : ' target=\"_blank\" rel=\"noopener\"') : ' role=\"button\"') + '><span>' + esc(c.cta) + '<\/span><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/><\/svg><\/a>';\n  if (c.noText && layout !== \"bar\") body += '<button type=\"button\"' + an().replace('class=\"an\"', 'class=\"an no\"') + '>' + esc(c.noText) + '<\/button>';\n\n  var css = ':host{all:initial}*{box-sizing:border-box}' +\n    '.wrap{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:20px;font-family:Jost,\"Helvetica Neue\",Arial,sans-serif;-webkit-font-smoothing:antialiased;pointer-events:none}' +\n    '.wrap.modal{pointer-events:auto}.bk{position:absolute;inset:0;background:rgba(10,8,9,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .45s ease}' +\n    '.card{position:relative;pointer-events:auto;width:min(420px,100%);max-height:calc(100vh - 40px);overflow:auto;background:' + bg + ';color:' + ink + ';border-radius:24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06);opacity:0;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .45s ease;scrollbar-width:thin}' +\n    '.card::-webkit-scrollbar{width:6px}.card::-webkit-scrollbar-thumb{background:rgba(127,127,127,.45);border-radius:6px}' +\n    '.wrap.on .bk{opacity:1}.wrap.on .card{opacity:1;transform:none!important}' +\n    '.a-zoom .card{transform:scale(.86)}.a-up .card{transform:translateY(60px)}.a-side .card{transform:translateX(70px)}.a-fade .card{transform:none}.a-down .card{transform:translateY(-100%)}' +\n    '.off .card{opacity:0;transition-duration:.35s}.off .bk{opacity:0}' +\n    '.mw{position:relative;overflow:hidden;aspect-ratio:16/10;background:' + ac + ';border-radius:inherit;border-bottom-left-radius:0;border-bottom-right-radius:0}.card{isolation:isolate}' +\n    '.m{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}iframe.m{width:177.8%;height:100%;left:50%;transform:translateX(-50%);pointer-events:none}' +\n    '.mbg .mw{position:absolute;inset:0;aspect-ratio:auto;z-index:0}.mbg .mw::after{content:\"\";position:absolute;inset:0;background:linear-gradient(180deg,' + bg + '33 0%,' + bg + 'cc 55%,' + bg + 'f2 100%)}' +\n    '.mbg .bd{position:relative;z-index:1;padding-top:120px}' +\n    '.bd{padding:22px 24px 24px;display:grid;justify-items:center;text-align:center;gap:10px}' +\n    '.logo{max-height:38px;max-width:60%;object-fit:contain}' +\n    '.eye{font-size:11px;letter-spacing:.24em;text-transform:uppercase;border:1px solid ' + ac + ';color:' + ac + ';border-radius:999px;padding:5px 12px}' +\n    'h2{margin:0;font-family:\"' + F[0] + '\",Georgia,serif;font-weight:' + (c.font === \"jost\" ? 600 : 500) + ';font-size:' + (c.font === \"bebas\" ? \"2.4rem;letter-spacing:.02em\" : c.font === \"vibes\" ? \"2.6rem\" : \"1.9rem\") + ';line-height:1.08;text-wrap:balance}h2 em{font-style:normal;color:' + ac + '}' +\n    '.sub{margin:0;font-size:.98rem;line-height:1.5;opacity:.82;white-space:pre-line}' +\n    '.price{display:flex;gap:12px;align-items:baseline;justify-content:center}.price s{opacity:.6;font-size:1.1rem}.price b{font-family:\"' + F[0] + '\",Georgia,serif;font-weight:500;font-size:2.4rem;line-height:1;color:' + ac + '}' +\n    '.code{display:flex;gap:8px;align-items:center;justify-content:center;border:2px dashed ' + ac + ';border-radius:14px;padding:8px 8px 8px 14px;flex-wrap:wrap}.code span{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.14em;font-size:1.1rem}' +\n    '.cp{font:inherit;font-size:.85rem;font-weight:500;border:0;border-radius:10px;padding:7px 12px;background:' + ac + ';color:' + onAc + ';cursor:pointer}.note{font-size:.8rem;opacity:.7}' +\n    '.cd{display:grid;gap:6px;justify-items:center}.cd small{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}.cdr{display:flex;gap:6px}.cdr span{min-width:52px;border-radius:10px;padding:6px 4px;background:' + (lum(bg) > 0.5 ? \"rgba(0,0,0,.06)\" : \"rgba(255,255,255,.08)\") + ';display:grid;justify-items:center}.cdr b{font-family:\"' + F[0] + '\",Georgia,serif;font-weight:500;font-size:1.35rem;line-height:1.1;font-variant-numeric:tabular-nums}.cdr i{font-style:normal;font-size:8px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}' +\n    '.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:4px;padding:15px 22px;border-radius:14px;background:' + ac + ';color:' + onAc + ';text-decoration:none;font-weight:500;font-size:1.02rem;cursor:pointer;transition:transform .2s ease,box-shadow .3s ease}' +\n    '.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s ease}.btn:hover{transform:translateY(-2px)}.btn:hover svg{transform:translateX(4px)}' +\n    '.fx-shine::after{content:\"\";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:sh 2.8s ease-in-out infinite 1.2s}@keyframes sh{0%{left:-60%}55%,100%{left:130%}}' +\n    '.fx-pulse{animation:pu 2.2s ease-out infinite 1s}@keyframes pu{0%{box-shadow:0 0 0 0 ' + ac + '}100%{box-shadow:0 0 0 16px transparent}}' +\n    '.fx-glow{animation:gl 2.6s ease-in-out infinite}@keyframes gl{50%{box-shadow:0 0 26px 4px ' + ac + '}}' +\n    '.no{font:inherit;font-size:.85rem;background:none;border:0;color:inherit;opacity:.65;text-decoration:underline;cursor:pointer;padding:4px}' +\n    '.x{position:absolute;top:10px;right:10px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform .2s}.x:hover{transform:rotate(90deg)}' +\n    '.an{opacity:0;transform:translateY(14px);transition:opacity .6s ease var(--d),transform .7s cubic-bezier(.2,.8,.2,1) var(--d),filter .7s ease var(--d)}.t-blur .an{transform:none;filter:blur(8px)}.t-none .an{opacity:1;transform:none;transition:none}.on .an{opacity:1;transform:none;filter:none}' +\n    '.mw::after{pointer-events:none}.fm{display:grid;gap:8px;width:100%}.fm input{font:inherit;font-size:1rem;width:100%;padding:13px 14px;border-radius:12px;border:1px solid ' + (lum(bg) > 0.5 ? \"rgba(0,0,0,.18)\" : \"rgba(255,255,255,.25)\") + ';background:' + (lum(bg) > 0.5 ? \"#fff\" : \"rgba(255,255,255,.08)\") + ';color:inherit;outline:none}.fm input:focus{border-color:' + ac + '}.fm input::placeholder{color:inherit;opacity:.55}.fm .btn{border:0;font-family:inherit}.fe{color:#e5484d;font-size:.82rem}' +\n    '.ops{display:grid;gap:8px;width:100%}.op{font:inherit;font-size:.98rem;padding:12px 14px;border-radius:12px;border:1.5px solid ' + ac + ';background:transparent;color:inherit;cursor:pointer;transition:background .2s,color .2s,transform .2s}.op:hover{background:' + ac + ';color:' + onAc + ';transform:translateY(-1px)}.ty{font-family:\"' + F[0] + '\",Georgia,serif;font-size:1.35rem;padding:10px 0}.ty b{font-weight:500}.l-bar .fm{display:flex;width:auto}.l-bar .fm input{padding:8px 12px;width:200px}' +\n    /* esquina */\n    '.l-corner{place-items:end;padding:18px}.l-corner .card{width:min(340px,100%)}.l-corner .bd{padding:18px 18px 18px;gap:8px}.l-corner h2{font-size:1.45rem}.l-corner .mw{aspect-ratio:16/8}' +\n    /* barra */\n    '.l-bar{place-items:start stretch;padding:0}.l-bar .card{width:100%;border-radius:0 0 18px 18px;max-height:none}.l-bar .bd{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;padding:12px 52px 12px 18px;text-align:left}.l-bar h2{font-size:1.15rem}.l-bar .btn{width:auto;margin:0;padding:9px 16px;font-size:.9rem}.l-bar .x{top:50%;margin-top:-15px;width:30px;height:30px;font-size:15px}.l-bar .eye{padding:3px 10px;font-size:10px}.l-bar .price b{font-size:1.4rem}' +\n    /* pantalla completa */\n    '.l-full{padding:0}.l-full .card{width:100%;height:100%;max-height:none;border-radius:0;display:grid;align-content:center}.l-full .bd{max-width:560px;margin:0 auto;padding:40px 24px}.l-full h2{font-size:clamp(2.2rem,6vw,3.6rem)}.l-full.mbg .bd{padding-top:40px}' +\n    /* tel\u00e9fono */\n    '@media (max-width:640px){.mw{aspect-ratio:16/8}.l-center{padding:0;place-items:end stretch}.l-center .card{width:100%;border-radius:24px 24px 0 0;max-height:88vh}.l-center.a-zoom .card,.l-center.a-side .card,.l-center.a-fade .card{transform:translateY(80px)}.l-corner{padding:10px;place-items:end stretch}.l-corner .card{width:100%}.bd{padding:20px 20px 22px}h2{font-size:1.65rem}.mbg .bd{padding-top:90px}.l-bar .bd{padding:10px 46px 10px 14px}.l-bar .sub,.l-bar .price{display:none}}' +\n    /* pantallas bajitas (laptops): todo m\u00e1s compacto para que se vea completo */ '@media (max-height:780px){.mw{aspect-ratio:16/7}.bd{gap:8px;padding:18px 22px 20px}h2{font-size:1.6rem}.btn{padding:12px 18px}.mbg .bd{padding-top:80px}}@media (max-height:620px){.mw{aspect-ratio:16/5}.sub{font-size:.9rem}.cdr span{min-width:44px}}' +\n    '@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}';\n\n  var host, root, wrap, shown = false, tmr;\n  function build(){\n    host = D.createElement(\"div\"); host.id = \"pbp-\" + slug; host.setAttribute(\"data-pbp\", \"popup\");\n    root = host.attachShadow ? host.attachShadow({mode:\"open\"}) : host;\n    var modal = layout === \"center\" || layout === \"full\";\n    root.innerHTML = '<style>' + css + '<\/style><style class=\"ic\">' + imgCss(c.img) + '<\/style><div class=\"wrap l-' + layout + ' a-' + esc(c.anim || \"zoom\") + ' t-' + esc(c.textAnim || \"up\") + (modal ? \" modal\" : \"\") + (hasMedia && mpos === \"bg\" ? \" mbg\" : \"\") + '\" role=\"dialog\" aria-modal=\"' + modal + '\" aria-label=\"' + esc(String(c.title || \"Promoci\u00f3n\").replace(/\\*/g, \"\")) + '\">' +\n      (modal ? '<div class=\"bk\"><\/div>' : '') + '<div class=\"card\"><button type=\"button\" class=\"x\" aria-label=\"' + (en ? \"Close\" : \"Cerrar\") + '\">\u2715<\/button>' +\n      (hasMedia ? '<div class=\"mw\">' + mediaHtml + '<\/div>' : '') + '<div class=\"bd\">' + body + '<\/div><\/div><\/div>';\n    wrap = root.querySelector(\".wrap\");\n    root.querySelector(\".x\").onclick = close;\n    var bk = root.querySelector(\".bk\"); if (bk && c.closeOutside !== false) bk.onclick = close;\n    var no = root.querySelector(\".no\"); if (no) no.onclick = close;\n    var cp = root.querySelector(\".cp\"); if (cp) cp.onclick = function(){\n      var t = cp.textContent, ok = function(){ cp.textContent = en ? \"Copied \u2713\" : \"\u00a1Copiado! \u2713\"; setTimeout(function(){ cp.textContent = t; }, 1800); track(\"click\"); };\n      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(c.code).then(ok, function(){}); else { var ta = D.createElement(\"textarea\"); ta.value = c.code; D.body.appendChild(ta); ta.select(); try{ D.execCommand(\"copy\"); ok(); }catch(_){} ta.remove(); }\n    };\n    var bt = root.querySelector(\"a.btn\"); if (bt) bt.addEventListener(\"click\", function(){ track(\"click\"); if (!cu) close(); else if (/^#/.test(cu)) close(); });\n    var thx = function(){ var f = root.querySelector(\".fm,.ops\"), t = root.querySelector(\".ty\"); if (f) f.hidden = true; if (f) f.style.display = \"none\"; if (t) t.hidden = false; };\n    var fm = root.querySelector(\".fm\"); if (fm) fm.onsubmit = function(e){\n      e.preventDefault(); var em = fm.querySelector(\"[name=e]\").value.replace(/^\\s+|\\s+$/g, \"\"), fe = fm.querySelector(\".fe\");\n      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(em)){ fe.textContent = en ? \"Please check your email.\" : \"Revisa tu correo, parece que falta algo.\"; fe.hidden = false; return; }\n      fe.hidden = true; track(\"click\");\n      if (o.preview || !base){ thx(); return; }\n      var bt2 = fm.querySelector(\"button\"); bt2.disabled = true;\n      fetch(base + \"/api/lead\", {method:\"POST\", headers:{\"Content-Type\":\"application/json\"}, body:JSON.stringify({email:em, nombre:(fm.querySelector(\"[name=n]\") || {}).value || \"\", pagina:\"popup-\" + slug, bot:fm.querySelector(\"[name=bot]\").value})}).then(function(r){ if (!r.ok) throw 0; thx(); }).catch(function(){ bt2.disabled = false; fe.textContent = en ? \"It didn't go through. Try again.\" : \"No se pudo enviar. Int\u00e9ntalo otra vez.\"; fe.hidden = false; });\n    };\n    root.querySelectorAll(\".op\").forEach(function(b){ b.onclick = function(){\n      track(\"click\"); thx();\n      if (o.preview || !base) return;\n      try{ fetch(base + \"/api/vote\", {method:\"POST\", headers:{\"Content-Type\":\"text/plain\"}, body:JSON.stringify({p:slug, o:b.textContent}), keepalive:true}).catch(function(){}); }catch(_){}\n    }; });\n    var cd = root.querySelector(\".cdr\");\n    if (cd){ var tick = function(){ var s = Math.max(0, Math.floor((dl - Date.now()) / 1000)), v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60], b = cd.querySelectorAll(\"b\"); for (var k = 0; k < 4; k++) b[k].textContent = k ? (v[k] < 10 ? \"0\" : \"\") + v[k] : v[k]; }; tick(); setInterval(tick, 1000); }\n  }\n  function onKey(e){ if (e.key === \"Escape\") close(); }\n  function show(force){\n    if (shown || (!force && seen())) return; shown = true;\n    if (!host) build();\n    (o.mount || D.body).appendChild(host);\n    var vid = root.querySelector(\"video\"); if (vid){ try{ vid.muted = true; var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); }catch(_){} }\n    W.requestAnimationFrame(function(){ W.requestAnimationFrame(function(){ wrap.classList.add(\"on\"); }); });\n    D.addEventListener(\"keydown\", onKey);\n    remember(); track(\"view\");\n  }\n  function close(){\n    if (!shown) return; shown = false; wrap.classList.remove(\"on\"); wrap.classList.add(\"off\"); D.removeEventListener(\"keydown\", onKey);\n    setTimeout(function(){ if (host && host.parentNode) host.parentNode.removeChild(host); wrap.classList.remove(\"off\"); if (o.onClose) o.onClose(); }, 450);\n  }\n  D.addEventListener(\"click\", function(e){\n    var t = e.target && e.target.closest ? e.target.closest('[data-pb-popup=\"' + slug + '\"],a[href=\"#' + slug + '\"]') : null;\n    if (t){ e.preventDefault(); show(true); }\n  });\n  var setImg = function(v){ c.img = v; var st = root && root.querySelector(\".ic\"); if (st) st.textContent = imgCss(v); };\n  if (o.preview){ show(true); return {show:function(){ show(true); }, close:close, setImg:setImg}; }\n  if (W.location.hash === \"#\" + slug){ setTimeout(function(){ show(true); }, 300); return; }\n  var tr = c.trigger || \"delay\";\n  if (tr === \"delay\") tmr = setTimeout(show, Math.max(0, Number(c.delay) || 0) * 1000);\n  else if (tr === \"scroll\"){\n    var pct = Math.min(95, Math.max(5, Number(c.scroll) || 40));\n    var onS = function(){ var h = D.documentElement, p = (h.scrollTop || D.body.scrollTop) / Math.max(1, h.scrollHeight - h.clientHeight) * 100; if (p >= pct){ W.removeEventListener(\"scroll\", onS); show(); } };\n    W.addEventListener(\"scroll\", onS, {passive:true});\n  } else if (tr === \"exit\"){\n    var onOut = function(e){ if (e.clientY <= 0 && !e.relatedTarget){ D.removeEventListener(\"mouseout\", onOut); show(); } };\n    D.addEventListener(\"mouseout\", onOut);\n    if (mob()) tmr = setTimeout(show, Math.max(8, Number(c.delay) || 12) * 1000);\n  }\n  return {show:function(){ show(true); }, close:close, setImg:setImg};\n}\n";
-var POPS = null, POP = null, POPT = 0, POPDEV = "desk";
+var POPS = null, POPSITES = [], POP = null, POPT = 0, POPDEV = "desk";
 var POPTPL = [
   ["video-off", "Descuento con video", "Video de fondo, el descuento en grande y un botón con brillo.",
     {layout:"center", media:"video", mediaPos:"bg", eyebrow:"Solo esta semana", title:"*20% menos* en toda la tienda", sub:"Usa el código al pagar y llévate tu favorito.", code:"BLOOM20", codeNote:"Válido hasta el domingo.", cta:"Ir a la tienda", noText:"Ahora no", bg:"#0D0B0C", accent:"#D8A2B4", font:"dm", anim:"zoom", textAnim:"up", btnFx:"shine"}],
@@ -3433,7 +3537,7 @@ var POPTPL = [
     {layout:"bar", media:"none", eyebrow:"Envío gratis", title:"En pedidos de más de *$30*", cta:"Ver tienda", bg:"#D8A2B4", ink:"#1A1215", accent:"#0D0B0C", font:"jost", anim:"down", textAnim:"none", btnFx:"none", delay:1, freq:"session"}],
   ["bienvenida", "Bienvenida", "Recibe a las visitas nuevas con una foto y un saludo.",
     {layout:"center", media:"photo", mediaPos:"top", photo:"sample", eyebrow:"Bienvenida", title:"¡Qué bueno *tenerte aquí*!", sub:"Date una vuelta y descubre lo que preparé para ti.", cta:"Conocer más", noText:"Ahora no", bg:"#FBEFF3", ink:"#21181C", accent:"#B9617F", font:"playfair", anim:"up", textAnim:"up", btnFx:"shine", delay:3, freq:"once"}],
-  ["emails", "Captación de emails", "Pide el nombre y el correo. Llegan a «Suscriptoras».",
+  ["emails", "Captación de emails", "Pide el nombre y el correo. Llegan a «Contactos».",
     {layout:"center", media:"photo", mediaPos:"top", photo:"sample", eyebrow:"Gratis para ti", title:"Recibe mis *novedades*", sub:"Déjame tu correo y te envío ideas, regalos y descuentos antes que a nadie.", collect:"email", formName:true, cta:"Quiero recibirlo", thanks:"¡Listo! Revisa tu correo 💌", noText:"No, gracias", bg:"#0D0B0C", accent:"#D8A2B4", font:"dm", anim:"zoom", textAnim:"up", btnFx:"shine", delay:6}],
   ["vip", "Comunidad VIP", "Invita a tu grupo o comunidad con foto de fondo.",
     {layout:"center", media:"photo", mediaPos:"bg", photo:"sample", eyebrow:"Comunidad VIP", title:"Únete a mi *círculo VIP*", sub:"Contenido exclusivo, sorpresas y descuentos solo para miembros.", cta:"Quiero entrar", noText:"Más tarde", bg:"#141013", accent:"#E19AB2", font:"cormorant", anim:"fade", textAnim:"blur", btnFx:"glow"}],
@@ -3444,7 +3548,7 @@ var POPTPL = [
   ["encuesta", "Encuesta rápida", "Una pregunta con respuestas para tocar. Ves los resultados aquí.",
     {layout:"center", media:"none", eyebrow:"Encuesta rápida", title:"¿Qué te gustaría *ver más*?", sub:"Toca una respuesta. Solo toma un segundo.", collect:"poll", opts:"Ofertas y descuentos\nTutoriales y consejos\nProductos nuevos\nEventos en vivo", thanks:"¡Gracias por responder! 💗", noText:"Ahora no", bg:"#FBEFF3", ink:"#21181C", accent:"#B9617F", font:"playfair", anim:"up", textAnim:"up", btnFx:"none", trigger:"scroll", scroll:50, freq:"once"}]
 ];
-var POPBASE = {addCode:true, lang:"es", trigger:"delay", delay:4, scroll:40, freq:"day", device:"all", pages:"", onSite:false, newTab:true, closeOutside:true, photo:"", video:"", logo:"", url:"", price:"", oldPrice:"", code:"", codeNote:"", deadline:"", deadlineLabel:"", noText:"", eyebrow:"", sub:"", hideAfter:true, ink:"", collect:"none", formName:false, opts:"", thanks:""};
+var POPBASE = {addCode:true, lang:"es", trigger:"delay", delay:4, scroll:40, freq:"day", device:"all", pages:"", onSite:false, newTab:true, closeOutside:true, photo:"", video:"", logo:"", url:"", price:"", oldPrice:"", code:"", codeNote:"", deadline:"", deadlineLabel:"", noText:"", eyebrow:"", sub:"", hideAfter:true, ink:"", sites:[], collect:"none", formName:false, opts:"", thanks:""};
 function popNew(t){
   var T = POPTPL.filter(function(x){ return x[0] === t; })[0] || POPTPL[0];
   var d = Object.assign({}, POPBASE, JSON.parse(JSON.stringify(T[3])));
@@ -3459,7 +3563,18 @@ function popCfg(it){
   return d;
 }
 function popCode(it){ return '<script src="' + location.origin + '/popup/' + it.slug + '.js" async><' + '/script>'; }
-function popLoad(){ return POPS ? Promise.resolve(POPS) : api("GET", "popups").then(function(d){ POPS = d.items || []; return POPS; }); }
+function popLoad(){ return POPS ? Promise.resolve(POPS) : Promise.all([api("GET", "popups"), api("GET", "popsites").catch(function(){ return {sites:[]}; })]).then(function(r){ POPSITES = r[1].sites || []; POPS = r[0].items || []; return POPS; }); }
+/* Código general: uno por website. Se pega una vez y en cada popup marcas en qué websites sale. */
+function popSiteCode(s){ return '<script src="' + location.origin + '/popup/w/' + s.id + '.js" async><' + '/script>'; }
+function popSitesSave(){ return api("PUT", "popsites", {sites:POPSITES}).then(function(r){ POPSITES = r.sites || []; return POPSITES; }); }
+function popSiteModal(s){
+  var code = popSiteCode(s), n = (POPS || []).filter(function(x){ return x.data && (x.data.sites || []).indexOf(s.id) >= 0; });
+  openModal("Código general de «" + s.name + "»", "<div style='display:grid;gap:12px'>" +
+    "<p style='margin:0'>Pega este código <b>una sola vez</b> en " + esc(s.name) + ", justo antes de <code>&lt;/body&gt;</code>:</p><textarea class='pp-code' readonly rows='2'>" + esc(code) + "</textarea><div><button class='btn primary sm' type='button' id='ps-c'>Copiar código</button></div>" +
+    "<p style='margin:0'>Después, en cada popup, baja a <b>«Cuándo aparece»</b> y marca <b>«" + esc(s.name) + "»</b>. Salen los que estén marcados y <b>activos</b>. No vuelves a tocar el HTML.</p>" +
+    "<p style='margin:0;color:var(--muted);font-size:14px'>" + (n.length ? "Marcados para aquí: " + n.map(function(x){ return esc(x.name) + (x.active ? "" : " (desactivado)"); }).join(", ") + "." : "Todavía ningún popup está marcado para este website.") + " Si ya habías pegado el código de un popup suelto, puedes dejarlo: no sale repetido.</p></div>");
+  $("ps-c").onclick = function(){ copyText(code, $("ps-c")); };
+}
 function popSave(it){
   var body = {item:{slug:it.slug, name:it.name, tpl:it.tpl, active:it.active, data:it.data}};
   return api("PUT", "popups/" + it.id, body).then(function(r){ var sv = r.item; it.slug = sv.slug; it.updatedAt = sv.updatedAt; it.everActive = sv.everActive; it.isNew = false;
@@ -3481,6 +3596,9 @@ function renderPopups(){
   if (!authed){ v.innerHTML = "<p>Entra con tu contraseña para ver tus popups.</p>"; return; }
   if (!POPS){ v.innerHTML = "<p>Cargando tus popups…</p>"; popLoad().then(renderPopups, function(e){ v.innerHTML = "<p>" + esc(apiError(e)) + "</p>"; }); return; }
   var h = "<div class='home-head'><div><h2>Popups</h2><p>Promociones animadas que aparecen dentro de cualquier website: el tuyo o el de tus clientas. Pegas un código una vez y lo controlas desde aquí.</p></div><button class='btn primary' type='button' id='pp-new'>+ Nuevo popup</button></div>";
+  h += "<div class='box pp-sites'><div><b>Código general por website</b><p style='margin:4px 0 0;color:var(--muted);font-size:14px'>Añade tu website, pega su código una sola vez y después eliges en cada popup si sale ahí.</p></div>" +
+    (POPSITES.length ? "<div class='pp-slist'>" + POPSITES.map(function(x){ return "<div class='pp-srow'><b>" + esc(x.name) + "</b><i style='flex:1'></i><button class='btn sm primary' type='button' data-pscode='" + esc(x.id) + "'>Código</button><button class='btn sm danger' type='button' data-psdel='" + esc(x.id) + "'>Quitar</button></div>"; }).join("") + "</div>" : "") +
+    "<div class='pp-srow'><input type='text' id='ps-name' placeholder='Nombre del website, por ejemplo Queen Spiritual' aria-label='Nombre del website'><button class='btn sm' type='button' id='ps-add'>Añadir website</button></div><small id='ps-msg' style='color:var(--muted)'></small></div>";
   if (!POPS.length) h += "<div class='box'><b>Todavía no tienes popups.</b><p style='margin:0;color:var(--muted)'>Pulsa «+ Nuevo popup» y elige una plantilla. Puedes probarlo todo aquí antes de activarlo.</p></div>";
   else h += "<div class='pp-grid'>" + POPS.map(function(it){
     var T = POPTPL.filter(function(x){ return x[0] === it.tpl; })[0];
@@ -3488,6 +3606,7 @@ function renderPopups(){
       "<div style='display:flex;justify-content:space-between;gap:8px;align-items:center'><b>" + esc(it.name) + "</b><label class='pp-sw' title='Activar o desactivar'><input type='checkbox' data-ppon='" + esc(it.id) + "'" + (it.active ? " checked" : "") + "><span></span></label></div>" +
       "<small class='pp-st " + (it.active ? "on" : "") + "' data-ppst='" + esc(it.id) + "'>" + (it.active ? "● Activo: se ve en los websites donde pegaste su código" : "○ Desactivado: no aparece en ningún website") + "</small>" +
       "<small style='color:var(--muted)'>" + esc(T ? T[1] : "Popup") + " · <span data-ppnum='" + esc(it.slug) + "'></span></small>" +
+      (function(){ var ws = POPSITES.filter(function(x){ return it.data && (it.data.sites || []).indexOf(x.id) >= 0; }); return ws.length ? "<small style='color:var(--muted)'>Sale en: " + ws.map(function(x){ return esc(x.name); }).join(", ") + "</small>" : ""; })() +
       (it.data && it.data.collect === "poll" ? "<small class='pp-poll' data-pppoll='" + esc(it.slug) + "'></small>" : "") +
       "<div class='card-actions'><button class='btn sm primary' type='button' data-ppedit='" + esc(it.id) + "'>Editar</button><button class='btn sm' type='button' data-ppcode='" + esc(it.id) + "'>Código</button><button class='btn sm' type='button' data-ppdup='" + esc(it.id) + "'>Duplicar</button><button class='btn sm danger' type='button' data-ppdel='" + esc(it.id) + "'>Borrar</button></div></div></div>";
   }).join("") + "</div>";
@@ -3497,6 +3616,11 @@ function renderPopups(){
     "<p style='margin:0;color:var(--muted)'>Cuando desactivas o cambias el popup aquí, el cambio llega solo a todos los websites en 1 o 2 minutos.</p></div></details>";
   v.innerHTML = h;
   $("pp-new").onclick = popChoose;
+  var addSite = function(){ var nm = $("ps-name").value.trim(); if (!nm) return; var id = slug(nm).slice(0, 50) || "web"; if (POPSITES.some(function(x){ return x.id === id; })){ $("ps-msg").textContent = "Ese website ya está en la lista."; return; }
+    POPSITES.push({id:id, name:nm}); $("ps-add").disabled = true; popSitesSave().then(function(){ renderPopups(); var s = POPSITES.filter(function(x){ return x.id === id; })[0]; if (s) popSiteModal(s); }, function(e){ POPSITES = POPSITES.filter(function(x){ return x.id !== id; }); $("ps-add").disabled = false; $("ps-msg").textContent = apiError(e); }); };
+  $("ps-add").onclick = addSite; $("ps-name").onkeydown = function(e){ if (e.key === "Enter") addSite(); };
+  v.querySelectorAll("[data-pscode]").forEach(function(b){ b.onclick = function(){ var s = POPSITES.filter(function(x){ return x.id === b.getAttribute("data-pscode"); })[0]; if (s) popSiteModal(s); }; });
+  v.querySelectorAll("[data-psdel]").forEach(function(b){ b.onclick = function(){ if (b.dataset.sure !== "1"){ b.dataset.sure = "1"; b.textContent = "¿Seguro?"; return; } var id = b.getAttribute("data-psdel"), keep = POPSITES; POPSITES = POPSITES.filter(function(x){ return x.id !== id; }); popSitesSave().then(renderPopups, function(e){ POPSITES = keep; status(apiError(e), "err"); }); }; });
   v.querySelectorAll("iframe[data-pp]").forEach(function(f){ var it = POPS.filter(function(x){ return x.id === f.getAttribute("data-pp"); })[0]; if (it) f.srcdoc = popFrame(it); });
   popScale(v);
   v.querySelectorAll("[data-ppedit]").forEach(function(b){ b.onclick = function(){ var it = POPS.filter(function(x){ return x.id === b.getAttribute("data-ppedit"); })[0]; if (it) popEditor(JSON.parse(JSON.stringify(it))); }; });
@@ -3567,12 +3691,12 @@ var PPF = [
     ["photo","Foto","img"],["video","Video corto","video","MP4 de 5 a 10 segundos y menos de 5 MB, o un enlace de Vimeo o YouTube. Se reproduce solo, sin sonido y en bucle."],["img","Ajustar cómo se ve","imgadj"],["logo","Tu logo (opcional)","img"]]},
   {t:"Textos", k:[["eyebrow","Etiqueta de arriba","text"],["title","Titular","area","Pon *asteriscos* en las palabras que quieras en tu color."],["sub","Texto","area"]]},
   {t:"Promoción", k:[["oldPrice","Precio antes (tachado)","text"],["price","Precio","text"],["code","Código del cupón","text","Sale con un botón «Copiar». Vacío = sin cupón."],["codeNote","Condiciones del cupón","text"],["deadlineLabel","Texto sobre la cuenta regresiva","text"],["deadline","Cuándo termina","datetime","Vacío = sin cuenta regresiva. Cuando termina, el popup deja de salir."]]},
-  {t:"Pedir correo o encuesta", k:[["collect","Qué pide","btns",[["none","Nada"],["email","Su correo"],["poll","Encuesta"]],"Los correos llegan a «Suscriptoras». Los votos de la encuesta los ves en «Popups»."],["formName","Pedir también su nombre","check","Sale un espacio para el nombre."],["opts","Respuestas de la encuesta","area","Una por línea (hasta 8). Usa el titular para la pregunta."],["thanks","Mensaje de gracias","text","Sale cuando envían su correo o responden."]]},
+  {t:"Pedir correo o encuesta", k:[["collect","Qué pide","btns",[["none","Nada"],["email","Su correo"],["poll","Encuesta"]],"Los correos llegan a «Contactos». Los votos de la encuesta los ves en «Popups»."],["formName","Pedir también su nombre","check","Sale un espacio para el nombre."],["opts","Respuestas de la encuesta","area","Una por línea (hasta 8). Usa el titular para la pregunta."],["thanks","Mensaje de gracias","text","Sale cuando envían su correo o responden."]]},
   {t:"Botón", k:[["cta","Texto del botón","text"],["url","Enlace del botón","text","Tu tienda, tu WhatsApp (https://wa.me/1XXXXXXXXXX), una de tus landing pages… Vacío = el botón cierra el popup."],["addCode","Añadir el código del cupón al enlace","check","Pon solo la dirección de tu página y el panel le añade ?cupon=TU-CÓDIGO. Si cambias el código, el enlace cambia solo."],["noText","Texto para cerrar (opcional)","text","Ej.: No, gracias. Vacío = solo la ✕."]]},
   {t:"Colores y letra", k:[["bg","Fondo","color"],["accent","Color de los botones","color"],["ink","Color del texto","color","Vacío = automático."],["font","Letra del titular","select",[["dm","DM Serif (elegante)"],["playfair","Playfair (clásica)"],["cormorant","Cormorant (fina)"],["bebas","Bebas (fuerte)"],["vibes","Great Vibes (manuscrita)"],["jost","Jost (moderna)"]]],["lang","Idioma de los botones fijos","select",[["es","Español"],["en","English"]]]]},
   {t:"Cuándo aparece", k:[["trigger","Cuándo","select",[["delay","A los pocos segundos"],["scroll","Cuando baja en la página"],["exit","Cuando va a salirse"],["click","Solo al tocar un botón o enlace"]]],["delay","Segundos de espera","number"],["scroll","Porcentaje de la página (%)","number"],
     ["freq","Cada cuánto","select",[["session","Una vez por visita"],["day","Una vez al día"],["week","Una vez por semana"],["once","Solo una vez"],["always","Siempre"]]],["device","En qué aparatos","select",[["all","Teléfono y computadora"],["mobile","Solo teléfono"],["desktop","Solo computadora"]]],
-    ["pages","Solo en estas páginas (opcional)","area","Una parte del enlace por línea, por ejemplo /tienda. Vacío = en todas las páginas del website."],["onSite","Mostrarlo también en mis landing pages","check","Se añade solo a todas tus landing pages publicadas."]]}
+    ["pages","Solo en estas páginas (opcional)","area","Una parte del enlace por línea, por ejemplo /tienda. Vacío = en todas las páginas del website."],["sites","En qué websites sale (código general)","sites"],["onSite","Mostrarlo también en mis landing pages","check","Se añade solo a todas tus landing pages publicadas."]]}
 ];
 function popEditor(it){
   POP = it; var d = it.data = Object.assign({}, POPBASE, it.data || {});
@@ -3589,6 +3713,7 @@ function popEditor(it){
     else if (f[2] === "check") h = "<label class='ci-check' data-pk='" + k + "'><input type='checkbox' id='" + id + "'" + (val ? " checked" : "") + "> <span><b>" + esc(f[1]) + "</b> " + esc(f[3] || "") + "</span></label>";
     else if (f[2] === "datetime") h += "<div data-dt='" + k + "'></div>";
     else if (f[2] === "imgadj") h += "<div id='pp-imgadj' class='pp-imgadj'></div>";
+    else if (f[2] === "sites") h += POPSITES.length ? "<div style='display:grid;gap:6px'>" + POPSITES.map(function(x){ return "<label class='ci-check'><input type='checkbox' data-site='" + esc(x.id) + "'" + ((d.sites || []).indexOf(x.id) >= 0 ? " checked" : "") + "> <span>" + esc(x.name) + "</span></label>"; }).join("") + "</div><small style='color:var(--muted)'>Sale donde pegaste el código general de ese website, si el popup está activo.</small>" : "<small style='color:var(--muted)'>Todavía no tienes websites. Vuelve a «‹ Popups» y usa «Añadir website» en «Código general por website».</small>";
     else if (f[2] === "img" || f[2] === "video") h += "<input type='text' id='" + id + "' value='" + esc(val === "sample" ? "" : val) + "' placeholder='" + (val === "sample" ? "Foto de ejemplo · sube la tuya" : "https://…") + "'><div style='display:flex;gap:6px;flex-wrap:wrap'><button class='btn sm primary' type='button' data-up='" + k + "'>" + (f[2] === "video" ? "Subir video" : "Subir imagen") + "</button>" + (val ? "<button class='btn sm' type='button' data-clr='" + k + "'>Quitar</button>" : "") + "</div><small class='photo-msg' data-upmsg='" + k + "'></small>";
     else h += "<input type='text' id='" + id + "' value='" + esc(val) + "'>";
     if (f[2] !== "check" && help) h += "<small style='color:var(--muted)'>" + esc(help) + "</small>";
@@ -3668,6 +3793,7 @@ function popEditor(it){
     };
     fi.click();
   }; });
+  root.querySelectorAll("[data-site]").forEach(function(cb){ cb.onchange = function(){ d.sites = [].slice.call(root.querySelectorAll("[data-site]:checked")).map(function(x){ return x.getAttribute("data-site"); }); saveSoon(); }; });
   $("pp-name").oninput = function(){ it.name = $("pp-name").value.trim() || "Popup"; if (!it.everActive) it.slug = slug(it.name).slice(0, 40); saveSoon(); };
   $("pp-on").onchange = function(){ it.active = $("pp-on").checked; $("pp-onlbl").textContent = it.active ? "Activo" : "Desactivado"; saveSoon(); };
   $("pp-code").onclick = function(){ clearTimeout(POPT); popSave(it).then(function(){ popCodeModal(it); }, function(e){ $("pp-msg").textContent = apiError(e); }); };
@@ -5185,13 +5311,23 @@ var ADV_METRICS = ["Ventas","Ingresos ($)","Visitas","Suscriptoras","Seguidores"
 var ADV_BIZF = [
   ["name","Nombre del negocio o marca","text","Ej.: Queen Spiritual, EDigital Studio, mi tienda de planners"],
   ["what","Qué vendes (productos y servicios, con precio)","area","Ej.: TIME planner digital $19; lecturas espirituales $35; landing pages para clientas desde $150"],
+  ["products","Tus productos con números (uno por línea)","area","Producto | precio | costo | ventas al mes. Ej.: Lectura de tarot | $35 | $0 | 12"],
   ["where","Dónde se compra (enlaces de tu tienda o páginas)","area","Ej.: Etsy …, Stan …, queenspiritual.netlify.app/lecturas"],
+  ["web","Tu website (enlace)","text","Ej.: https://queenspiritual.netlify.app · la IA lo abre y lo lee"],
+  ["social","Tus redes (enlaces)","area","Instagram, TikTok, YouTube, Facebook… con el enlace de cada una"],
   ["client","Tu clienta o cliente ideal","area","Quién es, dónde vive, edad, qué hace, qué busca en Google"],
   ["pains","Qué le preocupa o qué desea","area","Lo que la hace comprar"],
   ["channels","Tus canales hoy (con enlaces y números)","area","Ej.: YouTube @… 120 suscriptores, 1 video al mes; Instagram 800 seguidores; Google Business Profile: no tengo"],
+  ["rivals","Competidoras que conoces (enlaces, una por línea)","area","La investigación profunda las abre y las compara contigo"],
   ["worked","Qué ha funcionado y qué no","area","Ej.: Los pines de Pinterest traen visitas; los anuncios de Facebook no vendieron"],
   ["notes","Otras notas (precios de la competencia, temporadas, ideas)","area",""]
 ];
+function advExamples(){
+  var b = (ADV && ADV.biz || []).filter(function(z){ return z.name; }), z = b.filter(function(x){ return x.id === ADVFORM.biz; })[0] || b[0];
+  if (!z) return ADV_EX.slice(1);
+  var prod = String(z.products || z.what || "").split(/\n|;/)[0].split("|")[0].replace(/\$?\d[\d.,]*/g, "").trim().slice(0, 40);
+  return ["¿Qué hacemos hoy en " + z.name + "?", prod ? "Quiero vender más " + prod + " este mes" : "Quiero conseguir cinco ventas esta semana", "Tengo dos horas hoy, ¿qué hacemos primero?", "Mi página recibe visitas, pero nadie compra", "Ideas para la temporada de fin de año en " + z.name, b.length > 1 ? "¿En cuál de mis negocios me conviene enfocarme este mes?" : "¿Qué debería medir cada semana?"];
+}
 function advUid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 function advBlank(){ return {biz:[], goals:[], tasks:[], results:[], learn:[], threads:[], cur:""}; }
 function advFix(d){
@@ -5246,7 +5382,7 @@ function advContext(subs){
   out.push("PARA ESTA RESPUESTA: tiempo disponible hoy: " + ADVFORM.time + ". Presupuesto para publicidad: " + ADVFORM.budget + "." + (ADVFORM.biz ? " Negocio en el que nos enfocamos: " + advBizName(ADVFORM.biz) + "." : " Puede ser cualquiera de sus negocios."));
   out.push("\n=== MEMORIA ===");
   if (ADV.biz.length) ADV.biz.forEach(function(b){
-    out.push("\nNEGOCIO: " + (b.name || "(sin nombre)") + ADV_BIZF.slice(1).map(function(f){ return b[f[0]] ? "\n- " + f[1] + ": " + b[f[0]] : ""; }).join(""));
+    out.push("\nNEGOCIO: " + (b.name || "(sin nombre)") + ADV_BIZF.slice(1).map(function(f){ return b[f[0]] ? "\n- " + f[1] + ": " + b[f[0]] : ""; }).join("") + (b.sales && b.sales.facts ? "\n- VENTAS REALES (calculadas por el panel con su archivo de Stripe; son datos comprobados):\n  · " + b.sales.facts.join("\n  · ") : ""));
   });
   else out.push("\nNEGOCIOS: todavía no los ha descrito en Business Growth AI. Perfil general que tiene en el panel:\n" + profileText());
   var goals = ADV.goals.filter(function(g){ return g.status !== "lograda" && g.status !== "pausada"; });
@@ -5410,7 +5546,7 @@ function renderAsesor(){
   var v = $("view-asesor"); if (!v) return;
   if (!authed){ v.innerHTML = "<p>Entra con tu contraseña para usar Business Growth AI.</p>"; return; }
   if (!ADV){ v.innerHTML = "<div class='box co-wait'><span class='spin' aria-hidden='true'></span> Abriendo tu asesora…</div>"; Promise.all([advLoad(), loadSettings()]).then(renderAsesor); return; }
-  var tabs = [["hoy","¿Qué logramos hoy?"],["metas","Metas y tareas"],["res","Resultados"],["neg","Mis negocios"],["conv","Conversaciones"]];
+  var tabs = [["hoy","¿Qué logramos hoy?"],["inf","Investigación profunda"],["metas","Metas y tareas"],["res","Resultados"],["neg","Mis negocios"],["conv","Conversaciones"]];
   var pend = ADV.tasks.filter(function(t){ return t.status === "pendiente"; }).length;
   var h = "<div class='home-head'><div><h2>Business Growth AI</h2><p>Tu asesora de crecimiento y ventas. Conoce tus negocios, recuerda tus metas y resultados, e investiga con fuentes y fechas actuales.</p></div></div>" +
     (ADV._offline && ADV._offline.status === 404 ? "<div class='box' style='background:var(--soft)'><b>Falta un paso para usarla</b><p style='margin:0'>" + esc(advErr(ADV._offline)) + "</p></div>" : "") +
@@ -5419,7 +5555,8 @@ function renderAsesor(){
   v.innerHTML = h;
   if ($("adv-conn")) $("adv-conn").onclick = function(){ openConnections("Pega tu clave de Anthropic."); };
   v.querySelectorAll("[data-advtab]").forEach(function(b){ b.onclick = function(){ ADVTAB = b.getAttribute("data-advtab"); store("lp-adv-tab", ADVTAB); renderAsesor(); }; });
-  ({hoy:advHoy, metas:advMetas, res:advRes, neg:advNeg, conv:advConv}[ADVTAB] || advHoy)($("adv-body"));
+  ({hoy:advHoy, inf:advInf, metas:advMetas, res:advRes, neg:advNeg, conv:advConv}[ADVTAB] || advHoy)($("adv-body"));
+  if (ADVREPJOB && !ADVREPJOB.done && ADVTAB !== "inf") advRepPoll();
 }
 function advBizOptions(sel, allLabel){ return "<option value=''>" + (allLabel || "Todos mis negocios") + "</option>" + ADV.biz.map(function(b){ return "<option value='" + esc(b.id) + "'" + (b.id === sel ? " selected" : "") + ">" + esc(b.name || "Negocio sin nombre") + "</option>"; }).join(""); }
 function advSelect(id, label, opts, val){ return "<div class='f'><label for='" + id + "'>" + label + "</label><select id='" + id + "'>" + opts.map(function(o){ return "<option" + (o === val ? " selected" : "") + ">" + esc(o) + "</option>"; }).join("") + "</select></div>"; }
@@ -5445,8 +5582,8 @@ function advHoy(b){
   var h = advStrip();
   if (!msgs.length){
     h += "<div class='box adv-hero'><label for='adv-q'><h3>¿Qué vamos a lograr hoy?</h3></label>" +
-      "<textarea id='adv-q' rows='3' placeholder='Ej.: Quiero conseguir cinco ventas de TIME esta semana'>" + esc(ADVFORM.draft) + "</textarea>" +
-      "<div class='co-quick'>" + ADV_EX.map(function(q){ return "<button type='button' class='btn sm' data-advex='" + esc(q) + "'>" + esc(q) + "</button>"; }).join("") + "</div>" +
+      "<textarea id='adv-q' rows='3' placeholder='Ej.: " + esc(advExamples()[1]) + "'>" + esc(ADVFORM.draft) + "</textarea>" +
+      "<div class='co-quick'>" + advExamples().map(function(q){ return "<button type='button' class='btn sm' data-advex='" + esc(q) + "'>" + esc(q) + "</button>"; }).join("") + "</div>" +
       "<div class='adv-opts'><div class='f'><label for='adv-biz'>Negocio</label><select id='adv-biz'>" + advBizOptions(ADVFORM.biz) + "</select></div>" + advSelect("adv-time", "Tiempo que tengo hoy", ADV_TIMES, ADVFORM.time) + advSelect("adv-budget", "Presupuesto para anuncios", ADV_BUDGETS, ADVFORM.budget) + "</div>" +
       "<label class='adv-check'><input type='checkbox' id='adv-web'" + (ADVFORM.web ? " checked" : "") + "> 🔎 Investigar en internet (tendencias, competencia, cambios recientes) con fuentes y fechas</label>" +
       "<div class='adv-go'><button class='btn primary' type='button' id='adv-send'>Empezar</button><small class='adv-muted'>" + (ADVFORM.web ? "Con internet tarda 1–3 minutos y cuesta unos centavos." : "Sin internet tarda menos de un minuto.") + "</small></div>" +
@@ -5593,7 +5730,7 @@ function advNeg(b){
   ADV.biz.forEach(function(z, i){
     h += "<details class='box adv-biz'" + (ADVFORM.open === z.id ? " open" : "") + " data-bizid='" + z.id + "'><summary><b>" + esc(z.name || "Negocio sin nombre") + "</b>" + (z.what ? " <small class='adv-muted'>· " + esc(String(z.what).slice(0, 80)) + "</small>" : "") + "</summary><div class='adv-form'>" +
       ADV_BIZF.map(function(f){ var id = "bz-" + i + "-" + f[0]; return "<div class='f'" + (f[2] === "area" ? " style='grid-column:1/-1'" : "") + "><label for='" + id + "'>" + f[1] + "</label>" + (f[2] === "area" ? "<textarea id='" + id + "' rows='3' data-bz='" + f[0] + "' placeholder='" + esc(f[3]) + "'>" + esc(z[f[0]] || "") + "</textarea>" : "<input id='" + id + "' type='text' data-bz='" + f[0] + "' placeholder='" + esc(f[3]) + "' value='" + esc(z[f[0]] || "") + "'>") + "</div>"; }).join("") +
-      "<div style='grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center'><span class='photo-msg' data-bzmsg role='status'>Se guarda solo mientras escribes.</span><button class='btn sm' type='button' data-bzask='" + z.id + "'>✨ Diagnóstico de este negocio</button><button class='btn sm' type='button' data-bzdel='" + z.id + "'>Borrar negocio</button></div></div></details>";
+      advSalesBox(z, i) + "<div style='grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center'><span class='photo-msg' data-bzmsg role='status'>Se guarda solo mientras escribes.</span><button class='btn sm primary' type='button' data-bzinf='" + z.id + "'>🔎 Investigación profunda</button><button class='btn sm' type='button' data-bzask='" + z.id + "'>✨ Diagnóstico rápido</button><button class='btn sm' type='button' data-bzdel='" + z.id + "'>Borrar negocio</button></div></div></details>";
   });
   h += "<div style='display:flex;gap:8px;flex-wrap:wrap'><button class='btn primary sm' type='button' id='bz-add'>+ Añadir un negocio</button>" + (SET.profile && SET.profile.offer && !ADV.biz.length ? "<button class='btn sm' type='button' id='bz-imp'>Usar mi perfil de Estrategia IA</button>" : "") + "</div>";
   h += "<div class='box'><div class='adv-row-h'><h3>🧠 Lo que tu asesora recuerda</h3></div><p class='adv-muted' style='margin:0'>Datos que fue aprendiendo de tus conversaciones y resultados. Borra lo que ya no sea cierto o añade lo que quieras que sepa.</p>" +
@@ -5609,10 +5746,224 @@ function advNeg(b){
   if ($("bz-imp")) $("bz-imp").onclick = function(){ var p = SET.profile || {}; var z = {id:advUid(), name:SET.senderName || "Mi negocio", what:p.offer || "", client:p.client || "", pains:p.pains || "", channels:p.channels || "", notes:(p.voice ? "Tono de marca: " + p.voice + ". " : "") + (p.goal ? "Meta de 90 días: " + p.goal : "")}; ADV.biz.push(z); ADVFORM.open = z.id; advFormSave(); advSave(true); renderAsesor(); };
   b.querySelectorAll("[data-bzdel]").forEach(function(x){ x.onclick = function(){ if (x.textContent !== "¿Seguro?"){ x.textContent = "¿Seguro?"; return; } ADV.biz = ADV.biz.filter(function(z){ return z.id !== x.getAttribute("data-bzdel"); }); advSave(); renderAsesor(); }; });
   b.querySelectorAll("[data-bzask]").forEach(function(x){ x.onclick = function(){ var id = x.getAttribute("data-bzask"); ADVFORM.biz = id; advFormSave(); ADV.cur = ""; advAsk("Haz un diagnóstico de mi negocio «" + advBizName(id) + "»: qué está frenando las ventas, dónde están mis compradoras ahora mismo (canales, búsquedas en Google, grupos, plataformas), qué hace la competencia que funciona hoy y cuáles son las 5 acciones con más impacto, separando gratis y pagado.", {newThread:true, web:true}); }; });
+  advSalesBind(b);
+  b.querySelectorAll("[data-bzinf]").forEach(function(x){ x.onclick = function(){ ADVFORM.infBiz = x.getAttribute("data-bzinf"); advFormSave(); ADVREP = null; ADVTAB = "inf"; store("lp-adv-tab", "inf"); renderAsesor(); window.scrollTo(0, 0); }; });
   b.querySelectorAll("[data-ldel]").forEach(function(x){ x.onclick = function(){ ADV.learn = ADV.learn.filter(function(l){ return l.id !== x.getAttribute("data-ldel"); }); advSave(); renderAsesor(); }; });
   var addL = function(){ var t = $("ln-t").value.trim(); if (!t) return; ADV.learn.push({id:advUid(), d:advToday(), text:t.slice(0, 400)}); advSave(); renderAsesor(); };
   $("ln-a").onclick = addL; $("ln-t").onkeydown = function(e){ if (e.key === "Enter") addL(); };
 }
+
+/* ===== INFORMES: investigación profunda de Business Growth AI ===== */
+var ADVREPS = null, ADVREP = null, ADVREPJOB = (function(){ try{ return JSON.parse(store("lp-adv-repjob") || "null"); }catch(_){ return null; } })(), ADVREPT = 0;
+var INF_EX = ["¿Dónde están mis mejores oportunidades para crecer en los próximos 90 días?", "Analiza a mi competencia: precios, qué ofrecen y qué huecos dejan", "¿Qué buscan y de qué se quejan las clientas de mi mercado?", "¿Cómo aprovecho la temporada de fin de año con lo que ya vendo?", "¿Mis precios y paquetes están bien? Compara con el mercado", "¿Qué público nuevo podría comprarme y dónde lo encuentro?"];
+var INF_STAGES = ["Entender tu negocio y tu pregunta", "Investigar en internet y leer páginas", "Analizar competidoras, clientas y oportunidades", "Revisar cada dato y cada fuente", "Guardar tu informe"];
+
+/* ---- Ventas reales desde el archivo de Stripe (se calcula aquí, con código; no se guardan correos) ---- */
+function csvParse(t){
+  var rows = [], row = [], f = "", q = false; t = String(t || "").replace(/^﻿/, "");
+  for (var i = 0; i < t.length; i++){
+    var ch = t[i];
+    if (q){ if (ch === '"'){ if (t[i + 1] === '"'){ f += '"'; i++; } else q = false; } else f += ch; continue; }
+    if (ch === '"') q = true; else if (ch === ","){ row.push(f); f = ""; } else if (ch === "\n" || ch === "\r"){ if (ch === "\r" && t[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; } else f += ch;
+  }
+  if (f || row.length){ row.push(f); rows.push(row); }
+  return rows.filter(function(r){ return r.some(function(x){ return String(x).trim(); }); });
+}
+function stripeMetrics(text, fileName){
+  var rows = csvParse(text); if (rows.length < 2) throw {msg:"El archivo está vacío o no es un CSV."};
+  var hd = rows[0].map(function(h){ return String(h).trim().toLowerCase(); });
+  var col = function(){ for (var a = 0; a < arguments.length; a++){ var k = arguments[a], i = hd.indexOf(k); if (i >= 0) return i; } for (var b = 0; b < arguments.length; b++){ var k2 = arguments[b]; for (var j = 0; j < hd.length; j++) if (hd[j].indexOf(k2) >= 0) return j; } return -1; };
+  var cDate = col("created date (utc)", "created (utc)", "created", "date", "fecha"), cAmt = col("converted amount", "amount", "importe", "monto"), cRef = col("converted amount refunded", "amount refunded", "refunded"),
+      cCur = col("converted currency", "currency", "moneda"), cSt = col("status", "estado"), cCus = col("customer email", "customer id", "email", "customer"), cDesc = col("description", "descripción", "product"), cCap = col("captured");
+  if (cDate < 0 || cAmt < 0) throw {msg:"No encontré las columnas de fecha e importe. En Stripe ve a Pagos → Exportar y elige «Todas las columnas»."};
+  var num = function(v){ v = String(v || "").replace(/[^0-9.,\-]/g, ""); if (/,\d{2}$/.test(v) && v.indexOf(".") < 0) v = v.replace(",", "."); return parseFloat(v.replace(/,/g, "")) || 0; };
+  var pays = [], failed = 0, cur = "";
+  rows.slice(1).forEach(function(r){
+    var st = cSt >= 0 ? String(r[cSt] || "").toLowerCase() : "paid";
+    if (/fail|declin|cancel|incomplete|requires|fall|rechaz/.test(st)){ failed++; return; }
+    if (cCap >= 0 && /false/i.test(r[cCap] || "")) { failed++; return; }
+    var d = new Date(String(r[cDate] || "").replace(" ", "T") + (/[zZ]|[+-]\d\d:?\d\d$/.test(r[cDate] || "") ? "" : "Z"));
+    if (isNaN(d)) return;
+    var amt = num(r[cAmt]), ref = cRef >= 0 ? num(r[cRef]) : (/refund|reembols/.test(st) ? amt : 0);
+    if (!amt) return;
+    if (!cur && cCur >= 0) cur = String(r[cCur] || "").toUpperCase();
+    pays.push({d:d, amt:amt, ref:Math.min(ref, amt), cus:cCus >= 0 ? String(r[cCus] || "").trim().toLowerCase() : "", desc:cDesc >= 0 ? String(r[cDesc] || "").trim().replace(/\s+/g, " ").slice(0, 80) : ""});
+  });
+  if (!pays.length) throw {msg:"No encontré pagos cobrados en el archivo."};
+  pays.sort(function(a, b){ return a.d - b.d; });
+  var money = function(v){ return "$" + v.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2}); };
+  var gross = 0, refunds = 0, cus = {}, months = {}, prods = {}, wd = [0, 0, 0, 0, 0, 0, 0], refundN = 0;
+  pays.forEach(function(p){
+    var net = p.amt - p.ref; gross += p.amt; refunds += p.ref; if (p.ref) refundN++;
+    if (p.cus){ cus[p.cus] = cus[p.cus] || {n:0, v:0, last:""}; cus[p.cus].n++; cus[p.cus].v += net; cus[p.cus].last = p.d.toISOString().slice(0, 10); }
+    var mk = p.d.toISOString().slice(0, 7); months[mk] = months[mk] || {n:0, v:0}; months[mk].n++; months[mk].v += net;
+    var pk = p.desc || "(sin descripción)"; prods[pk] = prods[pk] || {n:0, v:0}; prods[pk].n++; prods[pk].v += net;
+    wd[p.d.getDay()]++;
+  });
+  var net = gross - refunds, ck = Object.keys(cus), rep = ck.filter(function(k){ return cus[k].n > 1; }), repV = rep.reduce(function(a, k){ return a + cus[k].v; }, 0);
+  var days = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"], bestD = wd.indexOf(Math.max.apply(null, wd));
+  var mk = Object.keys(months).sort().slice(-12), top = Object.keys(prods).sort(function(a, b){ return prods[b].v - prods[a].v; }).slice(0, 8);
+  var from = pays[0].d.toISOString().slice(0, 10), to = pays[pays.length - 1].d.toISOString().slice(0, 10), c = cur ? " " + cur : "";
+  var facts = [
+    "Ventas reales (archivo de Stripe «" + fileName + "», del " + from + " al " + to + "): " + pays.length + " pagos cobrados, ingresos netos " + money(net) + c + " (brutos " + money(gross) + "), ticket promedio " + money(net / pays.length) + c + ".",
+    ck.length ? "Clientas únicas en Stripe: " + ck.length + "; " + rep.length + " compraron más de una vez (" + Math.round(100 * rep.length / ck.length) + "%) y aportan el " + (net ? Math.round(100 * repV / net) : 0) + "% de los ingresos netos." : "El archivo no trae el correo ni el ID de cliente, así que no se pudo medir la recompra.",
+    "Ingresos netos por mes: " + mk.map(function(k){ return k + " " + money(months[k].v) + " (" + months[k].n + " pagos)"; }).join("; ") + ".",
+    "Lo que más se vende según la descripción de Stripe: " + top.map(function(k){ return k + " " + money(prods[k].v) + " (" + prods[k].n + " pagos)"; }).join("; ") + ".",
+    "Día de la semana con más pagos: " + days[bestD] + " (" + Math.round(100 * wd[bestD] / pays.length) + "% de los pagos, hora UTC).",
+    "Reembolsos: " + money(refunds) + " en " + refundN + " pagos. Pagos fallidos o cancelados: " + failed + "."
+  ];
+  return {src:"Stripe", file:String(fileName || "").slice(0, 80), at:Date.now(), from:from, to:to, n:pays.length, net:Math.round(net * 100) / 100, avg:Math.round(net / pays.length * 100) / 100, cur:cur, customers:ck.length, repeat:rep.length, facts:facts, _buyers:ck.filter(function(k){ return k.indexOf("@") > 0; }).reduce(function(o, k){ o[k] = cus[k]; return o; }, {})};
+}
+function advSalesBox(z, i){
+  var s = z.sales;
+  return "<div class='inf-sales' style='grid-column:1/-1'><div class='adv-row-h'><b>💳 Ventas reales</b><small class='adv-muted'>De tu archivo de Stripe. Se calculan aquí y solo se guardan los totales, no los correos.</small></div>" +
+    (s ? "<div class='inf-kpis'><div><small>Ingresos netos</small><b>$" + Number(s.net).toLocaleString("en-US", {maximumFractionDigits:0}) + "</b></div><div><small>Pagos</small><b>" + s.n + "</b></div><div><small>Ticket promedio</small><b>$" + Number(s.avg).toFixed(2) + "</b></div><div><small>Recompra</small><b>" + (s.customers ? Math.round(100 * s.repeat / s.customers) + "%" : "—") + "</b></div></div><small class='adv-muted'>" + esc(s.file) + " · del " + esc(fmtDay(s.from)) + " al " + esc(fmtDay(s.to)) + "</small>" : "<small class='adv-muted'>En Stripe: Pagos → Exportar → CSV (todas las columnas). Luego súbelo aquí.</small>") +
+    "<div style='display:flex;gap:8px;flex-wrap:wrap'><button class='btn sm' type='button' data-stripe='" + z.id + "'>" + (s ? "Actualizar con otro archivo" : "Subir archivo de Stripe (.csv)") + "</button>" + (s ? "<button class='btn sm' type='button' data-stripedel='" + z.id + "'>Quitar ventas</button>" : "") + "<span class='photo-msg' data-stripemsg='" + z.id + "' role='status'></span></div></div>";
+}
+function advSalesBind(b){
+  b.querySelectorAll("[data-stripe]").forEach(function(x){ x.onclick = function(){
+    var z = ADV.biz.filter(function(q){ return q.id === x.getAttribute("data-stripe"); })[0], msg = b.querySelector("[data-stripemsg='" + z.id + "']"), fi = document.createElement("input");
+    fi.type = "file"; fi.accept = ".csv,text/csv";
+    fi.onchange = function(){ var f = fi.files[0]; if (!f) return; msg.textContent = "Leyendo…"; var rd = new FileReader();
+      rd.onload = function(){ var sm; try{ sm = stripeMetrics(rd.result, f.name); }catch(e){ msg.textContent = (e && e.msg) || "No pude leer ese archivo."; return; }
+        var buyers = sm._buyers; delete sm._buyers; z.sales = sm; advSave(true); renderAsesor(); status("Ventas de Stripe listas ✓");
+        // Las compras se apuntan solo en las personas que ya están en tus Contactos.
+        if (Object.keys(buyers).length) api("POST", "contacts-buy", {buyers:buyers, cur:sm.cur, src:"Stripe · " + sm.file}).then(function(r){ if (r.matched) status("Ventas de Stripe listas ✓ · " + r.matched + " contacto" + (r.matched === 1 ? "" : "s") + " con compras"); }, function(){}); };
+      rd.readAsText(f); };
+    fi.click();
+  }; });
+  b.querySelectorAll("[data-stripedel]").forEach(function(x){ x.onclick = function(){ if (x.textContent !== "¿Seguro?"){ x.textContent = "¿Seguro?"; return; } var z = ADV.biz.filter(function(q){ return q.id === x.getAttribute("data-stripedel"); })[0]; delete z.sales; advSave(true); renderAsesor(); }; });
+}
+
+/* ---- datos internos numerados que respaldan el informe ---- */
+function advInternal(z){
+  var out = [];
+  if (z && z.sales && z.sales.facts) out = out.concat(z.sales.facts);
+  var s = STATS30 || {tot:{view:0, lead:0, click:0, dl:0}, per:{}};
+  out.push("PageBloom, últimos 30 días: " + s.tot.view + " visitas, " + s.tot.lead + " registros, " + s.tot.click + " clics en botones, " + s.tot.dl + " descargas.");
+  Object.keys(s.per).forEach(function(p){ var x = s.per[p]; if (x.view || x.lead || x.click) out.push((p.indexOf("popup-") === 0 ? "Popup «" + p.slice(6) + "»" : "Página «" + pageName(p) + "»") + ", últimos 30 días: " + x.view + " visitas, " + x.lead + " registros, " + x.click + " clics."); });
+  (advInternal.extra || []).forEach(function(t){ out.push(t); });
+  ADV.results.slice().sort(function(a, b){ return a.d < b.d ? 1 : -1; }).filter(function(r){ return !z || !r.biz || r.biz === z.id; }).slice(0, 12).forEach(function(r){ out.push("Resultado anotado por la dueña el " + r.d + ": " + r.value + " " + r.metric + (r.note ? " (" + r.note + ")" : "") + "."); });
+  return out.slice(0, 60);
+}
+function advBizText(z){
+  if (!z) return profileText();
+  return ADV_BIZF.map(function(f){ return z[f[0]] ? f[1] + ": " + z[f[0]] : ""; }).filter(Boolean).join("\n") + "\n\nPáginas de la dueña en PageBloom:\n" + pagesText();
+}
+function advLinks(z){
+  var t = z ? [z.web, z.where, z.social, z.rivals].join("\n") : "";
+  var m = t.match(/https?:\/\/[^\s,;)<>"']+/g) || [];
+  return m.filter(function(x, i, a){ return a.indexOf(x) === i; }).slice(0, 12);
+}
+
+/* ---- empezar, seguir y terminar una investigación ---- */
+function advRepStart(){
+  var q = $("inf-q").value.trim(); if (!q){ $("inf-q").focus(); return; }
+  if (!SET.ai){ openConnections("Pega tu clave de Anthropic para usar Business Growth AI."); return; }
+  var bizId = $("inf-biz") ? $("inf-biz").value : "", z = ADV.biz.filter(function(x){ return x.id === bizId; })[0] || null, model = (document.querySelector("[name=inf-model]:checked") || {}).value || "sonnet";
+  ADVFORM.infQ = q; ADVFORM.infBiz = bizId; ADVFORM.infModel = model; advFormSave();
+  $("inf-go").disabled = true; $("inf-go").textContent = "Preparando…";
+  Promise.all([STATS30 ? STATS30 : loadStats30(), subsCount(), api("GET", "polls").catch(function(){ return {polls:{}}; })]).then(function(r){
+    advInternal.extra = [];
+    if (r[1] != null) advInternal.extra.push("Suscriptoras en su lista de correo (PageBloom): " + r[1] + ".");
+    var pl = (r[2] && r[2].polls) || {}; Object.keys(pl).forEach(function(k){ var o = pl[k], t = Object.keys(o).reduce(function(a, x){ return a + o[x]; }, 0); if (t) advInternal.extra.push("Encuesta del popup «" + k + "» (" + t + " respuestas): " + Object.keys(o).map(function(x){ return x + " " + o[x]; }).join(", ") + "."); });
+    return advApi("POST", "report-start", {question:q, biz:advBizText(z), bizId:bizId, bizName:z ? z.name : "", links:advLinks(z), internal:advInternal(z), model:model, tz:Intl.DateTimeFormat().resolvedOptions().timeZone || ""});
+  }).then(function(d){
+    ADVREPJOB = {id:d.job, at:Date.now(), q:q, biz:z ? z.name : ""}; store("lp-adv-repjob", JSON.stringify(ADVREPJOB));
+    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:d.job})}).catch(function(){});
+    renderAsesor(); advRepPoll();
+  }, function(e){ $("inf-go").disabled = false; $("inf-go").textContent = "Empezar la investigación"; status(advErr(e), "err"); });
+}
+function advRepPoll(){
+  clearTimeout(ADVREPT); if (!ADVREPJOB) return;
+  ADVREPT = setTimeout(function(){
+    advApi("GET", "job/" + ADVREPJOB.id).then(function(j){
+      if (j.status === "done" && j.result && j.result.report){ var rid = j.result.report; ADVREPJOB = null; store("lp-adv-repjob", ""); ADVREPS = null; status("Tu informe está listo ✓"); ADVREP = {id:rid}; if (ADVTAB === "inf" && !$("view-asesor").hidden) renderAsesor(); return; }
+      if (j.status === "error"){ ADVREPJOB.error = advErr({code:j.error, message:j.message}); ADVREPJOB.done = true; store("lp-adv-repjob", JSON.stringify(ADVREPJOB)); if (ADVTAB === "inf") renderAsesor(); return; }
+      ADVREPJOB.stage = j.stage || 0; ADVREPJOB.usd = j.usage ? j.usage.usd : 0; ADVREPJOB.reads = j.usage ? (j.usage.searches || 0) + " búsquedas · " + (j.usage.fetches || 0) + " páginas leídas" : "";
+      if (j.status === "pending" && Date.now() - ADVREPJOB.at > 60000){ ADVREPJOB.error = "La investigación no arrancó. Revisa que asesor-bg.mjs esté en netlify → functions y vuelve a intentarlo."; ADVREPJOB.done = true; }
+      if (Date.now() - ADVREPJOB.at > 17 * 60000){ ADVREPJOB.error = "Tardó más de lo normal y se detuvo. Inténtalo otra vez, quizá con una pregunta más concreta."; ADVREPJOB.done = true; }
+      store("lp-adv-repjob", JSON.stringify(ADVREPJOB));
+      var box = $("inf-run"); if (box) box.outerHTML = advRunCard(); else if (ADVTAB === "inf" && ADVREPJOB.done) renderAsesor();
+      if (!ADVREPJOB.done) advRepPoll(); else if (ADVTAB === "inf") renderAsesor();
+    }, function(e){ if (e && e.status === 404){ ADVREPJOB.error = "Se perdió el trabajo. Mira en tus informes por si ya terminó."; ADVREPJOB.done = true; store("lp-adv-repjob", JSON.stringify(ADVREPJOB)); ADVREPS = null; if (ADVTAB === "inf") renderAsesor(); return; } advRepPoll(); });
+  }, 4000);
+}
+function advRunCard(){
+  var j = ADVREPJOB; if (!j) return "";
+  var mins = Math.floor((Date.now() - j.at) / 60000);
+  if (j.done) return "<div class='box inf-run' id='inf-run'><b>No se pudo terminar la investigación</b><p style='margin:0'>" + esc(j.error || "") + "</p><div><button class='btn sm' type='button' id='inf-clear'>Entendido</button></div></div>";
+  return "<div class='box inf-run' id='inf-run'><div class='adv-row-h'><b><span class='spin' aria-hidden='true'></span> Investigando: " + esc(j.q.slice(0, 90)) + "</b><small class='adv-muted'>" + (mins ? mins + " min" : "recién empezó") + (j.usd ? " · $" + Number(j.usd).toFixed(2) + " hasta ahora" : "") + "</small></div>" +
+    "<ol class='inf-steps'>" + INF_STAGES.map(function(t, i){ var n = i + 1, st = (j.stage || 0) > n ? "ok" : (j.stage || 1) === n ? "on" : ""; return "<li class='" + st + "'>" + (st === "ok" ? "✓ " : "") + esc(t) + (st === "on" && n === 2 && j.reads ? " <small class='adv-muted'>(" + esc(j.reads) + ")</small>" : "") + "</li>"; }).join("") + "</ol>" +
+    "<small class='adv-muted'>Tarda de 5 a 12 minutos. Puedes seguir usando el panel o cerrarlo: el informe se guarda solo.</small></div>";
+}
+
+/* ---- la pestaña Informes ---- */
+function advInf(b){
+  if (ADVREP && ADVREP.id) return advRepView(b);
+  if (!ADVREPS){ b.innerHTML = "<div class='box co-wait'><span class='spin' aria-hidden='true'></span> Cargando tus informes…</div>"; advApi("GET", "reports").then(function(d){ ADVREPS = d.reports || []; renderAsesor(); }, function(e){ ADVREPS = []; b.innerHTML = "<div class='box'>" + esc(advErr(e)) + "</div>"; }); return; }
+  var running = ADVREPJOB && !ADVREPJOB.done;
+  var h = (ADVREPJOB ? advRunCard() : "") +
+    "<div class='box inf-hero'><span class='eyebrow'>Investigación profunda</span><h3>Una investigación de verdad, con fuentes</h3>" +
+    "<p class='adv-muted' style='margin:0'>Busca y lee páginas de tu mercado y tus competidoras, cruza todo con tus ventas y tus números, y revisa cada dato antes de mostrártelo. Cada afirmación sale marcada como <span class='inf-chip dato'>Dato comprobado</span> <span class='inf-chip hipotesis'>Hipótesis</span> o <span class='inf-chip recomendacion'>Recomendación</span>.</p>" +
+    (ADV.biz.length ? "<div class='f'><label for='inf-biz'>Negocio</label><select id='inf-biz'>" + ADV.biz.map(function(z){ return "<option value='" + esc(z.id) + "'" + (z.id === ADVFORM.infBiz ? " selected" : "") + ">" + esc(z.name || "Negocio sin nombre") + (z.sales ? " · con ventas de Stripe" : "") + "</option>"; }).join("") + "</select></div>" : "<p style='margin:0'>Primero describe tu negocio en <b>Mis negocios</b>: la investigación sale mucho mejor con tus productos, precios, enlaces y competidoras.</p>") +
+    "<div class='f'><label for='inf-q'>¿Qué quieres que investigue?</label><textarea id='inf-q' rows='3'>" + esc(ADVFORM.infQ || INF_EX[0]) + "</textarea></div>" +
+    "<div class='co-quick'>" + INF_EX.map(function(q){ return "<button type='button' class='btn sm' data-infex='" + esc(q) + "'>" + esc(q) + "</button>"; }).join("") + "</div>" +
+    "<fieldset class='inf-model'><legend>Nivel</legend><label><input type='radio' name='inf-model' value='sonnet'" + (ADVFORM.infModel !== "opus" ? " checked" : "") + "> <span><b>Estándar</b> · Claude Sonnet 5.5. Lo normal para el día a día.</span></label><label><input type='radio' name='inf-model' value='opus'" + (ADVFORM.infModel === "opus" ? " checked" : "") + "> <span><b>Máximo</b> · Claude Opus 5.5 para el análisis. Más profundo; el análisis cuesta el doble.</span></label></fieldset>" +
+    "<div style='display:flex;gap:10px;align-items:center;flex-wrap:wrap'><button class='btn primary' type='button' id='inf-go'" + (running ? " disabled" : "") + ">" + (running ? "Hay una investigación en curso" : "Empezar la investigación") + "</button><small class='adv-muted'>5 a 12 minutos. El costo sale en tu cuenta de Anthropic y te lo muestro en el informe.</small></div></div>";
+  h += "<div class='box'><div class='adv-row-h'><h3>Tus informes</h3></div>" + (ADVREPS.length ? "<div class='inf-list'>" + ADVREPS.map(function(r){ return "<div class='inf-li'><div><b>" + esc(r.titulo || r.question) + "</b><small class='adv-muted'>" + esc(r.bizName || "General") + " · " + esc(fmtDay(todayFromTs(r.at))) + (r.usd != null ? " · $" + Number(r.usd).toFixed(2) : "") + (/opus/.test(r.model || "") ? " · nivel máximo" : "") + "</small></div><button class='btn sm primary' type='button' data-infopen='" + esc(r.id) + "'>Abrir</button><button class='btn sm' type='button' data-infdel='" + esc(r.id) + "'>Borrar</button></div>"; }).join("") + "</div>" : "<p class='adv-muted' style='margin:0'>Todavía no tienes informes. El primero puede ser de Queen Spiritual.</p>") + "</div>";
+  b.innerHTML = h;
+  if ($("inf-clear")) $("inf-clear").onclick = function(){ ADVREPJOB = null; store("lp-adv-repjob", ""); renderAsesor(); };
+  b.querySelectorAll("[data-infex]").forEach(function(x){ x.onclick = function(){ $("inf-q").value = x.getAttribute("data-infex"); $("inf-q").focus(); }; });
+  $("inf-go").onclick = advRepStart;
+  b.querySelectorAll("[data-infopen]").forEach(function(x){ x.onclick = function(){ ADVREP = {id:x.getAttribute("data-infopen")}; renderAsesor(); window.scrollTo(0, 0); }; });
+  b.querySelectorAll("[data-infdel]").forEach(function(x){ x.onclick = function(){ if (x.textContent !== "¿Seguro?"){ x.textContent = "¿Seguro?"; return; } advApi("DELETE", "reports/" + x.getAttribute("data-infdel")).then(function(){ ADVREPS = ADVREPS.filter(function(r){ return r.id !== x.getAttribute("data-infdel"); }); renderAsesor(); }); }; });
+  if (running) advRepPoll();
+}
+function infRefs(f, R){
+  return (f || []).map(function(id){ if (/^F/.test(id)){ var s = R.finds.filter(function(x){ return x.id === id; })[0]; return s ? "<a href='#inf-" + id + "' class='inf-ref' data-infref='" + id + "' title='" + esc(s.titulo || s.url) + "'>" + id.slice(1) + "</a>" : ""; } var it = R.internal.filter(function(x){ return x.id === id; })[0]; return it ? "<span class='inf-ref int' title='" + esc(it.text) + "'>tus datos</span>" : ""; }).join("");
+}
+var INF_TIPO = {dato:"Dato comprobado", hipotesis:"Hipótesis", recomendacion:"Recomendación"};
+function infClaim(c, R){ return "<li class='inf-claim'><span class='inf-chip " + c.tipo + "'>" + INF_TIPO[c.tipo] + "</span> <span>" + esc(c.texto) + "</span>" + infRefs(c.fuentes, R) + (c.sinFuente ? " <small class='adv-muted'>(sin fuente verificable)</small>" : "") + "</li>"; }
+function advRepView(b){
+  var R = ADVREP.data;
+  if (!R){ b.innerHTML = "<div class='box co-wait'><span class='spin' aria-hidden='true'></span> Abriendo el informe…</div>"; advApi("GET", "reports/" + ADVREP.id).then(function(d){ ADVREP.data = d; renderAsesor(); }, function(e){ ADVREP = null; status(advErr(e), "err"); renderAsesor(); }); return; }
+  var r = R.report, u = R.usage || {};
+  var dots = function(n){ return "<span class='inf-dots' aria-label='" + n + " de 5'>" + [1, 2, 3, 4, 5].map(function(i){ return "<i class='" + (i <= n ? "on" : "") + "'></i>"; }).join("") + "</span>"; };
+  var h = "<div class='inf-top'><button class='btn sm' type='button' id='inf-back'>‹ Informes</button><i style='flex:1'></i><button class='btn sm' type='button' id='inf-print'>Imprimir o guardar PDF</button></div>" +
+    "<article class='inf-doc' id='inf-doc'><header><span class='eyebrow'>Informe de investigación · " + esc(R.bizName || "General") + "</span><h2>" + esc(r.titulo) + "</h2><p class='adv-muted'>" + esc(R.question) + "</p>" +
+    "<p class='inf-meta'>" + esc(fmtDay(todayFromTs(R.at))) + " · " + (/opus/.test(R.model || "") ? "Nivel máximo (Opus 5.5)" : "Nivel estándar (Sonnet 5.5)") + " · " + (u.searches || 0) + " búsquedas · " + (u.fetches || 0) + " páginas leídas · " + R.finds.length + " hallazgos con fuente · costo aproximado $" + Number(u.usd || 0).toFixed(2) + (u.nofetch ? " · tu cuenta no permitió leer páginas completas" : "") + "</p>" +
+    "<p class='inf-legend'><span class='inf-chip dato'>Dato comprobado</span> con fuente que puedes abrir · <span class='inf-chip hipotesis'>Hipótesis</span> razonada, falta probar · <span class='inf-chip recomendacion'>Recomendación</span> lo que haría</p></header>" +
+    "<section><h3>En resumen</h3><p class='inf-lead'>" + esc(r.resumen) + "</p></section>";
+  if (r.diagnostico.length) h += "<section><h3>Diagnóstico</h3><ul class='inf-claims'>" + r.diagnostico.map(function(c){ return infClaim(c, R); }).join("") + "</ul></section>";
+  if (r.competidoras.length) h += "<section><h3>Competidoras</h3><div class='inf-tw'><table class='inf-t'><thead><tr><th>Quién</th><th>Qué ofrece</th><th>Precio</th><th>Lo que no cubre</th></tr></thead><tbody>" + r.competidoras.map(function(c){ return "<tr><td>" + (c.url ? "<a href='" + esc(c.url) + "' target='_blank' rel='noopener'>" + esc(c.nombre) + "</a>" : esc(c.nombre)) + infRefs(c.fuentes, R) + "</td><td>" + esc(c.ofrece) + "</td><td>" + esc(c.precio || "—") + "</td><td>" + esc(c.hueco) + "</td></tr>"; }).join("") + "</tbody></table></div></section>";
+  if (r.clientas.length) h += "<section><h3>Lo que buscan las clientas</h3><ul class='inf-claims'>" + r.clientas.map(function(c){ return infClaim(c, R); }).join("") + "</ul></section>";
+  if (r.oportunidades.length) h += "<section><h3>Oportunidades</h3>" + r.oportunidades.map(function(o, i){
+    return "<div class='inf-op'><div class='inf-op-h'><span class='inf-num'>" + (i + 1) + "</span><h4>" + esc(o.titulo) + "</h4></div>" +
+      "<div class='inf-scores'><span>Impacto " + dots(o.impacto) + "</span><span>Esfuerzo " + dots(o.esfuerzo) + "</span><span>Confianza " + dots(o.confianza) + "</span></div>" +
+      "<p><b>Por qué para tu negocio:</b> " + esc(o.por_que) + "</p>" +
+      (o.evidencia.length ? "<ul class='inf-claims'>" + o.evidencia.map(function(c){ return infClaim(c, R); }).join("") + "</ul>" : "") +
+      (o.pasos.length ? "<p style='margin:10px 0 4px'><b>Cómo hacerlo</b></p><ol class='inf-pasos'>" + o.pasos.map(function(p){ return "<li>" + esc(p) + "</li>"; }).join("") + "</ol>" : "") +
+      "<div class='inf-test'><div><small>Prueba</small><b>" + o.prueba.dias + " días</b></div><div><small>Costo</small><b>" + esc(o.prueba.costo || "—") + "</b></div><div style='flex:2'><small>Qué mirar</small><b>" + esc(o.prueba.metrica || "—") + "</b></div></div>" +
+      (o.riesgo ? "<p class='adv-muted' style='margin:8px 0 0'><b>Riesgo:</b> " + esc(o.riesgo) + "</p>" : "") +
+      "<div class='inf-op-a'><button class='btn sm primary' type='button' data-infplan='" + i + "'" + (o.saved ? " disabled" : "") + ">" + (o.saved ? "En tus tareas ✓" : "Convertir en plan") + "</button></div></div>";
+  }).join("") + "</section>";
+  if (r.comparacion.length) h += "<section><h3>Comparación</h3><div class='inf-tw'><table class='inf-t'><thead><tr><th>Opción</th><th>Costo</th><th>Tiempo</th><th>Evidencia</th><th>Encaje con tu negocio</th></tr></thead><tbody>" + r.comparacion.map(function(c){ return "<tr><td><b>" + esc(c.opcion) + "</b></td><td>" + esc(c.costo) + "</td><td>" + esc(c.tiempo) + "</td><td><span class='inf-ev " + esc(String(c.evidencia || "").normalize("NFD").replace(/[^a-z]/gi, "").toLowerCase()) + "'>" + esc(c.evidencia) + "</span></td><td>" + esc(c.encaje) + "</td></tr>"; }).join("") + "</tbody></table></div></section>";
+  if (r.preguntas.length || r.advertencias.length) h += "<section class='inf-two'>" + (r.preguntas.length ? "<div><h3>Datos que faltan</h3><ul>" + r.preguntas.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>" : "") + (r.advertencias.length ? "<div><h3>Límites de este informe</h3><ul>" + r.advertencias.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>" : "") + "</section>";
+  if ((R.cambios || []).length) h += "<details class='inf-det'><summary><b>Lo que corrigió la revisión</b> (" + R.cambios.length + ")</summary><ul>" + R.cambios.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></details>";
+  h += "<section><h3>Fuentes</h3><ol class='inf-src'>" + R.finds.map(function(f){ return "<li id='inf-" + f.id + "'><a href='" + esc(f.url) + "' target='_blank' rel='noopener'>" + esc(f.titulo || advHost(f.url)) + "</a> <small class='adv-muted'>" + esc(advHost(f.url)) + (f.fecha ? " · " + esc(f.fecha) : " · sin fecha") + (f.leida ? " · página leída" : " · solo resumen del buscador") + "</small><div class='inf-hecho'>" + esc(f.hecho) + "</div></li>"; }).join("") + "</ol>" +
+    (R.internal.length ? "<details class='inf-det'><summary><b>Tus datos que usó</b> (" + R.internal.length + ")</summary><ul>" + R.internal.map(function(x){ return "<li>" + esc(x.text) + "</li>"; }).join("") + "</ul></details>" : "") + "</section></article>";
+  b.innerHTML = h;
+  $("inf-back").onclick = function(){ ADVREP = null; renderAsesor(); };
+  $("inf-print").onclick = function(){ var w = window.open("", "_blank"); if (!w){ status("Permite las ventanas emergentes para imprimir.", "err"); return; } var css = [].slice.call(document.querySelectorAll("style")).map(function(s){ return s.textContent; }).join("\n"); w.document.write("<!doctype html><html lang='es'><head><meta charset='utf-8'><title>" + esc(r.titulo) + "</title><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Jost:wght@400;500;600&display=swap'><style>" + css + "\nbody{background:#fff;padding:24px}.inf-op-a{display:none}.inf-doc{box-shadow:none;border:0;max-width:820px;margin:0 auto}</style></head><body>" + $("inf-doc").outerHTML + "</body></html>"); w.document.close(); setTimeout(function(){ w.focus(); w.print(); }, 700); };
+  b.querySelectorAll("[data-infref]").forEach(function(x){ x.onclick = function(e){ e.preventDefault(); var el = $("inf-" + x.getAttribute("data-infref")); if (el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.add("hl"); setTimeout(function(){ el.classList.remove("hl"); }, 1600); } }; });
+  b.querySelectorAll("[data-infplan]").forEach(function(x){ x.onclick = function(){
+    var o = r.oportunidades[Number(x.getAttribute("data-infplan"))], day = advToday();
+    o.pasos.forEach(function(p){ ADV.tasks.push({id:advUid(), title:String(p).slice(0, 200), min:0, channel:"", kind:/\$\s*[1-9]/.test(o.prueba.costo || "") ? "pago" : "gratis", cost:o.prueba.costo || "", steps:[], expect:o.prueba.metrica || "", day:day, status:"pendiente", plan:o.titulo, biz:R.bizId || "", goal:"", at:Date.now()}); });
+    o.saved = true; advSave(true); x.disabled = true; x.textContent = "En tus tareas ✓"; status(o.pasos.length + " tareas añadidas a «Metas y tareas» ✓");
+  }; });
+}
+/* ===== FIN INFORMES ===== */
 
 /* ---------- conversaciones ---------- */
 function advConv(b){
