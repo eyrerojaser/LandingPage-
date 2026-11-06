@@ -90,7 +90,7 @@ export default async (req) => {
   }
 
   if (path.startsWith("/video/")) {
-    const id = path.slice(7).replace(/\.(mp4|mov)$/, "");
+    const id = path.slice(7).replace(/\.(mp4|mov|mp3|m4a)$/, "");
     if (!/^[a-z0-9-]{1,90}$/.test(id)) return new Response("No encontrado", { status: 404 });
     const v = await getStore({ name: "video", consistency: "strong" }).getWithMetadata(id, { type: "arrayBuffer" });
     if (!v) return new Response("No encontrado", { status: 404 });
@@ -141,7 +141,9 @@ export default async (req) => {
   if (html != null && path !== "/") {
     const pops = ((await getStore({ name: "panel", consistency: "strong" }).get("popups", { type: "json" }).catch(() => null)) || {}).items || [];
     const tags = pops.filter((x) => x && x.active && x.data && x.data.onSite && /^[a-z0-9-]+$/.test(x.slug || "")).map((x) => '<script src="/popup/' + x.slug + '.js" async></script>').join("");
-    if (tags) html = String(html).replace(/<\/body>(?![\s\S]*<\/body>)/i, tags + "</body>");
+    const bot = (await getStore({ name: "panel", consistency: "strong" }).get("chatbot", { type: "json" }).catch(() => null)) || {};
+    const all = tags + (bot.on && bot.onSite ? '<script src="/popup/w/__landing.js" async></script>' : "");
+    if (all) html = String(html).replace(/<\/body>(?![\s\S]*<\/body>)/i, all + "</body>");
   }
   if (html == null) return new Response(NOT_FOUND, { status: 404, headers: { "content-type": "text/html; charset=utf-8" } });
   return new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=0, must-revalidate" } });
