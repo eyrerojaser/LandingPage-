@@ -35,22 +35,37 @@ async function menuPage(live) {
   live = live.filter((k) => !info[k] || (info[k].inMenu !== "no" && !(Number(info[k].publishAt) > Date.now())));
   if (!live.length) return null;
   const first = info[live[0]] || {};
-  const brand = (Object.values(info).map((d) => d.brand).filter((b) => b && b !== "Tu marca")[0]) || "";
+  // Portada del inicio (foto, nombre y frase): se edita en el panel, «Portada de tu web».
+  const home = (await getStore({ name: "panel", consistency: "strong" }).get("home", { type: "json" }).catch(() => null)) || {};
+  const hPhoto = /^\/img\/[a-z0-9]{4,40}$/.test(home.photo || "") ? home.photo : "";
+  const brand0 = (Object.values(info).map((d) => d.brand).filter((b) => b && b !== "Tu marca")[0]) || "";
+  const brand = String(home.name || "").trim() || brand0;
   const paper = first.paper || "#0D0B0C", accent = first.accent || "#D8A2B4", blush = first.blush || "#F4D3DE";
   const order = live.slice().sort((x, y) => String((info[x] || {}).name || x).localeCompare(String((info[y] || {}).name || y)));
+  const intro = String(home.intro || "").trim(), introEn = String(home.introEn || "").trim();
+  const catsEn = home.cats && typeof home.cats === "object" ? home.cats : {};
+  const two = (es, en) => '<span class="es">' + escH(es) + '</span><span class="en">' + escH(en || es) + '</span>';
+  const intro2 = intro || introEn ? two(intro || introEn, introEn || intro) : "";
   const card = (k) => {
     const d = info[k] || {}, href = "/" + k.replace(/\.html$/, "");
     const photo = d.photo === "sample" ? "/img/ejemplo.jpg" : (/^(\/img\/|https?:)/.test(d.photo || "") ? d.photo : "");
     const title = String(d.title || d.name || k).replace(/\*/g, "");
+    const free = !d.price && /gratis|free|regalo/i.test(String(d.category || "") + " " + String(d.eyebrow || ""));
+    const cta = free ? two("Lo quiero gratis", "Get it free") : two("Ver más", "See more");
     return '<a class="card" href="' + escH(href) + '">' + (photo ? '<span class="ph"><img src="' + escH(photo) + '" alt="" loading="lazy"></span>' : '<span class="ph"></span>') +
-      '<span class="tx">' + (d.price ? '<small>' + escH(d.price) + '</small>' : (d.eyebrow ? '<small>' + escH(d.eyebrow) + '</small>' : '')) + '<b>' + escH(title) + '</b>' + (d.sub ? '<i>' + escH(d.sub) + '</i>' : '') + '<em>' + (d.lang === "en" ? "See more" : "Ver más") + ' →</em></span></a>';
+      '<span class="tx">' + (d.price ? '<small>' + escH(d.price) + '</small>' : (d.eyebrow ? '<small>' + escH(d.eyebrow) + '</small>' : '')) + '<b>' + escH(title) + '</b>' + (d.sub ? '<i>' + escH(d.sub) + '</i>' : '') + '<em>' + cta + ' →</em></span></a>';
   };
   const groups = new Map();
   order.forEach((k) => { const c = String((info[k] || {}).category || "Mis páginas").trim() || "Mis páginas"; if (!groups.has(c)) groups.set(c, []); groups.get(c).push(k); });
   const slugC = (c) => "c-" + c.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-");
-  const chips = groups.size > 1 ? '<nav class="chips">' + [...groups.keys()].map((c) => '<a href="#' + slugC(c) + '">' + escH(c) + '</a>').join("") + '</nav>' : "";
-  const cards = [...groups.entries()].map(([c, ks]) => '<section id="' + slugC(c) + '">' + (groups.size > 1 ? '<h2>' + escH(c) + '</h2>' : '') + '<div class="grid">' + ks.map(card).join("") + '</div></section>').join("");
+  const chips = groups.size > 1 ? '<nav class="chips">' + [...groups.keys()].map((c) => '<a href="#' + slugC(c) + '">' + two(c, catsEn[c]) + '</a>').join("") + '</nav>' : "";
+  const cards = [...groups.entries()].map(([c, ks]) => '<section id="' + slugC(c) + '">' + (groups.size > 1 ? '<h2>' + two(c, catsEn[c]) + '</h2>' : '') + '<div class="grid">' + ks.map(card).join("") + '</div></section>').join("");
+  const hero = hPhoto || intro2 ?
+    '<header class="hero">' + (hPhoto ? '<span class="me"><img src="' + escH(hPhoto) + '" alt="' + escH(brand) + '"></span>' : '') +
+    '<h1>' + escH(brand || "Bienvenida") + '</h1>' + (intro2 ? '<p class="intro">' + intro2 + '</p>' : '') + '</header><p class="sub">' + two("Elige lo que buscas", "Choose what you need") + '</p>' :
+    '<h1>' + escH(brand || "Bienvenida") + '</h1><p class="sub">' + two("Elige lo que buscas", "Choose what you need") + '</p>';
   return '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escH(brand || "Mis páginas") + '</title><link rel="icon" href="/favicon.png">' +
+    (intro ? '<meta name="description" content="' + escH(intro) + '">' : '') + (hPhoto ? '<meta property="og:image" content="' + escH(hPhoto) + '">' : '') +
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Jost:wght@300;400;500&display=swap">' +
     '<style>*{box-sizing:border-box}body{margin:0;background:' + paper + ';color:#fff;font:16px/1.5 Jost,Helvetica,Arial,sans-serif}' +
     '.wrap{max-width:1100px;margin:0 auto;padding:56px 22px 70px}h1{font:400 clamp(2.2rem,6vw,3.6rem)/1.05 "DM Serif Display",Georgia,serif;margin:0 0 8px;text-align:center}' +
@@ -61,9 +76,19 @@ async function menuPage(live) {
     '.card{display:grid;grid-template-rows:auto 1fr;background:' + blush + ';color:#1F161A;border-radius:18px;overflow:hidden;text-decoration:none;transition:transform .2s,box-shadow .2s}' +
     '.card:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(0,0,0,.6)}.ph{display:block;aspect-ratio:4/3;background:' + accent + ';overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}' +
     '.tx{display:grid;gap:6px;padding:16px 18px 20px;align-content:start}.tx small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8A5568}.tx b{font:400 1.35rem/1.15 "DM Serif Display",Georgia,serif}.tx i{font-style:normal;font-size:.92rem;color:#5E4A52}.tx em{font-style:normal;font-weight:500;color:#9C4462;margin-top:4px}' +
-    'footer{text-align:center;margin-top:40px;font-size:13px}footer a{color:' + accent + '}</style></head><body><div class="wrap">' +
-    '<h1>' + escH(brand || "Bienvenida") + '</h1><p class="sub">Elige lo que buscas</p>' + chips + cards +
-    '<footer><a href="/privacidad">Política de privacidad</a></footer></div></body></html>';
+    '.hero{text-align:center;margin:0 0 30px}.me{display:block;width:148px;height:148px;margin:0 auto 22px;border-radius:50%;padding:5px;background:linear-gradient(140deg,' + accent + ',' + blush + ' 55%,' + accent + ');box-shadow:0 0 60px -6px ' + accent + '88}' +
+    '.me img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top;display:block;border:4px solid ' + paper + '}' +
+    '.hero h1{margin-bottom:12px}.intro{max-width:34rem;margin:0 auto;color:#E9DDE2;font-size:1.06rem;font-weight:300}.hero+.sub{margin-top:0}' +
+    '.tx i{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}' +
+    '.tx em{justify-self:start;background:#1F161A;color:#fff !important;border-radius:99px;padding:9px 18px;font-size:.92rem;margin-top:10px !important}.card:hover .tx em{background:#9C4462}' +
+    'html.en .es,html:not(.en) .en{display:none}.wrap{position:relative}' +
+    '.lang{position:absolute;top:16px;right:22px;display:flex;gap:6px}.lang button{font:500 13px Jost,sans-serif;color:#fff;background:none;border:1px solid ' + accent + '66;border-radius:8px;padding:6px 11px;cursor:pointer}.lang button[aria-pressed=true]{background:' + accent + ';border-color:' + accent + ';color:#1F161A}' +
+    'footer{text-align:center;margin-top:40px;font-size:13px}footer a{color:' + accent + '}</style></head><body><div class="wrap"><div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es">ES</button><button type="button" data-l="en">EN</button></div>' +
+    hero + chips + cards +
+    '<footer><a href="/privacidad">' + two("Política de privacidad", "Privacy policy") + '</a></footer></div>' +
+    '<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".lang button"),l;try{l=localStorage.getItem("lang")}catch(e){}if(l!=="es"&&l!=="en")l=/^es/i.test(navigator.language||"")?"es":"en";' +
+    'function set(x){d.lang=x;d.classList.toggle("en",x==="en");b.forEach(function(e){e.setAttribute("aria-pressed",e.dataset.l===x)});try{localStorage.setItem("lang",x)}catch(e){}}' +
+    'b.forEach(function(e){e.onclick=function(){set(e.dataset.l)}});set(l)})()</script></body></html>';
 }
 
 export default async (req) => {

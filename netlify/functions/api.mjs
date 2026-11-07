@@ -375,7 +375,7 @@ async function handle(req, url, route, m) {
 
     if (route === "settings" && m === "GET") {
       const s = await getSettings();
-      return json({ ai: !!s.anthropicKey, mail: !!(s.brevoKey && s.senderEmail), senderEmail: s.senderEmail || "", senderName: s.senderName || "", address: s.address || "", welcome: s.welcome || { on: false, subject: "", body: "" }, profile: s.profile || {} });
+      return json({ ai: !!s.anthropicKey, vidai: !!s.runwayKey, mail: !!(s.brevoKey && s.senderEmail), senderEmail: s.senderEmail || "", senderName: s.senderName || "", address: s.address || "", welcome: s.welcome || { on: false, subject: "", body: "" }, profile: s.profile || {} });
     }
 
     if (route === "settings" && m === "PUT") {
@@ -383,6 +383,7 @@ async function handle(req, url, route, m) {
       const s = await getSettings();
       if (typeof b.anthropicKey === "string") s.anthropicKey = b.anthropicKey.trim();
       if (typeof b.brevoKey === "string") s.brevoKey = b.brevoKey.trim();
+      if (typeof b.runwayKey === "string") s.runwayKey = b.runwayKey.trim();
       if (typeof b.senderEmail === "string") s.senderEmail = clip(b.senderEmail, 200);
       if (typeof b.senderName === "string") s.senderName = clip(b.senderName, 80);
       if (typeof b.address === "string") s.address = clip(b.address, 200);
@@ -459,6 +460,15 @@ async function handle(req, url, route, m) {
       return json({ days: out });
     }
 
+    if (route === "home" && m === "GET") return json((await store("panel").get("home", { type: "json" })) || {});
+    if (route === "home" && m === "PUT") {
+      const b = await req.json().catch(() => ({}));
+      const photo = /^\/img\/[a-z0-9]{4,40}$/.test(String(b.photo || "")) ? b.photo : "";
+      const cats = {};
+      if (b.cats && typeof b.cats === "object") for (const k of Object.keys(b.cats).slice(0, 30)) { const v = clip(b.cats[k], 60); if (v) cats[clip(k, 60)] = v; }
+      await store("panel").setJSON("home", { photo, name: clip(b.name, 60), intro: clip(b.intro, 240), introEn: clip(b.introEn, 240), cats });
+      return json({ ok: true });
+    }
     if (route === "plan" && m === "GET") return json((await store("panel").get("plan", { type: "json" })) || { items: [] });
     if (route === "plan" && m === "PUT") {
       const b = await req.json().catch(() => ({}));
@@ -479,6 +489,70 @@ async function handle(req, url, route, m) {
 
     /* ---- diseños del editor ---- */
     /* ---- popups para websites ---- */
+    /* Clips con IA (Runway): animar una foto tuya o crear una escena desde una descripción */
+    if (route === "vidai" && m === "POST") {
+      const s = await getSettings();
+      if (!s.runwayKey) return json({ error: "novidai" }, 409);
+      const b = await req.json().catch(() => ({}));
+      const ratio = ["720:1280", "1280:720", "960:960", "832:1104"].includes(b.ratio) ? b.ratio : "720:1280";
+      const prompt = clip(b.prompt, 900);
+      let path, body;
+      if (b.mode === "scene") {
+        // Tu producto dentro de una escena nueva: Runway Gen-4 Image con tu foto como referencia (@producto)
+        const id = String(b.img || "").replace(/^\/img\//, "").replace(/[^a-z0-9-]/gi, "");
+        const got = id ? await store("img").getWithMetadata(id, { type: "arrayBuffer" }) : null;
+        if (!got || !got.data) return json({ error: "noimg" }, 400);
+        if (got.data.byteLength > 3.6e6) return json({ error: "imgsize" }, 413);
+        let pt = prompt || "@producto on a bright desk, soft morning light";
+        if (!/@producto\b/.test(pt)) pt += ", featuring @producto";
+        path = "text_to_image";
+        body = { model: "gen4_image", promptText: pt, ratio: ratio === "1280:720" ? "1280:720" : ratio === "960:960" ? "1024:1024" : "720:1280", referenceImages: [{ uri: "data:" + ((got.metadata && got.metadata.type) || "image/jpeg") + ";base64," + Buffer.from(got.data).toString("base64"), tag: "producto" }] };
+      } else if (b.mode === "image") {
+        const id = String(b.img || "").replace(/^\/img\//, "").replace(/[^a-z0-9-]/gi, "");
+        const got = id ? await store("img").getWithMetadata(id, { type: "arrayBuffer" }) : null;
+        if (!got || !got.data) return json({ error: "noimg" }, 400);
+        if (got.data.byteLength > 3.3e6) return json({ error: "imgsize" }, 413);
+        const type = (got.metadata && got.metadata.type) || "image/jpeg";
+        path = "image_to_video";
+        body = { model: "gen4_turbo", promptImage: "data:" + type + ";base64," + Buffer.from(got.data).toString("base64"), promptText: prompt || "Slow cinematic camera movement", ratio, duration: Number(b.duration) === 10 ? 10 : 5 };
+      } else {
+        if (!prompt) return json({ error: "bad" }, 400);
+        path = "text_to_video";
+        body = { model: "veo3.1_fast", promptText: prompt, ratio: ratio === "960:960" || ratio === "832:1104" ? "720:1280" : ratio, duration: [4, 6, 8].includes(Number(b.duration)) ? Number(b.duration) : 8 };
+      }
+      const call = (bd) => fetch("https://api.dev.runwayml.com/v1/" + path, { method: "POST", headers: { Authorization: "Bearer " + s.runwayKey, "X-Runway-Version": "2024-11-06", "content-type": "application/json" }, body: JSON.stringify(bd) });
+      let r = await call(body), txt = await r.text();
+      if (!r.ok && r.status === 400 && /duration/i.test(txt) && path === "text_to_video") { body.duration = 8; r = await call(body); txt = await r.text(); }
+      if (!r.ok) return json({ error: r.status === 401 ? "vidaikey" : /credit|balance|insufficient/i.test(txt) ? "vidaicredit" : /moderat|safety|content/i.test(txt) ? "vidaisafety" : "vidaifail", detail: txt.slice(0, 300) }, 502);
+      const d = JSON.parse(txt || "{}");
+      return json({ task: d.id, model: body.model, seconds: body.duration || 0, kind: path === "text_to_image" ? "img" : "video" });
+    }
+    if (route.startsWith("vidai/") && m === "GET") {
+      const tid = route.slice(6).replace(/[^a-z0-9-]/gi, "").slice(0, 80);
+      const s = await getSettings();
+      if (!s.runwayKey || !tid) return json({ error: "bad" }, 400);
+      const done = await store("panel").get("vidai-" + tid, { type: "json" });
+      if (done) return json({ status: "done", path: done.path });
+      const r = await fetch("https://api.dev.runwayml.com/v1/tasks/" + tid, { headers: { Authorization: "Bearer " + s.runwayKey, "X-Runway-Version": "2024-11-06" } });
+      if (!r.ok) return json({ status: "error", error: "vidaifail", detail: (await r.text()).slice(0, 300) });
+      const t = await r.json();
+      if (t.status === "FAILED") return json({ status: "error", error: /moderat|safety|content/i.test(t.failure || "") ? "vidaisafety" : "vidaifail", detail: clip(t.failure, 300) });
+      if (t.status !== "SUCCEEDED" || !Array.isArray(t.output) || !t.output[0]) return json({ status: "working", progress: t.progress || 0 });
+      // El enlace de Runway caduca: guardamos el resultado en tu web
+      const v = await fetch(t.output[0]); if (!v.ok) return json({ status: "working" });
+      const ct = v.headers.get("content-type") || "";
+      if (/^image\//.test(ct) || url.searchParams.get("kind") === "img") {
+        const ib = await v.arrayBuffer(), iid = "ia" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        await store("img").set(iid, ib, { metadata: { type: /^image\//.test(ct) ? ct.split(";")[0] : "image/png" } });
+        await store("panel").setJSON("vidai-" + tid, { path: "/img/" + iid, at: Date.now() });
+        return json({ status: "done", path: "/img/" + iid, kind: "img" });
+      }
+      const buf = await v.arrayBuffer(), id = "ia-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      await store("video").set(id, buf, { metadata: { type: "video/mp4", size: buf.byteLength } });
+      await store("panel").setJSON("vidai-" + tid, { path: "/video/" + id + ".mp4", at: Date.now() });
+      return json({ status: "done", path: "/video/" + id + ".mp4" });
+    }
+
     /* Videos: cada proyecto guarda escenas, textos y estilo (el archivo de video se crea en tu navegador) */
     if (route === "videos" && m === "GET") return json((await store("panel").get("videos", { type: "json" })) || { items: [] });
     if (route.startsWith("videos/") && (m === "PUT" || m === "DELETE")) {
