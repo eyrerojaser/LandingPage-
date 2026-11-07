@@ -150,7 +150,7 @@ a.btn{text-decoration:none;color:inherit}
 .newcard{border:2px dashed var(--line);border-radius:16px;background:none;min-height:240px;display:grid;place-content:center;justify-items:center;gap:8px;cursor:pointer;color:var(--muted);font-weight:500}
 .newcard:hover{border-color:var(--accent);color:var(--fg)}
 .newcard span{font:400 2.4rem var(--f-head);line-height:1;color:var(--accent)}
-.tpl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.tpl-grid>.tpl:only-child{max-width:330px}.tpl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .tpl-grp{display:grid;gap:10px;margin-bottom:18px}.tpl-grp h3{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .tpl-pop{font:inherit;color:var(--fg);align-items:stretch;justify-content:flex-start;background:var(--soft)!important;border-style:dashed!important}
 .tpl-pop .tp-ic{display:grid;place-items:center;aspect-ratio:4/3;font-size:44px;background:linear-gradient(135deg,var(--accent),#F4D3DE)}
@@ -1219,7 +1219,7 @@ function inDays(n){ var d = new Date(Date.now() + n*864e5); d.setHours(23,59,0,0
 var BASE = {videoTitle:"Mira cómo funciona", video:"", paper:"#0D0B0C", accent:"#D8A2B4", blush:"#F4D3DE", font:"dm", photo:"sample", photoPos:"center", brand:"Tu marca",
   instagram:"", pinterest:"", tiktok:"", website:"", secondText:"", secondUrl:"", endpoint:"", sticker:"", chip:""};
 var TEMPLATES = {
-  guia:{label:"Guía gratis (PDF)", desc:"Capta nombre y correo, y entrega tu PDF.",
+  guia:{label:"Freebie (PDF gratis)", desc:"Tu regalo gratis: piden nombre y correo y descargan tu PDF. Sale en «Freebies» en tu web.",
     defaults:{eyebrow:"Guía gratuita en PDF", title:"Planifica un mes de contenido *en una tarde*",
       sub:"La plantilla que uso para organizar mis publicaciones de Instagram y Pinterest: ideas, calendario y textos listos para adaptar a tu negocio.",
       bullets:"30 ideas de publicaciones por categoría\nCalendario mensual para imprimir\nChecklist antes de publicar",
@@ -2265,8 +2265,9 @@ function renderHome(){
   requestAnimationFrame(function(){ fitThumbs(g); });
 }
 var TPL_GROUPS = [
+  ["Freebies", ["guia"]],
   ["Promociones y cupones", ["cupon","flash","promo","bundle","upsell"], true],
-  ["Captar correos", ["guia","espera","clase","bio"]],
+  ["Captar correos", ["espera","clase","bio"]],
   ["Vender", ["venta","video","curso","catalogo","planes","demo","testimonios","gracias"]],
   ["Servicios y negocio", ["servicios","reservas","contacto","faq","afiliados","sobre"]]
 ];
@@ -2490,7 +2491,7 @@ function set(k, v){
   if (k === "name" && !cur.publishedFile){ cur.data.fileName = uniqueFile(cleanFile(v || cur.data.template), cur.id); showLink(); }
   render(); changed();
 }
-var CAT_DEF = {flash:"Promociones", bundle:"Promociones", planes:"Planes", demo:"Apps", upsell:"Promociones", testimonios:"Testimonios", faq:"Ayuda", afiliados:"Afiliadas", reservas:"Servicios", cupon:"Promociones", clase:"Clases gratis", servicios:"Servicios", curso:"Cursos", contacto:"Contacto", guia:"Regalos gratis", espera:"Próximamente", venta:"Productos digitales", video:"Productos digitales", promo:"Promociones", catalogo:"Productos digitales", sobre:"Sobre mí", bio:"Sobre mí", gracias:"Productos digitales"};
+var CAT_DEF = {flash:"Promociones", bundle:"Promociones", planes:"Planes", demo:"Apps", upsell:"Promociones", testimonios:"Testimonios", faq:"Ayuda", afiliados:"Afiliadas", reservas:"Servicios", cupon:"Promociones", clase:"Clases gratis", servicios:"Servicios", curso:"Cursos", contacto:"Contacto", guia:"Freebies", espera:"Próximamente", venta:"Productos digitales", video:"Productos digitales", promo:"Promociones", catalogo:"Productos digitales", sobre:"Sobre mí", bio:"Sobre mí", gracias:"Productos digitales"};
 function defaultCat(t){ return CAT_DEF[t] || "Mis páginas"; }
 function linkUI(){
   var w = document.createElement("div"); w.className = "f";
