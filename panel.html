@@ -247,6 +247,8 @@ a.btn{text-decoration:none;color:inherit}
 .bt-phone{border:10px solid #1B1517;border-radius:34px;overflow:hidden;height:640px;background:#F4ECE8;box-shadow:0 24px 50px -24px rgba(0,0,0,.55)}.bt-phone iframe{width:100%;height:100%;border:0;display:block}
 .bt-log{display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow:auto}.bt-log .m{max-width:85%;padding:8px 12px;border-radius:14px;white-space:pre-wrap;line-height:1.45}.bt-log .m small{display:block;font-size:11px;opacity:.7;margin-bottom:2px}.bt-log .m.a{background:var(--soft);align-self:flex-start}.bt-log .m.u{background:var(--accent);color:var(--accent-ink);align-self:flex-end}
 @media (max-width:900px){.vd-cols,.bt-cols{grid-template-columns:1fr}.vd-prev,.bt-prev{position:static;order:-1}.bt-phone{height:560px}}
+.vd-sf .f{align-content:start;align-self:start}#cm-q,#vd-aiq{font:inherit;font-size:15px;width:100%;box-sizing:border-box}
+.cm-seg{width:auto;flex-wrap:wrap}.cm-res{display:grid;grid-template-columns:minmax(0,180px) 1fr;gap:12px;align-items:start}.cm-res img{width:100%;border-radius:10px;display:block;box-shadow:0 10px 24px -12px rgba(0,0,0,.4)}
 /* ---- fin videos y chatbot ---- */
 /* acabado editorial */
 .mainview>div>.home-head{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:2px}
@@ -1067,7 +1069,7 @@ table.leads{width:100%;border-collapse:collapse;font-size:14px}table.leads th,ta
   <div class="home-inner">
     <div class="home-head">
       <div><h2>Tus páginas</h2><p id="home-sub">Toca una página para editarla. Cuando termines, pulsa «Publicar».</p></div>
-      <button class="btn primary" type="button" id="new-btn">+ Nueva página</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="cover-btn">Portada de tu web</button><button class="btn primary" type="button" id="new-btn">+ Nueva página</button></div>
     </div>
     <div class="grid" id="grid"></div>
   </div>
@@ -1992,7 +1994,7 @@ function api(method, path, body, raw){
   else if (body !== undefined){ h["Content-Type"] = "application/json"; opt.body = JSON.stringify(body); }
   return fetch("/api/" + path, opt).then(function(r){
     return r.json().catch(function(){ return {}; }).then(function(j){
-      if (!r.ok){ var e = new Error(j.error || ("http " + r.status)); e.status = r.status; e.code = j.error; throw e; }
+      if (!r.ok){ var e = new Error(j.error || ("http " + r.status)); e.status = r.status; e.code = j.error; e.detail = j.detail; throw e; }
       return j;
     });
   });
@@ -2389,6 +2391,34 @@ function showHome(){
   if (typeof showTab === "function") showTab(curTab); else renderHome();
 }
 $("new-btn").onclick = chooseTemplate;
+/* ---- Portada del inicio de tu web (foto, nombre y frase) ---- */
+$("cover-btn").onclick = function(){
+  openModal("Portada de tu web", '<p style="margin:0 0 14px;color:var(--muted)">Lo primero que se ve en <b>' + esc(location.host) + '</b>: tu foto, tu nombre y una frase. Debajo salen tus páginas (regalos gratis, productos…).</p>' +
+    '<div style="display:flex;gap:16px;align-items:center;margin:0 0 14px"><span id="hc-ph" style="width:92px;height:92px;flex:none;border-radius:50%;background:var(--soft) center top/cover;border:3px solid #D8A2B4"></span>' +
+    '<div style="display:grid;gap:6px"><button class="btn" type="button" id="hc-up">Subir mi foto</button><button class="btn" type="button" id="hc-rm" style="font-size:13px">Quitar foto</button></div><input type="file" id="hc-file" accept="image/*" hidden></div>' +
+    '<div class="f"><label for="hc-name">Nombre</label><input type="text" id="hc-name" maxlength="60" placeholder="Eyre Digital Studio"></div>' +
+    '<div class="f"><label for="hc-intro">Frase corta (español)</label><textarea id="hc-intro" maxlength="240" rows="3" style="min-height:0;font-family:inherit" placeholder="Planners, apps y recursos gratis para organizar tu vida y tu negocio."></textarea></div>' +
+    '<div class="f"><label for="hc-intro-en">Frase corta (inglés)</label><textarea id="hc-intro-en" maxlength="240" rows="3" style="min-height:0;font-family:inherit" placeholder="Planners, apps and free resources to organize your life and your business."></textarea></div>' +
+    '<div id="hc-cats"></div>' +
+    '<p style="margin:4px 0 0;color:var(--muted);font-size:13px">Tu web tiene botón ES / EN. Abre sola en el idioma del teléfono de cada persona.</p>' +
+    '<p id="hc-msg" style="min-height:1.2em;margin:6px 0;color:var(--muted)"></p><div style="display:flex;gap:8px;justify-content:flex-end"><a class="btn" href="/" target="_blank" rel="noopener">Ver mi web</a><button class="btn primary" type="button" id="hc-save">Guardar</button></div>');
+  var H = {photo:""}, msg = function(t){ $("hc-msg").textContent = t; };
+  var show = function(){ $("hc-ph").style.backgroundImage = H.photo ? "url(" + H.photo + ")" : "none"; $("hc-rm").hidden = !H.photo; };
+  show(); msg("Cargando…");
+  var cats = [];
+  Promise.all([api("GET", "home"), api("GET", "pages").catch(function(){ return {pages:[]}; })]).then(function(r){ var d = r[0];
+    H.photo = d.photo || ""; $("hc-name").value = d.name || ""; $("hc-intro").value = d.intro || ""; $("hc-intro-en").value = d.introEn || ""; show(); msg("");
+    (r[1].pages || []).forEach(function(p){ var c = p && p.data && p.data.inMenu !== "no" ? String(p.data.category || "Mis páginas").trim() || "Mis páginas" : ""; if (c && cats.indexOf(c) < 0) cats.push(c); });
+    var en = d.cats || {};
+    $("hc-cats").innerHTML = cats.length ? '<p style="margin:10px 0 6px;font-weight:500">Tus categorías en inglés</p>' + cats.map(function(c, i){ return '<div class="f"><label for="hc-c' + i + '">' + esc(c) + '</label><input type="text" id="hc-c' + i + '" maxlength="60" value="' + esc(en[c] || "") + '" placeholder="' + (/gratis/i.test(c) ? "Free gifts" : /digital/i.test(c) ? "Digital products" : "En inglés") + '"></div>'; }).join("") : "";
+  }, function(e){ msg(apiError(e)); });
+  $("hc-up").onclick = function(){ $("hc-file").click(); };
+  $("hc-rm").onclick = function(){ H.photo = ""; show(); };
+  $("hc-file").onchange = function(){ var f = this.files[0]; if (!f) return; msg("Subiendo foto…");
+    uploadImage(f).then(function(r){ H.photo = r.url; show(); msg("Foto lista. Pulsa «Guardar»."); }, function(e){ msg(e && e.code === "size" ? "Esa foto es demasiado grande." : apiError(e)); }); };
+  $("hc-save").onclick = function(){ msg("Guardando…");
+    api("PUT", "home", {photo:H.photo, name:$("hc-name").value.trim(), intro:$("hc-intro").value.trim(), introEn:$("hc-intro-en").value.trim(), cats:cats.reduce(function(o, c, i){ var v = $("hc-c" + i) && $("hc-c" + i).value.trim(); if (v) o[c] = v; return o; }, {})}).then(function(){ msg("¡Guardado! Ya se ve en tu web."); }, function(e){ msg(apiError(e)); }); };
+};
 $("back").onclick = showHome;
 $("gh-btn").onclick = function(){ authed ? openAccount() : openLogin(); };
 $("leads-btn").onclick = openLeads;
@@ -2699,7 +2729,7 @@ $("copy-btn").onclick = function(){
 };
 
 /* ================= panel inteligente ================= */
-var SET = {ai:false, mail:false, senderEmail:"", senderName:"", welcome:{on:false, subject:"", body:""}};
+var SET = {ai:false, vidai:false, mail:false, senderEmail:"", senderName:"", welcome:{on:false, subject:"", body:""}};
 function loadSettings(){ return api("GET", "settings").then(function(s){ SET = s; return s; }, function(){ return SET; }); }
 function copyText(t, btn){
   var ok = function(){ if (btn){ var o = btn.textContent; btn.textContent = "Copiado ✓"; setTimeout(function(){ btn.textContent = o; }, 1500); } };
@@ -3036,7 +3066,7 @@ function vDrawScene(ctx, W, H, d, s, p, tl){
     var iw = el.videoWidth || el.naturalWidth || el.width, ih = el.videoHeight || el.naturalHeight || el.height;
     if (iw && ih){
       var sc = Math.max(W / iw, H / ih), dx = 0, dy = 0, z = 1, e = vEase(p);
-      if (s.anim === "zoom") z = 1 + 0.12 * p; else if (s.anim === "pan"){ z = 1.12; dx = (p - 0.5) * W * 0.08; } else if (s.anim === "pop") z = 1.18 - 0.16 * vEase(p * 1.6); else if (s.anim === "slide"){ z = 1.06; dx = (1 - vEase(p * 2.2)) * W * 0.25; } else z = 1.04;
+      if (s.anim === "zoom") z = 1.02 + 0.22 * p; else if (s.anim === "pan"){ z = 1.2; dx = (p - 0.5) * W * 0.16; } else if (s.anim === "pop") z = 1.3 - 0.26 * vEase(p * 1.4); else if (s.anim === "slide"){ z = 1.08; dx = (1 - vEase(p * 2.2)) * W * 0.35; } else z = 1.04 + 0.02 * p;
       var dw = iw * sc * z, dh = ih * sc * z;
       ctx.drawImage(el, (W - dw) / 2 + dx, (H - dh) / 2 + dy, dw, dh);
     }
@@ -3054,11 +3084,11 @@ function vDrawScene(ctx, W, H, d, s, p, tl){
     ctx.globalAlpha = 0.08; ctx.beginPath(); ctx.arc(W * 0.1, H * 0.92, min * 0.35, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
   }
   // textos
-  var hs = min * (s.isEnd ? 0.115 : 0.095), pad = W * 0.08, maxW = W - pad * 2;
+  var tz = {s:0.75, m:0.88, l:1.05}[d.tsize || "m"] || 0.88, hs = min * (s.isEnd ? 0.11 : 0.085) * tz, pad = W * 0.08, maxW = W - pad * 2;
   ctx.font = "600 " + hs + "px \"" + fam + "\", Georgia, serif";
   var wr = vWrap(ctx, s.text, maxW);
   while (wr.lines.length > 4 && hs > min * 0.05){ hs *= 0.88; ctx.font = "600 " + hs + "px \"" + fam + "\", Georgia, serif"; wr = vWrap(ctx, s.text, maxW); }
-  var lh = hs * 1.12, ss = min * 0.042, bs = min * 0.046;
+  var lh = hs * 1.12, ss = min * 0.04 * Math.max(0.85, tz), bs = min * 0.044 * Math.max(0.85, tz);
   ctx.font = "400 " + ss + "px Jost, sans-serif"; var sw = s.sub ? vWrap(ctx, s.sub.replace(/\*/g, ""), maxW) : {lines:[]};
   var blockH = wr.lines.length * lh + (sw.lines.length ? ss * 0.7 + sw.lines.length * ss * 1.3 : 0) + (s.badge ? bs * 2.4 + ss * 0.6 : 0);
   var y0 = s.pos === "top" ? H * 0.12 : s.pos === "center" ? (H - blockH) / 2 : H - H * 0.1 - blockH - (d.logo && s.isEnd ? min * 0.16 : 0);
@@ -3119,7 +3149,8 @@ function vEditor(){
       "<div class='f'><label>Texto pequeño</label><input type='text' data-sk='sub' value='" + esc(s.sub) + "'></div>" +
       "<div class='f'><label>Etiqueta (precio, código, fecha)</label><input type='text' data-sk='badge' value='" + esc(s.badge) + "' placeholder='Opcional'></div>" +
       "<div class='f'><label>Foto o clip</label><div class='seg'>" + [["photo", "Foto"], ["video", "Clip"], ["none", "Nada"]].map(function(o){ return "<button type='button' data-smedia='" + o[0] + "' aria-pressed='" + (s.media === o[0]) + "'>" + o[1] + "</button>"; }).join("") + "</div>" +
-      (s.media !== "none" ? "<div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm primary' type='button' data-sup='" + i + "'>" + (s.media === "video" ? "Subir clip (MP4, menos de 20 MB)" : "Subir foto") + "</button><span class='photo-msg' data-supmsg='" + i + "' role='status'>" + (s.src === "sample" ? "Foto de ejemplo" : s.src ? "Lista ✓" : "") + "</span></div>" : "") + "</div>" +
+      (s.media !== "none" ? "<div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm primary' type='button' data-sup='" + i + "'>" + (s.media === "video" ? "Subir clip (MP4, menos de 20 MB)" : "Subir foto") + "</button><span class='photo-msg' data-supmsg='" + i + "' role='status'>" + (s.src === "sample" ? "Foto de ejemplo" : /\/video\/ia-/.test(s.src || "") ? "Clip creado con IA ✓" : s.src ? "Lista ✓" : "") + "</span></div>" : "") +
+      "<div><button class='btn sm' type='button' data-scai='" + i + "'>✨ Crear clip con IA</button></div></div>" +
       "<div class='f'><label>Movimiento</label><select data-sk='anim'>" + opt(VANIM, s.anim) + "</select></div>" +
       "<div class='f'><label>Dónde va el texto</label><select data-sk='pos'>" + opt(VPOS, s.pos) + "</select></div>" +
       "<div class='f'><label>Duración: <output data-dout>" + s.dur + " s</output></label><input type='range' min='1' max='8' step='0.5' data-sk='dur' value='" + s.dur + "'></div>" +
@@ -3132,6 +3163,7 @@ function vEditor(){
     "<div class='box'><b>Escena final</b><label class='ci-check'><input type='checkbox' id='vd-endon'" + (d.end.on ? " checked" : "") + "> <span>Terminar con una invitación (3 segundos)</span></label><div class='vd-sf'><div class='f'><label>Texto grande</label><input type='text' data-ek='title' value='" + esc(d.end.title) + "'></div><div class='f'><label>Texto pequeño</label><input type='text' data-ek='sub' value='" + esc(d.end.sub) + "' placeholder='Ej.: Enlace en mi perfil · queenspiritual.com'></div><div class='f'><label>Etiqueta</label><input type='text' data-ek='badge' value='" + esc(d.end.badge) + "' placeholder='Opcional: código, precio, @usuario'></div></div></div>" +
     "<div class='box'><b>Formato y estilo</b><div class='vd-sf'><div class='f'><label for='vd-fmt'>Formato</label><select id='vd-fmt'>" + Object.keys(VFMT).map(function(k){ return "<option value='" + k + "'" + (k === d.fmt ? " selected" : "") + ">" + k + " · " + VFMT[k][2] + "</option>"; }).join("") + "</select></div>" +
     "<div class='f'><label for='vd-font'>Letra de los títulos</label><select id='vd-font'>" + opt(VFONT, d.font) + "</select></div>" +
+    "<div class='f'><label for='vd-tsize'>Tamaño de las letras</label><select id='vd-tsize'>" + opt([["s", "Pequeñas"], ["m", "Medianas"], ["l", "Grandes"]], d.tsize || "m") + "</select></div>" +
     "<div class='f'><label for='vd-trans'>Paso entre escenas</label><select id='vd-trans'>" + opt([["fade", "Fundido suave"], ["slide", "Deslizar"], ["cut", "Corte directo"]], d.trans) + "</select></div>" +
     "<div class='f'><label>Colores</label><div class='vd-colors'><label>Fondo <input type='color' id='vd-bg' value='" + esc(d.bg) + "'></label><label>Texto <input type='color' id='vd-ink' value='" + esc(d.ink || "#FFFFFF") + "'></label><label>Tu color <input type='color' id='vd-accent' value='" + esc(d.accent) + "'></label></div></div>" +
     "<div class='f'><label>Tu logo (opcional)</label><div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm' type='button' id='vd-logo'>" + (d.logo ? "Cambiar logo" : "Subir logo") + "</button>" + (d.logo ? "<button class='btn sm' type='button' id='vd-logox'>Quitar</button>" : "") + "<span class='photo-msg' id='vd-logomsg' role='status'></span></div></div>" +
@@ -3162,6 +3194,7 @@ function vEditor(){
   v.querySelectorAll("[data-scdel]").forEach(function(b){ b.onclick = function(){ if (b.dataset.sure !== "1"){ b.dataset.sure = "1"; b.textContent = "¿Seguro?"; return; } d.scenes.splice(+b.getAttribute("data-scdel"), 1); changed(true); }; });
   v.querySelectorAll("[data-scgo]").forEach(function(b){ b.onclick = function(){ stop(); VPLAY.t = vScenes(d)[+b.getAttribute("data-scgo")].t0 + 0.9; redraw(); if (window.innerWidth < 900) $("vd-stage").scrollIntoView({behavior:"smooth", block:"center"}); }; });
   $("vd-add").onclick = function(){ d.scenes.push({media:"none", src:"", text:"Escribe aquí tu *mensaje*", sub:"", badge:"", dur:3, anim:"fade", pos:"center", shade:0}); changed(true); };
+  v.querySelectorAll("[data-scai]").forEach(function(b){ b.onclick = function(){ stop(); vClipAI(d, +b.getAttribute("data-scai"), function(){ changed(true); }); }; });
   v.querySelectorAll("[data-sup]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-sup"), s = d.scenes[i]; vPick(s.media === "video" ? "video" : "img", v.querySelector("[data-supmsg='" + i + "']"), function(path){ s.src = path; changed(true); }); }; });
   // escena final
   $("vd-endon").onchange = function(){ d.end.on = $("vd-endon").checked; changed(false); };
@@ -3170,6 +3203,7 @@ function vEditor(){
   $("vd-fmt").onchange = function(){ d.fmt = $("vd-fmt").value; changed(true); };
   $("vd-font").onchange = function(){ d.font = $("vd-font").value; changed(false); };
   $("vd-trans").onchange = function(){ d.trans = $("vd-trans").value; changed(false); };
+  $("vd-tsize").onchange = function(){ d.tsize = $("vd-tsize").value; changed(false); };
   ["bg", "ink", "accent"].forEach(function(k){ $("vd-" + k).oninput = function(){ d[k] = $("vd-" + k).value; changed(false); }; });
   $("vd-logo").onclick = function(){ vPick("logo", $("vd-logomsg"), function(p){ d.logo = p; changed(true); }); };
   if ($("vd-logox")) $("vd-logox").onclick = function(){ d.logo = ""; changed(true); };
@@ -3205,6 +3239,80 @@ function vPick(kind, msg, done){
     })();
   };
   fi.click();
+}
+/* Clips con IA (Runway): animar tu foto o crear una escena desde una descripción */
+var VCLIP_RATIO = {"9:16":"720:1280", "16:9":"1280:720", "1:1":"960:960", "4:5":"832:1104"};
+function vClipErr(e){ var c = e && e.code; return c === "novidai" ? "Primero pega tu clave de Runway en Cuenta → Conexiones." : c === "vidaikey" ? "La clave de Runway no es correcta. Revísala en Cuenta → Conexiones." : c === "vidaicredit" ? "Tu cuenta de Runway no tiene créditos. Añade saldo en dev.runwayml.com → Billing." : c === "vidaisafety" ? "Runway no quiso crear esa escena. Cambia un poco la descripción." : c === "noimg" ? "Primero sube tu foto en esta escena." : c === "imgsize" ? "La foto es muy pesada para animarla. Usa una de menos de 3 MB." : (e && e.detail) ? "Runway respondió: " + String(e.detail).slice(0, 160) : apiError(e); }
+function vClipPrompt(text, mode){
+  if (!SET.ai) return Promise.resolve(mode === "scene" && !/@producto/.test(text) ? text + ", featuring @producto" : text);
+  var how = mode === "image" ? "anima una foto existente: describe solo el movimiento de cámara y lo que se mueve, sin cambiar a la persona ni el producto" : mode === "scene" ? "crea UNA IMAGEN fotográfica realista donde aparece el producto de la foto de referencia; escribe exactamente @producto donde va el producto (por ejemplo: «a woman at a bright desk looking at a laptop whose screen shows @producto»); sin texto escrito extra" : "crea una escena corta de 4 a 8 segundos, cinematográfica, sin texto escrito en pantalla, sin logos";
+  var q = "Convierte esta idea en un prompt en inglés para un generador de IA (" + how + "). Máximo 60 palabras, una sola frase descriptiva, sin comillas. Idea: " + text + "\nResponde SOLO con JSON: {\"prompt\":\"...\"}";
+  return api("POST", "ai", {prompt:q, max:400}).then(function(r){ var x = (r.result && r.result.prompt) || text; if (mode === "scene" && !/@producto/.test(x)) x += ", featuring @producto"; return x; }, function(){ return mode === "scene" ? text + ", featuring @producto" : text; });
+}
+/* Espera a que Runway termine y devuelve la ruta del resultado guardado en tu web */
+function vClipWait(task, kind, onTick){
+  var t0 = Date.now();
+  return new Promise(function(res, rej){
+    (function poll(){
+      setTimeout(function(){
+        api("GET", "vidai/" + task + (kind === "img" ? "?kind=img" : "")).then(function(x){
+          if (x.status === "done") return res(x.path);
+          if (x.status === "error") return rej({code:x.error, detail:x.detail});
+          if (Date.now() - t0 > 8 * 60000) return rej({detail:"Está tardando mucho. Vuelve a intentarlo en un rato."});
+          onTick(Math.round((Date.now() - t0) / 1000), x.progress); poll();
+        }, function(e){ if (Date.now() - t0 < 8 * 60000) poll(); else rej(e); });
+      }, kind === "img" ? 3000 : 5000);
+    })();
+  });
+}
+function vClipAI(d, i, done){
+  var s = d.scenes[i], hasPhoto = s.media === "photo" && /^\/img\//.test(s.src || "");
+  if (!SET.vidai){ openConnections("Para crear clips con IA pega tu clave de Runway (Videos con IA)."); return; }
+  var price = function(mode, dur){ return "$" + (mode === "image" ? dur * 0.05 : dur * 0.10).toFixed(2); };
+  var HELP = {
+    scene:["¿Dónde quieres ver tu producto?", "Ej.: Una mujer abre su laptop en un escritorio luminoso y en la pantalla se ve mi calendario", hasPhoto ? "La IA crea una escena nueva con TU producto (la foto de esta escena). Primero te enseña la imagen ($0.05) y luego, si te gusta, la animas." : "Primero sube en esta escena la foto de tu producto (tu planner, tu calendario, tu libro, tu vela…). Luego vuelve aquí."],
+    image:["¿Cómo se mueve?", "Ej.: la cámara se acerca despacio, luz cálida", hasPhoto ? "Usa la foto de esta escena tal cual y le da movimiento." : "Primero sube tu foto en esta escena; luego vuelve aquí."],
+    text:["¿Qué quieres ver?", "Ej.: Velas encendidas sobre cartas de tarot, la cámara se acerca despacio", "Crea una escena nueva solo con tu descripción (sin tu producto)."]
+  };
+  openModal("Crear con IA", "<div style='display:grid;gap:12px'>" +
+    "<div class='seg cm-seg' role='group' aria-label='Cómo'><button type='button' data-cm='scene'>Mi producto en una escena</button><button type='button' data-cm='image'>Animar mi foto</button><button type='button' data-cm='text'>Desde una descripción</button></div>" +
+    "<p class='adv-muted' style='margin:0' id='cm-help'></p>" +
+    "<div class='f'><label for='cm-q' id='cm-ql'></label><textarea id='cm-q' rows='3'></textarea><small>Escríbelo en español. La IA lo prepara para que salga mejor.</small></div>" +
+    "<div class='f' id='cm-durf'><label for='cm-dur'>Duración</label><select id='cm-dur'></select></div>" +
+    "<div id='cm-res'></div>" +
+    "<div style='display:flex;gap:10px;align-items:center;flex-wrap:wrap'><button class='btn primary' type='button' id='cm-go'>Crear</button><span class='photo-msg' id='cm-msg' role='status'></span></div>" +
+    "<small class='adv-muted'>Se cobra en tu cuenta de Runway. Las imágenes tardan unos segundos y los clips de 1 a 3 minutos.</small></div>");
+  var mode = hasPhoto ? "scene" : "text", msg = $("cm-msg"), go = $("cm-go");
+  var setMode = function(m){ mode = m; document.querySelectorAll("[data-cm]").forEach(function(x){ x.setAttribute("aria-pressed", String(x.getAttribute("data-cm") === m)); });
+    $("cm-help").textContent = HELP[m][2]; $("cm-ql").textContent = HELP[m][0]; $("cm-q").placeholder = HELP[m][1]; $("cm-res").innerHTML = "";
+    $("cm-durf").hidden = m === "scene"; go.textContent = m === "scene" ? "Crear imagen · $0.05" : "Crear clip";
+    $("cm-dur").innerHTML = (m === "image" ? [5, 10] : [4, 6, 8]).map(function(x){ return "<option value='" + x + "'>" + x + " segundos · " + price(m, x) + "</option>"; }).join(""); };
+  document.querySelectorAll("[data-cm]").forEach(function(x){ x.onclick = function(){ setMode(x.getAttribute("data-cm")); }; });
+  setMode(mode);
+  var fail = function(e){ go.disabled = false; msg.textContent = vClipErr(e); };
+  var makeClip = function(m, img, text, dur){
+    go.disabled = true; msg.textContent = "Preparando…";
+    return vClipPrompt(text, m).then(function(prompt){ msg.textContent = "Enviando a Runway…"; return api("POST", "vidai", {mode:m, img:img, prompt:prompt, ratio:VCLIP_RATIO[d.fmt] || "720:1280", duration:dur}); })
+      .then(function(r){ return vClipWait(r.task, "video", function(sec, pr){ if ($("cm-msg")) $("cm-msg").textContent = "Creando tu clip… " + sec + " s" + (pr ? " · " + Math.round(pr * 100) + "%" : ""); }).then(function(path){ s.media = "video"; s.src = path; s.dur = Math.max(Number(s.dur) || 3, Math.min(8, r.seconds)); closeModal(); status("Tu clip está listo ✓"); done(); }); })
+      .catch(fail);
+  };
+  var makeScene = function(text){
+    go.disabled = true; msg.textContent = "Preparando…"; $("cm-res").innerHTML = "";
+    vClipPrompt(text, "scene").then(function(prompt){ msg.textContent = "Creando la imagen…"; return api("POST", "vidai", {mode:"scene", img:s.src, prompt:prompt, ratio:VCLIP_RATIO[d.fmt] || "720:1280"}); })
+      .then(function(r){ return vClipWait(r.task, "img", function(sec){ if ($("cm-msg")) $("cm-msg").textContent = "Creando la imagen… " + sec + " s"; }); })
+      .then(function(path){
+        go.disabled = false; go.textContent = "Probar otra · $0.05"; msg.textContent = "¿Te gusta?";
+        $("cm-res").innerHTML = "<div class='cm-res'><img src='" + esc(path) + "' alt='Imagen creada con IA'><div style='display:grid;gap:8px;align-content:start'><button class='btn sm primary' type='button' id='cm-anim'>Animarla · 5 s · $0.25</button><button class='btn sm' type='button' id='cm-use'>Usarla como foto (sin costo extra)</button></div></div>";
+        $("cm-use").onclick = function(){ s.media = "photo"; s.src = path; closeModal(); status("Imagen puesta en la escena ✓"); done(); };
+        $("cm-anim").onclick = function(){ $("cm-anim").disabled = true; $("cm-use").disabled = true; makeClip("image", path, $("cm-q").value.trim() || "gentle natural movement, slow camera push-in", 5); };
+      }).catch(fail);
+  };
+  go.onclick = function(){
+    var q = $("cm-q").value.trim();
+    if ((mode === "text" || mode === "scene") && !q){ $("cm-q").focus(); return; }
+    if ((mode === "image" || mode === "scene") && !hasPhoto){ msg.textContent = "Primero sube la foto en esta escena."; return; }
+    if (mode === "scene") makeScene(q); else makeClip(mode, s.src, q || "slow cinematic camera push-in, gentle natural movement", Number($("cm-dur").value));
+  };
 }
 /* La IA escribe los textos de las escenas (las fotos y los ajustes se quedan) */
 function vAI(d, done){
@@ -3348,6 +3456,8 @@ function openConnections(intro){
       "<div style='display:grid;gap:14px'>" +
       "<div class='f'><label for='c-ai'>Clave de Anthropic (para la IA) " + (SET.ai ? "· <span style='color:#2E8B57'>conectada ✓</span>" : "") + "</label><input type='password' id='c-ai' autocomplete='off' placeholder='" + (SET.ai ? "Guardada. Pega otra solo si quieres cambiarla" : "sk-ant-…") + "'>" +
       "<small>En console.anthropic.com → API Keys → Create Key. Añade un poco de saldo en Billing (con 5 dólares tienes para muchísimos textos).</small></div>" +
+      "<div class='f'><label for='c-rw'>Clave de Runway (para crear clips de video con IA) " + (SET.vidai ? "· <span style='color:#2E8B57'>conectada ✓</span>" : "") + "</label><input type='password' id='c-rw' autocomplete='off' placeholder='" + (SET.vidai ? "Guardada. Pega otra solo si quieres cambiarla" : "key_…") + "'>" +
+      "<small>Opcional. En dev.runwayml.com crea tu cuenta → API Keys → Create new key, y añade créditos en Billing (10 dólares = 1.000 créditos). Animar una foto cuesta unos 25 centavos.</small></div>" +
       "<div class='f'><label for='c-br'>Clave de Brevo (para enviar correos) " + (SET.mail ? "· <span style='color:#2E8B57'>conectada ✓</span>" : "") + "</label><input type='password' id='c-br' autocomplete='off' placeholder='" + (SET.mail ? "Guardada. Pega otra solo si quieres cambiarla" : "xkeysib-…") + "'>" +
       "<small>En brevo.com crea tu cuenta gratis → tu nombre arriba → SMTP & API → API Keys → Generate. Gratis hasta 300 correos al día.</small></div>" +
       "<div class='f'><label for='c-se'>Tu correo (remitente y contacto)</label><input type='text' id='c-se' value='" + esc(SET.senderEmail) + "' placeholder='tucorreo@gmail.com'><small>Sale también como correo de contacto en tu Política de privacidad. Para enviar correos tiene que estar verificado en Brevo: Senders, Domains & Dedicated IPs → Senders → Add a sender.</small></div>" +
@@ -3370,9 +3480,10 @@ function openConnections(intro){
       var b = {senderEmail:$("c-se").value.trim(), senderName:$("c-sn").value.trim(), address:$("c-ad").value.trim()};
       if ($("c-ai").value.trim()) b.anthropicKey = $("c-ai").value.trim();
       if ($("c-br").value.trim()) b.brevoKey = $("c-br").value.trim();
+      if ($("c-rw") && $("c-rw").value.trim()) b.runwayKey = $("c-rw").value.trim();
       $("c-msg").textContent = "Guardando…";
       api("PUT", "settings", b).then(loadSettings).then(function(){
-        $("c-msg").textContent = "Guardado ✓ " + (SET.ai ? "IA conectada. " : "") + (SET.mail ? "Correos conectados." : "");
+        $("c-msg").textContent = "Guardado ✓ " + (SET.ai ? "IA conectada. " : "") + (SET.vidai ? "Videos con IA conectados. " : "") + (SET.mail ? "Correos conectados." : "");
         if (curTab === "mail") renderMail();
       }, function(e){ $("c-msg").textContent = apiError(e); });
     };
