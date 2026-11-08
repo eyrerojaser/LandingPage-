@@ -53,9 +53,13 @@ button{font:inherit;color:inherit}
 .app{flex:1;min-height:0;display:grid;grid-template-columns:minmax(330px,410px) minmax(0,1fr)}
 .panel{min-height:0;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding-block:16px 40px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px}
 .how{background:var(--soft);border-radius:14px;padding:14px 16px;margin-bottom:8px}
-.how b{font-family:var(--f-head);font-weight:400;font-size:1.1rem;display:block;margin-bottom:6px}
+.how b{font-family:var(--f-head);font-weight:400;font-size:1.05rem}.how summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}.how summary::-webkit-details-marker{display:none}.how summary::after{content:"?";width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--muted)}.how[open] summary{margin-bottom:6px}
 .how ol{margin:0;padding-left:20px;display:grid;gap:3px;font-size:14px}
 .sec{border-bottom:1px solid var(--line);padding-block:18px;display:grid;gap:14px}
+details.sec{padding-block:0;gap:0}details.sec>summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:500;display:flex;justify-content:space-between;gap:10px;align-items:center}details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";font-size:20px;line-height:1;color:var(--muted)}details.sec[open]>summary::after{content:"–"}.fold-in{display:grid;gap:14px;padding:0 0 18px}
+.page-line>summary{font-weight:400;font-size:14px;color:var(--muted)}.page-line>summary b{color:var(--fg);font-weight:500}.page-line>summary em{font-style:normal;color:var(--accent);font-weight:500;margin-left:auto}.page-line>summary::after{display:none}
+.more-h{padding:22px 0 4px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}.more-h b{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.more-h small{color:var(--muted)}
 .sec h2{margin:0;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .f{display:grid;gap:5px}
 .f label{font-size:14px;font-weight:500}
@@ -1081,14 +1085,14 @@ table.leads{width:100%;border-collapse:collapse;font-size:14px}table.leads th,ta
 </nav>
 <div class="app">
   <aside class="panel" id="panel">
-    <div class="how" id="how">
-      <b>Cómo editar</b>
+    <details class="how" id="how">
+      <summary><b>Cómo editar</b></summary>
       <ol>
         <li>Cambia aquí lo que quieras. Se guarda solo en tu cuenta: lo verás igual en el teléfono y en la computadora.</li>
         <li>Toca cualquier parte de la vista previa para ir directo a ese campo.</li>
         <li>Pulsa «‹ Mis plantillas» para volver: tus cambios se publican solos y la página aparece en el menú de tu web.</li>
       </ol>
-    </div>
+    </details>
     <div id="fields"></div>
     <div class="sec">
       <h2>Más opciones</h2>
@@ -2098,7 +2102,7 @@ function showLogin(isSetup, intro, err){
     }).catch(function(e){ PASS = ""; $("l-go").disabled = false; msg.textContent = apiError(e); });
   };
 }
-function afterLogin(){ pullRemote().then(function(){ if (S.dirty) autoPublish(); }); loadSettings(); PLAN = null; OUTBOX = null; POPS = null; NOTES = null; STATS30 = null; api("POST", "cron").catch(function(){}); }
+function afterLogin(){ loadHome(); pullRemote().then(function(){ if (S.dirty) autoPublish(); }); loadSettings(); PLAN = null; OUTBOX = null; POPS = null; NOTES = null; STATS30 = null; api("POST", "cron").catch(function(){}); }
 function pullRemote(force, quiet){
   status("Trayendo tus páginas…", "busy");
   return api("GET", "draft").then(function(d){
@@ -2401,6 +2405,8 @@ $("cover-btn").onclick = function(){
     '<div class="f"><label for="hc-intro">Frase corta (español)</label><textarea id="hc-intro" maxlength="240" rows="3" style="min-height:0;font-family:inherit" placeholder="Planners, apps y recursos gratis para organizar tu vida y tu negocio."></textarea></div>' +
     '<div class="f"><label for="hc-intro-en">Frase corta (inglés)</label><textarea id="hc-intro-en" maxlength="240" rows="3" style="min-height:0;font-family:inherit" placeholder="Planners, apps and free resources to organize your life and your business."></textarea></div>' +
     '<div id="hc-cats"></div>' +
+    '<p style="margin:10px 0 6px;font-weight:500">Tu website y redes (salen abajo en tu web)</p><p style="margin:0 0 8px;color:var(--muted);font-size:13px">Deja vacías las que no uses. En las redes puedes poner el enlace completo o solo tu usuario.</p>' +
+    [["website","Mi website","https://…"],["whatsapp","WhatsApp","Tu número, ej. 305 555 1234"],["instagram","Instagram","@tuusuario"],["pinterest","Pinterest","usuario"],["youtube","YouTube","@tucanal"],["tiktok","TikTok","@tuusuario"],["facebook","Facebook","enlace o usuario"]].map(function(x){ return '<div class="f"><label for="hc-l-' + x[0] + '">' + x[1] + '</label><input type="text" id="hc-l-' + x[0] + '" maxlength="200" placeholder="' + x[2] + '"></div>'; }).join("") +
     '<p style="margin:4px 0 0;color:var(--muted);font-size:13px">Tu web tiene botón ES / EN. Abre sola en el idioma del teléfono de cada persona.</p>' +
     '<p id="hc-msg" style="min-height:1.2em;margin:6px 0;color:var(--muted)"></p><div style="display:flex;gap:8px;justify-content:flex-end"><a class="btn" href="/" target="_blank" rel="noopener">Ver mi web</a><button class="btn primary" type="button" id="hc-save">Guardar</button></div>');
   var H = {photo:""}, msg = function(t){ $("hc-msg").textContent = t; };
@@ -2409,6 +2415,7 @@ $("cover-btn").onclick = function(){
   var cats = [];
   Promise.all([api("GET", "home"), api("GET", "pages").catch(function(){ return {pages:[]}; })]).then(function(r){ var d = r[0];
     H.photo = d.photo || ""; $("hc-name").value = d.name || ""; $("hc-intro").value = d.intro || ""; $("hc-intro-en").value = d.introEn || ""; show(); msg("");
+    var lk = d.links || {}; ["website","whatsapp","instagram","pinterest","youtube","tiktok","facebook"].forEach(function(k){ $("hc-l-" + k).value = lk[k] || ""; });
     (r[1].pages || []).forEach(function(p){ var c = p && p.data && p.data.inMenu !== "no" ? String(p.data.category || "Mis páginas").trim() || "Mis páginas" : ""; if (c && cats.indexOf(c) < 0) cats.push(c); });
     var en = d.cats || {};
     $("hc-cats").innerHTML = cats.length ? '<p style="margin:10px 0 6px;font-weight:500">Tus categorías en inglés</p>' + cats.map(function(c, i){ return '<div class="f"><label for="hc-c' + i + '">' + esc(c) + '</label><input type="text" id="hc-c' + i + '" maxlength="60" value="' + esc(en[c] || "") + '" placeholder="' + (/gratis/i.test(c) ? "Free gifts" : /digital/i.test(c) ? "Digital products" : "En inglés") + '"></div>'; }).join("") : "";
@@ -2416,9 +2423,11 @@ $("cover-btn").onclick = function(){
   $("hc-up").onclick = function(){ $("hc-file").click(); };
   $("hc-rm").onclick = function(){ H.photo = ""; show(); };
   $("hc-file").onchange = function(){ var f = this.files[0]; if (!f) return; msg("Subiendo foto…");
-    uploadImage(f).then(function(r){ H.photo = r.url; show(); msg("Foto lista. Pulsa «Guardar»."); }, function(e){ msg(e && e.code === "size" ? "Esa foto es demasiado grande." : apiError(e)); }); };
-  $("hc-save").onclick = function(){ msg("Guardando…");
-    api("PUT", "home", {photo:H.photo, name:$("hc-name").value.trim(), intro:$("hc-intro").value.trim(), introEn:$("hc-intro-en").value.trim(), cats:cats.reduce(function(o, c, i){ var v = $("hc-c" + i) && $("hc-c" + i).value.trim(); if (v) o[c] = v; return o; }, {})}).then(function(){ msg("¡Guardado! Ya se ve en tu web."); }, function(e){ msg(apiError(e)); }); };
+    $("hc-save").disabled = true;
+    uploadImage(f).then(function(r){ H.photo = r.url; show(); return save(); }).then(function(){ $("hc-save").disabled = false; }, function(e){ $("hc-save").disabled = false; msg(e && e.code === "size" ? "Esa foto es demasiado grande." : !e || !e.status ? "No pude leer esa foto. Prueba con otra (JPG o PNG)." : apiError(e)); }); this.value = ""; };
+  function save(){ msg("Guardando…");
+    return api("PUT", "home", {photo:H.photo, name:$("hc-name").value.trim(), intro:$("hc-intro").value.trim(), introEn:$("hc-intro-en").value.trim(), links:["website","whatsapp","instagram","pinterest","youtube","tiktok","facebook"].reduce(function(o, k){ var v = $("hc-l-" + k).value.trim(); if (v) o[k] = v; return o; }, {}), cats:cats.reduce(function(o, c, i){ var v = $("hc-c" + i) && $("hc-c" + i).value.trim(); if (v) o[c] = v; return o; }, {})}).then(function(){ loadHome(); msg(H.photo ? "¡Guardado con tu foto! Ya se ve en tu web." : "¡Guardado! (Sin foto: toca «Subir mi foto»)."); }, function(e){ msg(apiError(e)); throw e; }); }
+  $("hc-save").onclick = function(){ save().catch(function(){}); };
 };
 $("back").onclick = showHome;
 $("gh-btn").onclick = function(){ authed ? openAccount() : openLogin(); };
@@ -2472,6 +2481,7 @@ function goToField(k){
   setView("edit");
   var el = k === "photo" ? $("photo-btn") : $("e-" + k); if (!el) return;
   var box = el.closest(".f") || el.closest(".sec");
+  var fold = el.closest("details"); if (fold) fold.open = true;
   el.scrollIntoView({block:"center", behavior:"smooth"});
   setTimeout(function(){ try{ el.focus({preventScroll:true}); }catch(_){} if (box){ box.classList.remove("flash"); void box.offsetWidth; box.classList.add("flash"); } }, 250);
 }
@@ -2592,18 +2602,55 @@ function pdfUploader(input, kind){
 function buildPanel(){
   var box = $("fields"); box.innerHTML = "";
   var tpl = TEMPLATES[cur.data.template] || TEMPLATES.guia;
-  var first = [{t:"Esta página", k:["name","live","link","lang","inMenu","category"]}];
-  first.concat(tpl.sections).forEach(function(sec){
-    if (sec.when && !sec.when(cur.data)) return;
-    var s = document.createElement("section"); s.className = "sec";
-    var h = document.createElement("h2"); h.textContent = sec === "photo" ? (cur.data.template === "bio" ? "Tu foto de perfil" : "Tu foto") : sec === "colors" ? "Colores y letra" : sec.t; s.appendChild(h);
-    if (sec === "photo") s.appendChild(photoUI());
-    else if (sec === "colors") colorsUI(s);
-    else sec.k.forEach(function(k){ s.appendChild(k === "link" ? linkUI() : field(k)); });
-    box.appendChild(s);
+  homeFill(cur);
+  var secs = tpl.sections.filter(function(sec){ return !(sec.when && !sec.when(cur.data)); });
+  // Lo esencial arriba (foto + los textos que más importan); todo lo demás, plegado.
+  var firstObj = secs.filter(function(x){ return typeof x === "object"; })[0], ess = [];
+  secs.forEach(function(sec){ if (typeof sec === "object") sec.k.forEach(function(k){ if (ESS.indexOf(k) >= 0 || (sec === firstObj && (k === "brand" || k === "video"))) ess.push(k); }); });
+  var top = document.createElement("section"); top.className = "sec ess";
+  top.innerHTML = "<h2>Lo esencial</h2>";
+  if (secs.indexOf("photo") >= 0) top.appendChild(photoUI());
+  ess.forEach(function(k){ top.appendChild(field(k)); });
+  box.appendChild(pageLine());
+  box.appendChild(top);
+  box.appendChild(aiSection());
+  var more = document.createElement("div"); more.className = "more-h"; more.innerHTML = "<b>Personalizar más</b><small>Opcional. Toca para abrir.</small>"; box.appendChild(more);
+  secs.forEach(function(sec){
+    if (sec === "photo") return;
+    var keys = sec === "colors" ? null : sec.k.filter(function(k){ return ess.indexOf(k) < 0; });
+    if (keys && !keys.length) return;
+    var d = document.createElement("details"); d.className = "sec fold";
+    var sm = document.createElement("summary"); sm.textContent = sec === "colors" ? "Colores y letra" : sec.t; d.appendChild(sm);
+    var inner = document.createElement("div"); inner.className = "fold-in"; d.appendChild(inner);
+    if (sec === "colors") colorsUI(inner); else keys.forEach(function(k){ inner.appendChild(k === "link" ? linkUI() : field(k)); });
+    box.appendChild(d);
   });
-  box.insertBefore(aiSection(), box.children[1]);
   syncPhoto(); syncSwatches();
+}
+var ESS = ["eyebrow","title","sub","bullets","price","oldPrice","ctaText","ctaUrl","couponOff","couponCode","deadline","pdfUrl","cta"];
+// «Esta página» en una línea: estado, idioma y categoría. «Cambiar» abre los detalles.
+function pageLine(){
+  var d = document.createElement("details"); d.className = "sec fold page-line";
+  var c = cur.data, sm = document.createElement("summary");
+  sm.innerHTML = '<span><b>' + esc(c.live === "no" ? "○ Borrador" : "● En tu web") + '</b> · ' + esc(c.lang === "en" ? "English" : "Español") + ' · ' + esc(c.category || "Mis páginas") + (c.inMenu === "no" ? " · fuera del menú" : "") + '</span><em>Cambiar</em>';
+  d.appendChild(sm);
+  var inner = document.createElement("div"); inner.className = "fold-in"; d.appendChild(inner);
+  ["name","live","link","lang","inMenu","category"].forEach(function(k){ inner.appendChild(k === "link" ? linkUI() : field(k)); });
+  inner.addEventListener("change", function(){ setTimeout(function(){ var o = d.open; var n = pageLine(); n.open = o; d.replaceWith(n); }, 0); });
+  return d;
+}
+// Tu marca y redes: se llenan solas con lo de «Portada de tu web».
+var HOME = null;
+function loadHome(){ if (!authed) return Promise.resolve(); return api("GET", "home").then(function(h){ HOME = h || {}; }, function(){}); }
+function homeUrl(k, v){ v = String(v || "").trim(); if (!v || /^https?:\/\//i.test(v)) return v;
+  if (k === "website") return "https://" + v.replace(/^\/+/, "");
+  var base = {instagram:"https://instagram.com/", pinterest:"https://pinterest.com/", tiktok:"https://www.tiktok.com/@"}[k];
+  return /^[\w.-]+\.[a-z]{2,}\//i.test(v) ? "https://" + v : base + v.replace(/^@/, ""); }
+function homeFill(p){
+  if (!HOME || !p) return false; var d = p.data, ch = false, L = HOME.links || {};
+  if (HOME.name && (!d.brand || d.brand === "Tu marca")){ d.brand = HOME.name; ch = true; }
+  ["instagram","pinterest","tiktok","website"].forEach(function(k){ if (!d[k] && L[k]){ d[k] = homeUrl(k, L[k]); ch = true; } });
+  if (ch) changed(); return ch;
 }
 function photoUI(){
   var wrap = document.createElement("div"); wrap.style.cssText = "display:grid;gap:12px";
@@ -3518,14 +3565,14 @@ var AI_FIELDS = {
   cupon:{eyebrow:"etiqueta corta y cariñosa (2-4 palabras)", title:"titular de agradecimiento de 3 a 7 palabras con *asteriscos* en 1-2 palabras", sub:"mensaje de gracias cálido y corto (máximo 20 palabras) que presente el cupón", couponLabel:"texto muy corto sobre el cupón (2-3 palabras)", couponNote:"condiciones en 1 frase corta", ctaText:"texto del botón para ir a la tienda (2-4 palabras)"}
 };
 function aiSection(){
-  var s = document.createElement("section"); s.className = "sec ai-sec";
-  s.innerHTML = "<h2>✨ Ayuda con IA</h2>" +
+  var s = document.createElement("details"); s.className = "sec fold ai-sec";
+  s.innerHTML = "<summary>✨ Escribir mis textos con IA</summary><div class='fold-in'>" +
     "<div class='f'><label for='ai-brief'>Cuéntame qué ofreces en esta página y para quién</label><textarea id='ai-brief' rows='3' placeholder='Ej.: Planner imprimible de 20 páginas para mamás emprendedoras que quieren organizar su año'></textarea></div>" +
     "<div class='photo-actions' style='grid-auto-flow:column;justify-content:start;flex-wrap:wrap;display:flex'>" +
     "<button class='btn primary sm' type='button' id='ai-write'>Escribir mis textos</button>" +
     "<button class='btn sm' type='button' id='ai-tr'>" + (cur.data.lang === "en" ? "Traducir al español" : "Traducir al inglés") + "</button>" +
     "<button class='btn sm' type='button' id='ai-social'>Kit de redes →</button></div>" +
-    "<div class='photo-msg' id='ai-msg' role='status'></div>";
+    "<div class='photo-msg' id='ai-msg' role='status'></div></div>";
   setTimeout(function(){
     $("ai-brief").value = cur.data.aiBrief || "";
     $("ai-brief").oninput = function(){ cur.data.aiBrief = $("ai-brief").value; changed(); };
