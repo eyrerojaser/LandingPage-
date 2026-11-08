@@ -466,7 +466,9 @@ async function handle(req, url, route, m) {
       const photo = /^\/img\/[a-z0-9]{4,40}$/.test(String(b.photo || "")) ? b.photo : "";
       const cats = {};
       if (b.cats && typeof b.cats === "object") for (const k of Object.keys(b.cats).slice(0, 30)) { const v = clip(b.cats[k], 60); if (v) cats[clip(k, 60)] = v; }
-      await store("panel").setJSON("home", { photo, name: clip(b.name, 60), intro: clip(b.intro, 240), introEn: clip(b.introEn, 240), cats });
+      const links = {};
+      if (b.links && typeof b.links === "object") for (const k of ["website", "whatsapp", "instagram", "pinterest", "youtube", "tiktok", "facebook"]) { const v = clip(b.links[k], 200).trim(); if (v) links[k] = v; }
+      await store("panel").setJSON("home", { photo, name: clip(b.name, 60), intro: clip(b.intro, 240), introEn: clip(b.introEn, 240), cats, links });
       return json({ ok: true });
     }
     if (route === "plan" && m === "GET") return json((await store("panel").get("plan", { type: "json" })) || { items: [] });

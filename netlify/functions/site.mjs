@@ -45,6 +45,11 @@ async function menuPage(live) {
   const intro = String(home.intro || "").trim(), introEn = String(home.introEn || "").trim();
   const catsEn = home.cats && typeof home.cats === "object" ? home.cats : {};
   const two = (es, en) => '<span class="es">' + escH(es) + '</span><span class="en">' + escH(en || es) + '</span>';
+  const L = home.links && typeof home.links === "object" ? home.links : {};
+  const NET = { whatsapp: ["WhatsApp", "https://wa.me/"], instagram: ["Instagram", "https://instagram.com/"], pinterest: ["Pinterest", "https://pinterest.com/"], youtube: ["YouTube", "https://youtube.com/@"], tiktok: ["TikTok", "https://www.tiktok.com/@"], facebook: ["Facebook", "https://facebook.com/"] };
+  const toUrl = (k, v) => { v = String(v || "").trim(); if (!v) return ""; if (/^https?:\/\//i.test(v)) return v; if (k === "whatsapp") { const n = v.replace(/\D/g, ""); return n.length >= 8 ? "https://wa.me/" + (n.length === 10 ? "1" + n : n) : ""; } if (k === "website") return /^[\w.-]+\.[a-z]{2,}/i.test(v) ? "https://" + v : ""; if (/^[\w.-]+\.[a-z]{2,}\//i.test(v)) return "https://" + v; return NET[k][1] + v.replace(/^@/, ""); };
+  const socials = (L.website && toUrl("website", L.website) ? '<a class="web" href="' + escH(toUrl("website", L.website)) + '" target="_blank" rel="noopener">' + '<span class="es">Mi website</span><span class="en">My website</span> →</a>' : '') +
+    Object.keys(NET).filter((k) => L[k] && toUrl(k, L[k])).map((k) => '<a href="' + escH(toUrl(k, L[k])) + '" target="_blank" rel="noopener">' + NET[k][0] + '</a>').join("");
   const intro2 = intro || introEn ? two(intro || introEn, introEn || intro) : "";
   const card = (k) => {
     const d = info[k] || {}, href = "/" + k.replace(/\.html$/, "");
@@ -53,7 +58,7 @@ async function menuPage(live) {
     const free = !d.price && /gratis|free|regalo/i.test(String(d.category || "") + " " + String(d.eyebrow || ""));
     const cta = free ? two("Lo quiero gratis", "Get it free") : two("Ver más", "See more");
     return '<a class="card" href="' + escH(href) + '">' + (photo ? '<span class="ph"><img src="' + escH(photo) + '" alt="" loading="lazy"></span>' : '<span class="ph"></span>') +
-      '<span class="tx">' + (d.price ? '<small>' + escH(d.price) + '</small>' : (d.eyebrow ? '<small>' + escH(d.eyebrow) + '</small>' : '')) + '<b>' + escH(title) + '</b>' + (d.sub ? '<i>' + escH(d.sub) + '</i>' : '') + '<em>' + cta + ' →</em></span></a>';
+      '<span class="tx">' + (d.price ? '<small>' + escH(d.price) + '</small>' : (d.eyebrow ? '<small>' + escH(d.eyebrow) + '</small>' : '')) + '<b>' + escH(title) + '</b><em>' + cta + ' →</em></span></a>';
   };
   const groups = new Map();
   order.forEach((k) => { const c = String((info[k] || {}).category || "Mis páginas").trim() || "Mis páginas"; if (!groups.has(c)) groups.set(c, []); groups.get(c).push(k); });
@@ -83,9 +88,11 @@ async function menuPage(live) {
     '.tx em{justify-self:start;background:#1F161A;color:#fff !important;border-radius:99px;padding:9px 18px;font-size:.92rem;margin-top:10px !important}.card:hover .tx em{background:#9C4462}' +
     'html.en .es,html:not(.en) .en{display:none}.wrap{position:relative}' +
     '.lang{position:absolute;top:16px;right:22px;display:flex;gap:6px}.lang button{font:500 13px Jost,sans-serif;color:#fff;background:none;border:1px solid ' + accent + '66;border-radius:8px;padding:6px 11px;cursor:pointer}.lang button[aria-pressed=true]{background:' + accent + ';border-color:' + accent + ';color:#1F161A}' +
+    '.social{display:flex;flex-wrap:wrap;gap:10px;max-width:560px;margin:10px auto 0}.social a{flex:1 1 40%;display:block;text-align:center;color:#fff;text-decoration:none;border:1px solid ' + accent + ';border-radius:12px;padding:12px 10px;font-size:15px}.social a:hover{background:' + accent + ';color:#1F161A}' +
+    '.social a.web{flex-basis:100%;background:' + accent + ';color:#1F161A;font-weight:500}' +
     'footer{text-align:center;margin-top:40px;font-size:13px}footer a{color:' + accent + '}</style></head><body><div class="wrap"><div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es">ES</button><button type="button" data-l="en">EN</button></div>' +
     hero + chips + cards +
-    '<footer><a href="/privacidad">' + two("Política de privacidad", "Privacy policy") + '</a></footer></div>' +
+    '' + (socials ? '<nav class="social">' + socials + '</nav>' : '') + '<footer><a href="/privacidad">' + two("Política de privacidad", "Privacy policy") + '</a></footer></div>' +
     '<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".lang button"),l;try{l=localStorage.getItem("lang")}catch(e){}if(l!=="es"&&l!=="en")l=/^es/i.test(navigator.language||"")?"es":"en";' +
     'function set(x){d.lang=x;d.classList.toggle("en",x==="en");b.forEach(function(e){e.setAttribute("aria-pressed",e.dataset.l===x)});try{localStorage.setItem("lang",x)}catch(e){}}' +
     'b.forEach(function(e){e.onclick=function(){set(e.dataset.l)}});set(l)})()</script></body></html>';
