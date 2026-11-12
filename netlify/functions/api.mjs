@@ -499,7 +499,16 @@ async function handle(req, url, route, m) {
       const ratio = ["720:1280", "1280:720", "960:960", "832:1104"].includes(b.ratio) ? b.ratio : "720:1280";
       const prompt = clip(b.prompt, 900);
       let path, body;
-      if (b.mode === "scene") {
+      if (b.mode === "music") {
+        // Música de fondo instrumental (Runway · ElevenLabs), en bucle
+        path = "sound_effect";
+        body = { model: "eleven_text_to_sound_v2", promptText: prompt || "warm upbeat instrumental background music, soft piano and light percussion, no vocals", duration: Math.max(5, Math.min(30, Number(b.duration) || 20)), loop: true };
+      } else if (b.mode === "picture") {
+        // Imagen nueva solo desde una descripción (sin foto de referencia)
+        if (!prompt) return json({ error: "bad" }, 400);
+        path = "text_to_image";
+        body = { model: "gen4_image", promptText: prompt.replace(/@producto\b/g, "the product"), ratio: ratio === "1280:720" ? "1280:720" : ratio === "960:960" ? "1024:1024" : "720:1280" };
+      } else if (b.mode === "scene") {
         // Tu producto dentro de una escena nueva: Runway Gen-4 Image con tu foto como referencia (@producto)
         const id = String(b.img || "").replace(/^\/img\//, "").replace(/[^a-z0-9-]/gi, "");
         const got = id ? await store("img").getWithMetadata(id, { type: "arrayBuffer" }) : null;
@@ -527,7 +536,7 @@ async function handle(req, url, route, m) {
       if (!r.ok && r.status === 400 && /duration/i.test(txt) && path === "text_to_video") { body.duration = 8; r = await call(body); txt = await r.text(); }
       if (!r.ok) return json({ error: r.status === 401 ? "vidaikey" : /credit|balance|insufficient/i.test(txt) ? "vidaicredit" : /moderat|safety|content/i.test(txt) ? "vidaisafety" : "vidaifail", detail: txt.slice(0, 300) }, 502);
       const d = JSON.parse(txt || "{}");
-      return json({ task: d.id, model: body.model, seconds: body.duration || 0, kind: path === "text_to_image" ? "img" : "video" });
+      return json({ task: d.id, model: body.model, seconds: body.duration || 0, kind: path === "text_to_image" ? "img" : path === "sound_effect" ? "audio" : "video" });
     }
     if (route.startsWith("vidai/") && m === "GET") {
       const tid = route.slice(6).replace(/[^a-z0-9-]/gi, "").slice(0, 80);
@@ -543,6 +552,14 @@ async function handle(req, url, route, m) {
       // El enlace de Runway caduca: guardamos el resultado en tu web
       const v = await fetch(t.output[0]); if (!v.ok) return json({ status: "working" });
       const ct = v.headers.get("content-type") || "";
+      if (/^audio\//.test(ct) || url.searchParams.get("kind") === "audio") {
+        const ab = new Uint8Array(await v.arrayBuffer()), h = new TextDecoder().decode(ab.slice(0, 12));
+        const wav = h.startsWith("RIFF"), m4a = /^ftyp/.test(h.slice(4, 8)), ext = wav ? ".wav" : m4a ? ".m4a" : ".mp3";
+        const aid = "ia-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        await store("video").set(aid, ab.buffer, { metadata: { type: wav ? "audio/wav" : m4a ? "audio/mp4" : "audio/mpeg", size: ab.byteLength } });
+        await store("panel").setJSON("vidai-" + tid, { path: "/video/" + aid + ext, at: Date.now() });
+        return json({ status: "done", path: "/video/" + aid + ext, kind: "audio" });
+      }
       if (/^image\//.test(ct) || url.searchParams.get("kind") === "img") {
         const ib = await v.arrayBuffer(), iid = "ia" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
         await store("img").set(iid, ib, { metadata: { type: /^image\//.test(ct) ? ct.split(";")[0] : "image/png" } });

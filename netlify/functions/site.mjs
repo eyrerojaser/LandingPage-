@@ -122,7 +122,7 @@ export default async (req) => {
   }
 
   if (path.startsWith("/video/")) {
-    const id = path.slice(7).replace(/\.(mp4|mov|mp3|m4a)$/, "");
+    const id = path.slice(7).replace(/\.(mp4|mov|mp3|m4a|wav)$/, "");
     if (!/^[a-z0-9-]{1,90}$/.test(id)) return new Response("No encontrado", { status: 404 });
     const v = await getStore({ name: "video", consistency: "strong" }).getWithMetadata(id, { type: "arrayBuffer" });
     if (!v) return new Response("No encontrado", { status: 404 });
