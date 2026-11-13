@@ -174,7 +174,7 @@ export async function saasRoute(req, url, route, m, ctx) {
   /* ---- tu sección «Plataforma» (solo tú) ---- */
   if (/^platform\//.test(route)) {
     if (!(await ctx.owner())) return json({ error: "auth" }, 401);
-    if (route === "platform/settings" && m === "GET") return json({ name: ps.name || "PageBloom", price: PRICE(ps), trialDays: TRIAL(ps), closed: !!ps.closed, domain: ps.domain || "", stripe: ps.stripeKey ? ps.stripeKey.slice(0, 8) + "…" + ps.stripeKey.slice(-4) : "", webhook: !!ps.webhookSecret, webhookUrl: url.origin + "/api/stripe-webhook", signupUrl: url.origin + "/registro" });
+    if (route === "platform/settings" && m === "GET") return json({ name: ps.name || "PageBloom", price: PRICE(ps), trialDays: TRIAL(ps), closed: !!ps.closed, domain: ps.domain || "", stripe: ps.stripeKey ? ps.stripeKey.slice(0, 8) + "…" + ps.stripeKey.slice(-4) : "", webhook: !!ps.webhookSecret, webhookUrl: url.origin + "/api/stripe-webhook", signupUrl: url.origin + "/app" });
     if (route === "platform/settings" && m === "PUT") {
       const b = await req.json().catch(() => ({})), n = { ...ps };
       if (b.name != null) n.name = clip(b.name, 40) || "PageBloom";

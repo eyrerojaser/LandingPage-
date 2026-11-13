@@ -44,6 +44,11 @@ h1 em{color:var(--pink)}
 .msg{min-height:1.3em;font-size:14px;color:var(--err);margin:10px 0 0}
 .have{text-align:center;margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:14px}.have a{font-weight:600;color:#9C4462}
 .hp{position:absolute;left:-9999px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:#F3ECEE;border-radius:12px;padding:4px;margin:0 0 20px}
+.tabs button{font:inherit;font-weight:500;border:0;background:none;padding:10px;border-radius:9px;cursor:pointer;color:var(--muted)}
+.tabs button[aria-selected=true]{background:#fff;color:var(--fg);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.link{background:none;border:0;padding:0;font:inherit;font-size:14px;color:#9C4462;cursor:pointer;text-decoration:underline}
+[hidden]{display:none!important}
 section.band{padding:84px 0}
 .h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:clamp(2rem,3.6vw,2.8rem);line-height:1.1;margin:10px 0 12px}
 .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#9C4462;font-weight:600}
@@ -70,7 +75,7 @@ footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer 
 <body>
 <header class="hero">
   <div class="wrap">
-    <nav class="nav" aria-label="Principal"><a class="logo" href="/registro"><i aria-hidden="true"></i><span class="pname">PageBloom</span></a><a class="in" href="/panel.html">Entrar</a></nav>
+    <nav class="nav" aria-label="Principal"><a class="logo" href="/app"><i aria-hidden="true"></i><span class="pname">PageBloom</span></a><a class="in" href="#entrar" id="nav-in">Entrar</a></nav>
     <div class="hero-grid">
       <div>
         <span class="eyebrow">Tu negocio en un solo panel</span>
@@ -83,6 +88,8 @@ footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer 
         </ul>
       </div>
       <div class="card" id="signup">
+        <div class="tabs" role="tablist"><button type="button" role="tab" id="t-new" aria-selected="true">Crear cuenta</button><button type="button" role="tab" id="t-in" aria-selected="false">Ya tengo cuenta</button></div>
+        <div id="p-new">
         <h2>Crea tu PageBloom</h2>
         <p class="sub">Prueba gratis <span class="tdays">14</span> días. Después, <span class="tprice">$29</span> al mes.</p>
         <form id="f" novalidate>
@@ -95,7 +102,18 @@ footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer 
           <p class="msg" id="msg" role="alert"></p>
           <p class="note">Al crear tu cuenta aceptas la <a href="/privacidad">política de privacidad</a>.</p>
         </form>
-        <p class="have">¿Ya tienes cuenta? <a href="/panel.html">Entra aquí</a></p>
+        </div>
+        <div id="p-in" hidden>
+          <h2>Entra a tu panel</h2>
+          <p class="sub">Con el correo y la contraseña de tu cuenta.</p>
+          <form id="fi" novalidate>
+            <div class="f"><label for="ie">Tu correo</label><input id="ie" type="email" autocomplete="username" required></div>
+            <div class="f"><label for="ip">Contraseña</label><input id="ip" type="password" autocomplete="current-password" required></div>
+            <button class="go" type="submit" id="igo">Entrar</button>
+            <p class="msg" id="imsg" role="alert"></p>
+            <p class="note"><button type="button" class="link" id="forgot">¿Olvidaste tu contraseña?</button></p>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -149,6 +167,26 @@ footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer 
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
+  // Si ya entró antes en este dispositivo, va directo a su panel
+  try{ if (localStorage.getItem("lp-sess") && localStorage.getItem("lp-slug") && !/#(entrar|nueva)/.test(location.hash)) { location.replace("/panel.html"); return; } }catch(_){}
+  var tab = function(inn){ $("t-in").setAttribute("aria-selected", inn); $("t-new").setAttribute("aria-selected", !inn); $("p-in").hidden = !inn; $("p-new").hidden = inn; };
+  $("t-in").onclick = function(){ tab(true); $("ie").focus(); };
+  $("t-new").onclick = function(){ tab(false); $("name").focus(); };
+  $("nav-in").onclick = function(e){ e.preventDefault(); tab(true); $("signup").scrollIntoView({behavior:"smooth", block:"center"}); $("ie").focus({preventScroll:true}); };
+  if (/#entrar/.test(location.hash)) tab(true);
+  var go = function(j){ try{ localStorage.setItem("lp-sess", j.token); localStorage.setItem("lp-slug", j.me.slug); localStorage.removeItem("lp-owner"); }catch(_){} location.href = "/panel.html"; };
+  $("fi").onsubmit = function(ev){
+    ev.preventDefault(); var msg = $("imsg"); msg.textContent = ""; $("igo").disabled = true; $("igo").textContent = "Entrando…";
+    fetch("/api/login", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email:$("ie").value.trim(), password:$("ip").value})}).then(function(r){ return r.json().then(function(j){ if (!r.ok) throw j; return j; }); })
+      .then(go, function(j){ $("igo").disabled = false; $("igo").textContent = "Entrar"; msg.textContent = j && j.error === "login" ? "El correo o la contraseña no son correctos." : "No hay conexión. Inténtalo otra vez."; });
+  };
+  $("forgot").onclick = function(){
+    var e = $("ie").value.trim(), msg = $("imsg");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ msg.textContent = "Escribe arriba el correo de tu cuenta y vuelve a tocar «¿Olvidaste tu contraseña?»."; $("ie").focus(); return; }
+    msg.textContent = "Enviando…";
+    fetch("/api/forgot", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email:e})}).then(function(r){ return r.json(); })
+      .then(function(j){ msg.textContent = j.mail === false ? "No pudimos mandar el correo ahora. Escríbenos y te ayudamos." : "Listo. Si ese correo tiene cuenta, te llega un enlace para crear una contraseña nueva (mira también en spam)."; }, function(){ msg.textContent = "No hay conexión. Inténtalo otra vez."; });
+  };
   $("yr").textContent = new Date().getFullYear();
   var slugify = function(s){ return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40); };
   var plat = "PageBloom";
@@ -162,7 +200,7 @@ footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer 
   }).catch(function(){});
   var show = function(){ var n = $("name").value.trim(), s = slugify(n); $("pv").hidden = !n; $("pv-name").textContent = n; $("pv-url").textContent = location.host + "/s/" + (s || "tu-negocio"); };
   $("name").oninput = show;
-  var err = {name:"Escribe el nombre de tu espacio.", email:"Revisa tu correo.", short:"La contraseña necesita al menos 8 letras o números.", taken:"Ese correo ya tiene una cuenta. Entra con él.", slug:"Ese nombre no está disponible. Prueba con otro.", slugtaken:"Ya hay un espacio con ese nombre. Prueba con otro (por ejemplo, añade tu ciudad).", limit:"Demasiados intentos hoy desde esta conexión. Inténtalo mañana.", closed:"Por ahora no estamos abriendo cuentas nuevas."};
+  var err = {name:"Escribe el nombre de tu espacio.", email:"Revisa tu correo.", short:"La contraseña necesita al menos 8 letras o números.", taken:"Ese correo ya tiene una cuenta. Toca «Ya tengo cuenta» para entrar.", slug:"Ese nombre no está disponible. Prueba con otro.", slugtaken:"Ya hay un espacio con ese nombre. Prueba con otro (por ejemplo, añade tu ciudad).", limit:"Demasiados intentos hoy desde esta conexión. Inténtalo mañana.", closed:"Por ahora no estamos abriendo cuentas nuevas."};
   $("f").onsubmit = function(ev){
     ev.preventDefault(); var msg = $("msg"); msg.textContent = "";
     var b = {name:$("name").value.trim(), email:$("email").value.trim(), password:$("pw").value, bot:$("bot").value};
@@ -171,7 +209,7 @@ footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer 
     if (b.password.length < 8){ msg.textContent = err.short; $("pw").focus(); return; }
     $("go").disabled = true; $("go").textContent = "Creando tu espacio…";
     fetch("/api/signup", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(b)}).then(function(r){ return r.json().then(function(j){ if (!r.ok) throw j; return j; }); })
-      .then(function(j){ try{ localStorage.setItem("lp-sess", j.token); localStorage.setItem("lp-slug", j.me.slug); localStorage.removeItem("lp-owner"); }catch(_){} location.href = "/panel.html"; },
+      .then(go,
         function(j){ $("go").disabled = false; $("go").textContent = "Crear mi cuenta gratis"; msg.textContent = (j && err[j.error]) || "No hay conexión. Inténtalo otra vez."; });
   };
 })();

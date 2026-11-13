@@ -6983,7 +6983,7 @@ function saasErr(e){
     c === "stripekey" ? "Stripe no aceptó esa clave" + (e.detail ? ": " + e.detail : ".") : c === "whsec" ? "La clave del webhook empieza por whsec_." : c === "domain" ? "Escribe solo el dominio, por ejemplo: tudominio.com" : c === "stripe" ? "Stripe respondió: " + (e.detail || "error") : apiError(e);
 }
 function setSession(r){ rawLS("lp-sess", r.token); rawLS("lp-slug", r.me.slug); location.hash = ""; location.reload(); }
-function tenantLogout(){ fetch("/api/logout", {method:"POST", headers:authH()}).catch(function(){}).then(function(){ rawLS("lp-sess", null); rawLS("lp-slug", null); location.reload(); }); }
+function tenantLogout(){ fetch("/api/logout", {method:"POST", headers:authH()}).catch(function(){}).then(function(){ rawLS("lp-sess", null); rawLS("lp-slug", null); location.href = "/registro.html#entrar"; }); }
 
 /* Entrar con correo (clientas) */
 function clientLogin(intro){
@@ -6995,7 +6995,7 @@ function clientLogin(intro){
     "<div class='f'><label for='cl-pass'>Contraseña</label><input type='password' id='cl-pass' autocomplete='current-password' required></div>" +
     "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='submit' id='cl-go'>Entrar</button><a href='#' id='cl-forgot' class='adv-muted'>¿Olvidaste tu contraseña?</a></div>" +
     "<div class='photo-msg' id='cl-msg' role='status'></div>" +
-    "<p class='login-new'>¿Todavía no tienes cuenta? <a href='/registro'>Crea tu PageBloom gratis</a></p>" +
+    "<p class='login-new'>¿Todavía no tienes cuenta? <a href='/app'>Crea tu PageBloom gratis</a></p>" +
     "<p style='margin:0;font-size:12px'><a href='#' id='cl-owner' class='adv-muted'>Entrar como administradora</a></p></form>");
   setTimeout(function(){ try{ $("cl-email").focus(); }catch(_){} }, 50);
   $("cl-owner").onclick = function(e){ e.preventDefault(); rawLS("lp-owner", "1"); openLogin(); };

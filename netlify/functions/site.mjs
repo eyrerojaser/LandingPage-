@@ -113,7 +113,7 @@ const tenantHtml = (html, slug, base) => {
 export default async (req) => {
   const u = new URL(req.url), raw = decodeURIComponent(u.pathname);
   if (/^\/(img|pdf|video)\//.test(raw)) return serve(req, raw, "/");
-  if (raw === "/registro" || raw === "/registro/") return Response.redirect(u.origin + "/registro.html", 302);
+  if (/^\/(registro|app|entrar)\/?$/.test(raw)) return Response.redirect(u.origin + "/registro.html" + (/entrar/.test(raw) ? "#entrar" : ""), 302);
   // Espacio de una clienta: /s/su-negocio/… o, con tu dominio, su-negocio.tudominio.com
   let slug = "", path = raw, base = "/";
   const ps = await platSettings(), host = (req.headers.get("host") || u.host).toLowerCase().replace(/:\d+$/, "");
