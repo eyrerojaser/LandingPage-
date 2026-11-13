@@ -253,32 +253,6 @@ a.btn{text-decoration:none;color:inherit}
 @media (max-width:900px){.vd-cols,.bt-cols{grid-template-columns:1fr}.vd-prev,.bt-prev{position:static;order:-1}.bt-phone{height:560px}}
 .vd-sf .f{align-content:start;align-self:start}#cm-q,#vd-aiq{font:inherit;font-size:15px;width:100%;box-sizing:border-box}
 .cm-seg{width:auto;flex-wrap:wrap}.cm-res{display:grid;grid-template-columns:minmax(0,180px) 1fr;gap:12px;align-items:start}.cm-res img{width:100%;border-radius:10px;display:block;box-shadow:0 10px 24px -12px rgba(0,0,0,.4)}
-.vd-auto{display:grid;gap:14px;border:1px solid var(--accent);background:linear-gradient(180deg,var(--soft),var(--card,#fff) 70%)}
-.vd-auto-t{font-family:var(--f-head);font-weight:400;font-size:1.35rem}
-.vd-auto textarea{font-family:inherit}
-.va-photos{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.va-ph{position:relative;width:74px;height:74px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}.va-ph img{width:100%;height:100%;object-fit:cover;display:block}
-.va-ph button{position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;line-height:1}
-.va-add{height:74px;padding:0 16px;border:1.5px dashed var(--line);border-radius:12px;background:none;color:var(--fg);cursor:pointer;font:inherit}.va-add:hover{border-color:var(--accent)}
-.va-row{display:flex;gap:16px;flex-wrap:wrap}.va-row .f{flex:1 1 260px}
-.vd-h3{font-family:var(--f-head);font-weight:400;font-size:1.25rem;margin:26px 0 12px}
-.vd-prog{display:grid;gap:14px;max-width:640px}
-.va-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}.va-steps li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
-.va-steps li span{color:var(--muted);text-align:right}.va-steps li.on{border-color:var(--accent)}.va-steps li.on span{color:var(--fg)}.va-steps li.ok span{color:#2E7D4F}
-.vr-cols{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start;margin-top:14px}.vr-side{display:grid;gap:10px}.vr-name{font-family:var(--f-head);font-weight:400;font-size:1.2rem}
-@media (max-width:860px){.vr-cols{grid-template-columns:1fr}}
-.va-row .seg button{white-space:nowrap}.vd-auto a{color:var(--accent)}
-.vr-warn{margin:0;padding:10px 12px;border-radius:10px;background:#FFF4E0;color:#7A4E0E;font-size:14px}
-.va-row .seg{flex-wrap:wrap}
-.vd-tg{margin:4px 0 8px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.vd-tpls+.vd-tg{margin-top:18px}
-.va-ph video{width:100%;height:100%;object-fit:cover;display:block;background:#000}.va-ph em{position:absolute;left:4px;bottom:4px;font-style:normal;font-size:11px;background:rgba(0,0,0,.65);color:#fff;border-radius:6px;padding:1px 5px}
-.vd-ask{display:grid;gap:8px}.vd-ask textarea{font:inherit;font-size:15px;width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--panel,#fff);color:var(--fg)}
-.box.vd-ask{border:1px solid var(--accent);background:var(--soft)}
-details.vd-scene{display:block}details.vd-scene>summary{cursor:pointer;list-style:none}details.vd-scene>summary::-webkit-details-marker{display:none}details.vd-scene[open]>summary{margin-bottom:10px}
-details.vd-scene>summary::before{content:"▸";color:var(--muted);margin-right:2px}details.vd-scene[open]>summary::before{content:"▾"}
-.vd-kind{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
-details.vd-fold>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center}details.vd-fold>summary::-webkit-details-marker{display:none}
-details.vd-fold>summary::after{content:"+";font-size:20px;color:var(--muted)}details.vd-fold[open]>summary::after{content:"–"}details.vd-fold[open]>summary{margin-bottom:12px}details.vd-fold>summary .vd-kind{margin-left:auto}
 /* ---- fin videos y chatbot ---- */
 /* acabado editorial */
 .mainview>div>.home-head{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:2px}
@@ -646,7 +620,7 @@ table.leads{width:100%;border-collapse:collapse;font-size:14px}table.leads th,ta
 .adv-hero{gap:14px}
 .adv-hero h3{font:400 clamp(1.4rem,3.4vw,1.9rem) var(--f-head)!important;margin:0}
 .adv-hero textarea,.adv-follow textarea{font:inherit;font-size:16px;width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);resize:vertical;box-sizing:border-box}
-.adv-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.adv-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
 .adv-check{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;cursor:pointer}
 .adv-check input{width:18px;height:18px;margin-top:1px;accent-color:var(--accent);flex:none}
 .adv-go{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
@@ -1077,34 +1051,12 @@ table.leads{width:100%;border-collapse:collapse;font-size:14px}table.leads th,ta
 
 @media (prefers-reduced-motion:reduce){.lp *,.lp *::before,.lp *::after{animation:none!important;transition:none!important}}
 </script>
-<style id="pb-saas">
-.i18n-wait body{visibility:hidden}
-.pb-lang{display:inline-flex;gap:2px;border:1px solid var(--line);border-radius:10px;padding:2px;margin-right:8px;vertical-align:middle}
-.pb-lang button{font:inherit;font-size:12px;font-weight:600;border:0;background:none;color:var(--muted);padding:6px 9px;border-radius:7px;cursor:pointer}
-.pb-lang button[aria-pressed=true]{background:var(--fg);color:#fff}
-
-/* ---- PageBloom para clientas ---- */
-.pb-brand{font-family:var(--f-head);color:var(--accent)}.pb-sep{color:var(--muted);margin:0 2px}
-.pb-banner{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;padding:9px 16px;background:#1B1517;color:#F4D3DE;font-size:14px}.pb-banner[hidden]{display:none}.pb-banner.warn{background:#7A2E2E;color:#fff}
-.pb-plan{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}@media (max-width:860px){.pb-plan{grid-template-columns:1fr}}
-.pb-plan-card,.pb-space{display:grid;gap:12px}.pb-price{margin:0;font-size:15px;color:var(--muted)}.pb-price b{font-family:var(--f-head);font-weight:400;font-size:2.6rem;color:var(--fg)}
-.pb-state{justify-self:start;display:inline-block;padding:4px 11px;border-radius:99px;font-size:13px;font-weight:500;background:var(--soft);color:var(--fg)}
-.pb-active,.pb-comp{background:#E3F2E8;color:#1E6B3D}.pb-grace,.pb-expired,.pb-paused{background:#FBE4E4;color:#8A2525}.pb-trial{background:#F9EBF0;color:#8C3B58}
-.pb-url{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pb-url a{color:var(--accent);word-break:break-all}.pb-ok{border-color:#9BC9A9;background:#EEF8F1}
-.pb-pw summary{cursor:pointer;color:var(--muted);font-size:14px}.pb-pw[open]{display:grid;gap:10px}.pb-steps{margin:0;padding-left:20px;display:grid;gap:6px}
-.login-new{margin:4px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:14px}.login-new a{color:var(--accent);font-weight:500}
-body.pb-locked .sidenav .navit:not(#tab-miplan){opacity:.35;pointer-events:none}
-.pf-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.pf-stats .box{display:grid;gap:4px}.pf-stats small{color:var(--muted)}.pf-stats b{font-family:var(--f-head);font-weight:400;font-size:2rem}@media (max-width:700px){.pf-stats{grid-template-columns:1fr 1fr}}
-.pf-link{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.pf-link a{color:var(--accent);font-weight:500}
-.pf-table{display:grid;margin-top:10px}.pf-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}.pf-row>div:first-child{display:grid;gap:2px}.pf-row small{color:var(--muted)}.pf-row a{color:var(--accent);font-size:13px;word-break:break-all}
-.pf-act{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}.pf-set{display:grid;gap:14px}.pf-set code{font-size:12px;background:var(--soft);padding:1px 5px;border-radius:5px;word-break:break-all}
-</style>
 <style id="landing-style"></style>
 </head>
 <body data-mode="home">
 <header class="top">
   <div class="mode-home">
-    <h1 id="pb-title">Mi panel</h1>
+    <h1>Mi panel</h1>
   </div>
   <div class="mode-edit">
     <button class="back" type="button" id="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Mis plantillas</button>
@@ -1112,7 +1064,7 @@ body.pb-locked .sidenav .navit:not(#tab-miplan){opacity:.35;pointer-events:none}
   </div>
   <span class="status" id="status" role="status"><i></i><span id="status-t">Cargando…</span></span>
   <button class="btn" type="button" id="leads-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Suscriptores</button>
-  <span class="pb-lang notr" role="group" aria-label="Idioma / Language"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></span><button class="btn" type="button" id="gh-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Cuenta</button>
+  <button class="btn" type="button" id="gh-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Cuenta</button>
   <div class="mode-edit"><button class="btn hide-sm" type="button" id="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>Descargar</button></div>
   <button class="btn primary" type="button" id="pub-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Publicar</button>
 </header>
@@ -1179,60 +1131,7 @@ body.pb-locked .sidenav .navit:not(#tab-miplan){opacity:.35;pointer-events:none}
 "use strict";
 var SAMPLE = "/img/ejemplo.jpg";
 function $(id){ return document.getElementById(id); }
-
-/* ================= Idioma del panel: español o inglés ================= */
-var PLANG = (function(){ var l = ""; try{ l = localStorage.getItem("pb-lang") || ""; }catch(_){} if (l !== "es" && l !== "en") l = /^es/i.test(navigator.language || "") ? "es" : "en"; return l; })();
-document.documentElement.lang = PLANG;
-var TR = null, TRSKIP = ",SCRIPT,STYLE,TEXTAREA,CODE,PRE,IFRAME,CANVAS,NOSCRIPT,";
-function trNorm(t){ return t.replace(/\d+([.,]\d+)?/g, "#"); }
-function tr(t){
-  if (!TR || !t) return t;
-  var m = t.match(/^(\s*)([\s\S]*?)(\s*)$/), core = m[2].replace(/\s+/g, " "); if (!core) return t;
-  var k = trNorm(core), v = TR[k];
-  if (v == null){ var end = core.match(/[:.…]$/); if (end){ v = TR[trNorm(core.slice(0, -1))]; if (v != null) v += end[0]; } }
-  if (v == null){ var lead = core.match(/^([:·,]\s*)([\s\S]+)$/); if (lead && TR[trNorm(lead[2])] != null) v = lead[1] + TR[trNorm(lead[2])]; }
-  if (v == null && /^Editar /.test(core)){ var rest = core.slice(7), tv = TR[trNorm(rest)]; v = "Edit " + (tv != null ? tv : rest); }
-  if (v == null) return t;
-  var nums = core.match(/\d+([.,]\d+)?/g) || [], i = 0;
-  v = v.replace(/#/g, function(h){ return i < nums.length ? nums[i++] : h; });
-  return m[1] + v + m[3];
-}
-function trNode(root){
-  if (!TR || !root) return;
-  if (root.nodeType === 3){ var p = root.parentElement; if (p && TRSKIP.indexOf("," + p.tagName + ",") < 0 && !p.closest("[contenteditable=true],.notr,#frame,#doc-prev,#ed-stage,#ed-pthumbs,.thumb")){ var n = tr(root.nodeValue); if (n !== root.nodeValue) root.nodeValue = n; } return; }
-  if (root.nodeType !== 1 || TRSKIP.indexOf("," + root.tagName + ",") >= 0 || (root.closest && root.closest("[contenteditable=true],.notr,#frame,#doc-prev,#ed-stage,#ed-pthumbs,.thumb"))) return;
-  var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:function(x){ var p = x.parentElement; return !p || TRSKIP.indexOf("," + p.tagName + ",") >= 0 || p.closest("[contenteditable=true],.notr,#frame,#doc-prev,#ed-stage,#ed-pthumbs,.thumb") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }}), x;
-  var list = []; while ((x = w.nextNode())) list.push(x);
-  list.forEach(function(t){ var n = tr(t.nodeValue); if (n !== t.nodeValue) t.nodeValue = n; });
-  var els = root.querySelectorAll ? [root].concat([].slice.call(root.querySelectorAll("[placeholder],[title],[aria-label]"))) : [];
-  els.forEach(function(e){ ["placeholder","title","aria-label"].forEach(function(a){ var v = e.getAttribute && e.getAttribute(a); if (v){ var n = tr(v); if (n !== v) e.setAttribute(a, n); } }); });
-}
-// Una línea de contenido con marcas (# título, - casilla, 1. paso, ? pregunta, > consejo, o «texto | detalle»)
-function trLine(x){
-  var m = x.match(/^(\s*(?:#|-|\d+\.|\?|>)\s+)([\s\S]*)$/); if (m) return m[1] + trLine(m[2]);
-  if (x.indexOf(" | ") > 0 && tr(x) === x) return x.split(" | ").map(function(y){ return tr(y); }).join(" | ");
-  return tr(x);
-}
-function setLang(l){ try{ localStorage.setItem("pb-lang", l); }catch(_){} location.reload(); }
-window.pbTr = function(t){ return [!!TR, tr(t)]; };
-if (PLANG === "en"){
-  document.documentElement.classList.add("i18n-wait");
-  var trStart = function(){
-    document.documentElement.classList.remove("i18n-wait");
-    if (!TR) return;
-    trNode(document.body); document.title = tr(document.title);
-    new MutationObserver(function(ms){ ms.forEach(function(mu){ if (mu.type === "characterData") trNode(mu.target); else mu.addedNodes.forEach(trNode); if (mu.type === "attributes") trNode(mu.target); }); }).observe(document.body, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:["placeholder","title","aria-label"]});
-    ["alert","confirm","prompt"].forEach(function(f){ var o = window[f]; window[f] = function(msg, def){ return o.call(window, tr(String(msg == null ? "" : msg)), def); }; });
-  };
-  fetch("/i18n-en.json", {cache:"force-cache"}).then(function(r){ return r.json(); }).then(function(d){ TR = d; }, function(){}).then(function(){ if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", trStart); else trStart(); });
-  setTimeout(function(){ document.documentElement.classList.remove("i18n-wait"); }, 2500);
-}
-
-var SESS = "", TSLUG = "", ME = null;
-try{ SESS = localStorage.getItem("lp-sess") || ""; TSLUG = localStorage.getItem("lp-slug") || ""; }catch(_){}
-if (!SESS || !TSLUG){ SESS = ""; TSLUG = ""; }
-function authH(){ var h = SESS ? {"x-pb-session": SESS} : {"x-panel-pass": PASS || ""}; h["x-pb-lang"] = PLANG; return h; }
-function store(k, v){ if (TSLUG) k = "t:" + TSLUG + ":" + k; try{ if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); return true; }catch(_){ return v === undefined ? null : false; } }
+function store(k, v){ try{ if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); return true; }catch(_){ return v === undefined ? null : false; } }
 
 /* ================= catálogo ================= */
 var FONTS = {
@@ -1444,12 +1343,7 @@ var TEMPLATES = {
     sections:["photo",{t:"Tu perfil",k:["brand","sub"]},{t:"Tus botones",k:["links"]},{t:"Formulario (opcional)",k:["formTitle","cta","note","pdfUrl","thanksTitle","thanks"]},"colors",
       {t:"Redes",k:["instagram","pinterest","tiktok","website"]},{t:"Avanzado (opcional)",k:["endpoint"]}]}
 };
-function newData(tpl){
-  var d = Object.assign({template:tpl}, BASE, TEMPLATES[tpl].defaults);
-  // Con el panel en inglés, las plantillas nuevas empiezan en inglés
-  if (PLANG === "en" && TR){ d.lang = "en"; Object.keys(d).forEach(function(k){ if (k !== "template" && k !== "fileName" && typeof d[k] === "string" && /[a-záéíóúñ]{3}/i.test(d[k]) && !/^(https?:|\/|#|sample$)/.test(d[k])) d[k] = d[k].split("\n").map(trLine).join("\n"); }); }
-  return d;
-}
+function newData(tpl){ return Object.assign({template:tpl}, BASE, TEMPLATES[tpl].defaults); }
 
 var LANG = {
   es:{name:"Nombre", last:"Apellido", email:"Correo electrónico", ph1:"María", ph2:"López", ph3:"maria@correo.com", dl:"Descargar el PDF", web:"Mi web", cover:"Guía gratuita", st1:"Descarga", st2:"en PDF ♥", cd:["días","horas","min","seg"], send:"Enviar", nolink:"(falta el enlace)", consent:"Acepto recibir correos de {marca} y la", policy:"Política de privacidad", privFile:"privacidad.html"},
@@ -1526,7 +1420,7 @@ function uniqueFile(f, exceptId){
   while (S.pages.some(function(p){ return p.id !== exceptId && p.data.fileName === name; })) name = base + "-" + (n++) + ".html";
   return name;
 }
-function pagePath(d){ var f = String((d && d.fileName) || ""), b = TSLUG ? "/s/" + TSLUG : ""; return f === "index.html" ? b + "/" : b + "/" + f.replace(/\.html$/, ""); }
+function pagePath(d){ var f = String((d && d.fileName) || ""); return f === "index.html" ? "/" : "/" + f.replace(/\.html$/, ""); }
 function pageLink(d){ return location.host + pagePath(d); }
 function pageUrl(d){ return location.origin + pagePath(d); }
 function formName(d){ return d.fileName === "index.html" ? "suscriptores" : slug(String(d.fileName||"").replace(/\.html$/,"")); }
@@ -2098,21 +1992,20 @@ function toDataURL(src){
 
 /* ================= tu servidor (Netlify) ================= */
 function api(method, path, body, raw){
-  var h = authH();
+  var h = {"x-panel-pass": PASS || ""};
   var opt = {method:method, headers:h, cache:"no-store"};
   if (raw){ h["Content-Type"] = raw.type || "image/jpeg"; opt.body = raw; }
   else if (body !== undefined){ h["Content-Type"] = "application/json"; opt.body = JSON.stringify(body); }
   return fetch("/api/" + path, opt).then(function(r){
     return r.json().catch(function(){ return {}; }).then(function(j){
-      if (!r.ok){ var e = new Error(j.error || ("http " + r.status)); e.status = r.status; e.code = j.error; e.detail = j.detail; if (r.status === 402 && SESS) setTimeout(planGate, 0); throw e; }
+      if (!r.ok){ var e = new Error(j.error || ("http " + r.status)); e.status = r.status; e.code = j.error; e.detail = j.detail; throw e; }
       return j;
     });
   });
 }
 function apiError(e){
   if (!e || !e.status) return "No hay conexión con tu web. Revisa tu internet y que estés abriendo el panel desde tu dirección de Netlify.";
-  if (e.status === 401) return SESS ? "Tu sesión terminó. Vuelve a entrar." : "La contraseña no es correcta.";
-  if (e.status === 402) return "Tu plan no está activo. Actívalo en «Mi plan».";
+  if (e.status === 401) return "La contraseña no es correcta.";
   if (e.status === 404) return "Tu web todavía no tiene la parte del panel. Revisa que subiste la carpeta «netlify» a GitHub y que Netlify terminó de publicar.";
   if (e.status === 413) return "Una de las fotos es demasiado grande.";
   return "Algo falló en tu web (" + e.status + "). Inténtalo de nuevo en un momento.";
@@ -2174,10 +2067,8 @@ function publishAll(quiet){
 var PASS = store("lp-pass") || "";
 var authed = false;
 function openLogin(intro){
-  if (SESS) return clientLogin(intro);
   status("Comprobando…", "busy");
-  // Si todavía no hay contraseña de dueña, es la primera vez: se crea. Si no, entran las clientas con su correo (y tú, con «Entrar como administradora»).
-  api("GET", "status").then(function(s){ if (s.setup && rawLS("lp-owner") !== "1") return clientLogin(intro); showLogin(!!s.setup, intro); }, function(e){ showLogin(true, intro, apiError(e)); });
+  api("GET", "status").then(function(s){ showLogin(!!s.setup, intro); }, function(e){ showLogin(true, intro, apiError(e)); });
 }
 function showLogin(isSetup, intro, err){
   status(isSetup ? "Escribe tu contraseña" : "Crea tu contraseña", "busy");
@@ -2204,7 +2095,7 @@ function showLogin(isSetup, intro, err){
     $("l-go").disabled = true; msg.textContent = isSetup ? "Entrando…" : "Creando tu contraseña…";
     var step = isSetup ? Promise.resolve() : api("POST", "setup", {password:p}).catch(function(e){ if (e.status === 409) return; throw e; });
     step.then(function(){ PASS = p; return api("POST", "login"); }).then(function(){
-      authed = true; rawLS("lp-owner", "1");
+      authed = true;
       store("lp-pass", $("l-remember").checked ? p : null);
       closeModal();
       afterLogin();
@@ -2278,8 +2169,7 @@ function openAccount(){
     if (S.dirty && $("a-reload").dataset.sure !== "1"){ $("a-reload").dataset.sure = "1"; $("a-reload").textContent = "Sí, borrar mis cambios sin publicar y traer lo publicado"; return; }
     closeModal(); pullRemote(true);
   };
-  $("a-out").onclick = function(){ if (SESS) return tenantLogout(); store("lp-pass", null); PASS = ""; authed = false; closeModal(); openLogin(); };
-  if (SESS){ var r1 = $("a-new"); if (r1){ r1.closest(".f").hidden = true; $("a-save").closest(".modal-row").innerHTML = "<button class='btn primary' type='button' id='a-plan'>Mi plan, mi espacio y mi contraseña</button>"; $("a-plan").onclick = function(){ closeModal(); showTab("miplan"); }; } }
+  $("a-out").onclick = function(){ store("lp-pass", null); PASS = ""; authed = false; closeModal(); openLogin(); };
 }
 
 /* ================= suscriptores ================= */
@@ -2901,7 +2791,7 @@ function runAI(body){
   var sync = function(){ return api("POST", "ai", body).then(function(d){ return d.result; }); };
   return api("POST", "ai-start", body).then(function(d){
     var id = d.job, t0 = Date.now(), seenWork = false;
-    fetch("/api-bg/ai", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id, pbt:TSLUG, pbl:PLANG})}).catch(function(){});
+    fetch("/api-bg/ai", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id})}).catch(function(){});
     return new Promise(function(res, rej){
       (function poll(){
         setTimeout(function(){
@@ -2936,7 +2826,6 @@ var NAV = [
   ["Vender", [["mail","Correos"],["chatbot","Chatbot"],["subs","Contactos"]]],
   ["Medir", [["stats","Números"]]]
 ];
-NAV.push(SESS ? ["Mi cuenta", [["miplan","Mi plan"]]] : ["Plataforma", [["plataforma","Mis clientas"]]]);
 var ICONS_NAV = {
   home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
   pages:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',
@@ -2951,9 +2840,7 @@ var ICONS_NAV = {
   ai:'<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
   mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
   subs:'<circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1M16 4a4 4 0 0 1 0 8M22 21v-1a6 6 0 0 0-4-5.6"/>',
-  stats:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
-  miplan:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
-  plataforma:'<circle cx="12" cy="8" r="3.2"/><circle cx="5" cy="10" r="2.3"/><circle cx="19" cy="10" r="2.3"/><path d="M6.5 20a5.5 5.5 0 0 1 11 0M1.5 19a3.6 3.6 0 0 1 5-3.3M22.5 19a3.6 3.6 0 0 0-5-3.3"/>'
+  stats:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
 };
 var TABS = [];
 NAV.forEach(function(g){ g[1].forEach(function(it){ TABS.push(it); }); });
@@ -2975,7 +2862,7 @@ NAV.forEach(function(g){ g[1].forEach(function(it){ TABS.push(it); }); });
   var pages = document.createElement("div"); pages.id = "view-pages"; pages.style.cssText = "display:grid;gap:22px";
   pages.appendChild(inner.querySelector(".home-head")); pages.appendChild($("grid"));
   main.appendChild(pages);
-  ["home","asesor","designs","docs","stats","plan","coach","popups","videos","chatbot","mail","subs","ai","miplan","plataforma"].forEach(function(k){ var v = document.createElement("div"); v.id = "view-" + k; v.hidden = true; v.style.cssText = "display:grid;gap:18px"; main.appendChild(v); });
+  ["home","asesor","designs","docs","stats","plan","coach","popups","videos","chatbot","mail","subs","ai"].forEach(function(k){ var v = document.createElement("div"); v.id = "view-" + k; v.hidden = true; v.style.cssText = "display:grid;gap:18px"; main.appendChild(v); });
   inner.appendChild(nav); inner.appendChild(main);
   inner.classList.add("with-nav");
   var lb = $("leads-btn"); if (lb) lb.hidden = true;
@@ -2988,9 +2875,6 @@ function showTab(k){
   if (k === "pages") renderHome();
   if (k === "home") renderOverview();
   if (k === "stats") renderStats();
-  if (k === "miplan") renderMiPlan();
-  if (k === "plataforma") renderPlataforma();
-  if (document.body.classList.contains("pb-locked") && k !== "miplan"){ showTab("miplan"); return; }
   if (k === "plan") renderPlan();
   if (k === "coach") renderCoach();
   if (k === "asesor") renderAsesor();
@@ -3007,7 +2891,7 @@ function showTab(k){
 /* «Hoy en tu negocio»: popups activos, suscriptoras nuevas y tu último informe. Si algo no carga, simplemente no sale. */
 function ovToday(){
   var box = $("ov-today"); if (!box) return;
-  Promise.all([api("GET", "popups").catch(function(){ return null; }), api("GET", "leads").catch(function(){ return null; }), fetch("/asesor-api/reports", {headers:authH(), cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(r){
+  Promise.all([api("GET", "popups").catch(function(){ return null; }), api("GET", "leads").catch(function(){ return null; }), fetch("/asesor-api/reports", {headers:{"x-panel-pass":PASS || ""}, cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(r){
     if (!$("ov-today")) return;
     var cards = [];
     if (r[0]){ var act = (r[0].items || []).filter(function(x){ return x.active; }); cards.push("<button type='button' class='ov-t' data-ovgo='popups'><small>Popups</small><b>" + act.length + " activo" + (act.length === 1 ? "" : "s") + "</b><span>" + (act.length ? esc(act.slice(0, 2).map(function(x){ return x.name; }).join(", ")) : "Ninguno se está mostrando") + "</span></button>"); }
@@ -3114,8 +2998,6 @@ function ctDraw(){
 /* ===== FIN CONTACTOS ===== */
 
 /* ===== VIDEOS: anuncios con plantillas, animados con tus fotos y clips ===== */
-var VSOPEN = {}, VMUS = null;
-function vMusic(d, on){ if (!on){ if (VMUS) VMUS.pause(); return; } if (!d.music) return; if (!VMUS || VMUS._src !== d.music){ if (VMUS) VMUS.pause(); VMUS = new Audio(d.music); VMUS._src = d.music; VMUS.loop = true; } VMUS.volume = (d.vol == null ? 70 : d.vol) / 100; try{ VMUS.currentTime = VMUS.duration ? VPLAY.t % VMUS.duration : VPLAY.t; }catch(_){} VMUS.play().catch(function(){}); }
 var VIDS = null, VID = null, VPLAY = {t:0, on:false, raf:0, last:0}, VASSET = {};
 var VFMT = {"9:16":[1080, 1920, "Reels, TikTok e historias"], "4:5":[1080, 1350, "Publicación vertical"], "1:1":[1080, 1080, "Publicación cuadrada"], "16:9":[1920, 1080, "YouTube o website"]};
 var VFONT = [["dm", "DM Serif Display"], ["playfair", "Playfair Display"], ["cormorant", "Cormorant Garamond"], ["bebas", "Bebas Neue"], ["jost", "Jost"], ["montserrat", "Montserrat"]];
@@ -3123,15 +3005,6 @@ var VANIM = [["zoom", "Acercar despacio"], ["pan", "Mover de lado"], ["pop", "En
 var VPOS = [["bottom", "Abajo"], ["center", "Centro"], ["top", "Arriba"]];
 var VBASE = {fmt:"9:16", bg:"#0D0B0C", ink:"#FFFFFF", accent:"#D8A2B4", font:"dm", logo:"", music:"", vol:70, trans:"fade", end:{on:true, title:"", sub:"", badge:""}};
 var VTPL = [
-  ["mivideo", "Mi video con textos", "Sube el video que grabaste (con tu voz). Le pones un gancho, textos, música suave y un cierre.", {font:"jost", trans:"cut", vol:20, scenes:[
-    {media:"video", src:"", sound:true, from:0, text:"Escribe aquí tu *gancho*", sub:"", badge:"", dur:15, anim:"fade", pos:"bottom", shade:30}], end:{on:true, title:"Sígueme para *más*", sub:"Enlace en mi perfil", badge:""}}],
-  ["tutorial", "Tutorial en 3 clips", "Tres videos cortos tuyos, uno por paso, con el número y la explicación encima.", {font:"jost", trans:"slide", vol:25, scenes:[
-    {media:"video", src:"", sound:true, from:0, text:"Paso 1", sub:"Explica el primer paso", badge:"1", dur:5, anim:"fade", pos:"bottom", shade:35},
-    {media:"video", src:"", sound:true, from:0, text:"Paso 2", sub:"Explica el segundo paso", badge:"2", dur:5, anim:"fade", pos:"bottom", shade:35},
-    {media:"video", src:"", sound:true, from:0, text:"Paso 3", sub:"Explica el tercer paso", badge:"3", dur:5, anim:"fade", pos:"bottom", shade:35}], end:{on:true, title:"Guárdalo para *después*", sub:"Y sígueme para más", badge:""}}],
-  ["antesdespues", "Antes y después", "Dos videos tuyos: cómo era y cómo quedó.", {font:"bebas", trans:"slide", vol:40, scenes:[
-    {media:"video", src:"", sound:false, from:0, text:"*Antes*", sub:"", badge:"", dur:4, anim:"fade", pos:"top", shade:35},
-    {media:"video", src:"", sound:false, from:0, text:"*Después*", sub:"", badge:"", dur:5, anim:"fade", pos:"top", shade:35}], end:{on:true, title:"¿Quieres el *tuyo*?", sub:"Escríbeme", badge:""}}],
   ["producto", "Presentar un producto", "Tres escenas con fotos de tu producto y su beneficio.", {scenes:[
     {media:"photo", src:"sample", text:"Tu nuevo *favorito*", sub:"Presentamos algo hecho para ti", badge:"", dur:3, anim:"zoom", pos:"bottom", shade:70},
     {media:"photo", src:"sample", text:"Lo que lo hace *especial*", sub:"Escribe aquí el beneficio principal", badge:"", dur:3, anim:"pan", pos:"bottom", shade:70},
@@ -3171,17 +3044,15 @@ function vSrc(u){ return u === "sample" ? SAMPLE : u; }
 function renderVideos(){
   var v = $("view-videos"); if (!v) return;
   if (VID) return vEditor();
-  if (VJOB && !VJOB.done) return vAutoProgress();
-  if (VRES) return vResult(VRES);
-  v.innerHTML = "<div class='home-head'><div><h2>Videos</h2><p>Escribe qué video quieres y la IA hace el guion, las escenas, los clips con movimiento, la música y el montaje. Lo ves, lo descargas o lo mandas al Calendario.</p></div><button class='btn' type='button' id='vd-new'>Editor avanzado (plantillas)</button></div>" + vAutoBox() + "<h3 class='vd-h3'>Mis videos</h3><div id='vd-body'><div class='box'>Cargando…</div></div>";
-  $("vd-new").onclick = vChoose; vAutoBind();
+  v.innerHTML = "<div class='home-head'><div><h2>Videos</h2><p>Anuncios animados con tus fotos, tus clips, tus colores y tu letra. La IA te escribe los textos y lo descargas listo para Reels, TikTok o YouTube.</p></div><button class='btn primary' type='button' id='vd-new'>+ Nuevo video</button></div><div id='vd-body'><div class='box'>Cargando…</div></div>";
+  $("vd-new").onclick = vChoose;
   if (!authed){ $("vd-body").innerHTML = "<div class='box'>Entra con tu contraseña.</div>"; return; }
   vLoad().then(function(){
     var b = $("vd-body"); if (!b) return;
-    if (!VIDS.length){ b.innerHTML = "<div class='box'><p style='margin:0;color:var(--muted)'>Todavía no tienes videos. Escribe arriba qué video quieres y pulsa «Crear mi video».</p></div>"; return; }
+    if (!VIDS.length){ b.innerHTML = "<div class='box'><b>Todavía no tienes videos.</b><p style='margin:0;color:var(--muted)'>Pulsa «+ Nuevo video» y elige una plantilla. En unos minutos tienes tu anuncio.</p></div>"; return; }
     b.innerHTML = "<div class='vd-grid'>" + VIDS.slice().sort(function(a, c){ return (c.updatedAt || 0) - (a.updatedAt || 0); }).map(function(it){
       var T = VTPL.filter(function(t){ return t[0] === it.tpl; })[0], d = it.data || {};
-      return "<div class='vd-card'><canvas class='vd-thumb' data-vthumb='" + esc(it.id) + "' width='270' height='" + Math.round(270 * (VFMT[d.fmt] || VFMT["9:16"])[1] / (VFMT[d.fmt] || VFMT["9:16"])[0]) + "' aria-hidden='true'></canvas><div class='vd-meta'><b>" + esc(it.name) + "</b><small>" + esc(it.tpl === "auto" ? "Creado con IA" : T ? T[1] : "Video") + " · " + esc(d.fmt || "9:16") + " · " + Math.round(vTotal(d)) + " s</small></div><div class='vd-act'><button class='btn sm primary' type='button' data-vedit='" + esc(it.id) + "'>Editar</button><button class='btn sm' type='button' data-vdup='" + esc(it.id) + "'>Duplicar</button><button class='btn sm danger' type='button' data-vdel='" + esc(it.id) + "'>Borrar</button></div></div>";
+      return "<div class='vd-card'><canvas class='vd-thumb' data-vthumb='" + esc(it.id) + "' width='270' height='" + Math.round(270 * (VFMT[d.fmt] || VFMT["9:16"])[1] / (VFMT[d.fmt] || VFMT["9:16"])[0]) + "' aria-hidden='true'></canvas><div class='vd-meta'><b>" + esc(it.name) + "</b><small>" + esc(T ? T[1] : "Video") + " · " + esc(d.fmt || "9:16") + " · " + Math.round(vTotal(d)) + " s</small></div><div class='vd-act'><button class='btn sm primary' type='button' data-vedit='" + esc(it.id) + "'>Editar</button><button class='btn sm' type='button' data-vdup='" + esc(it.id) + "'>Duplicar</button><button class='btn sm danger' type='button' data-vdel='" + esc(it.id) + "'>Borrar</button></div></div>";
     }).join("") + "</div>";
     b.querySelectorAll("[data-vedit]").forEach(function(x){ x.onclick = function(){ VID = VIDS.filter(function(i){ return i.id === x.getAttribute("data-vedit"); })[0]; renderVideos(); }; });
     b.querySelectorAll("[data-vdup]").forEach(function(x){ x.onclick = function(){ var o = VIDS.filter(function(i){ return i.id === x.getAttribute("data-vdup"); })[0], c = JSON.parse(JSON.stringify(o)); c.id = "v" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); c.name = o.name + " (copia)"; VIDS.push(c); vSave(c).then(renderVideos); }; });
@@ -3190,8 +3061,7 @@ function renderVideos(){
   }, function(e){ $("vd-body").innerHTML = "<div class='box'>" + esc(apiError(e)) + "</div>"; });
 }
 function vChoose(){
-  var vidT = ["mivideo", "tutorial", "antesdespues"], card = function(T){ return "<button type='button' class='vd-tpl' data-vtpl='" + T[0] + "'><canvas width='180' height='320' data-vtc='" + T[0] + "' aria-hidden='true'></canvas><b>" + esc(T[1]) + "</b><small>" + esc(T[2]) + "</small></button>"; };
-  openModal("Elige una plantilla", "<p class='vd-tg'>Con tu video</p><div class='vd-tpls'>" + VTPL.filter(function(T){ return vidT.indexOf(T[0]) >= 0; }).map(card).join("") + "</div><p class='vd-tg'>Con fotos</p><div class='vd-tpls'>" + VTPL.filter(function(T){ return vidT.indexOf(T[0]) < 0; }).map(card).join("") + "</div>");
+  openModal("Elige una plantilla", "<div class='vd-tpls'>" + VTPL.map(function(T){ return "<button type='button' class='vd-tpl' data-vtpl='" + T[0] + "'><canvas width='180' height='320' data-vtc='" + T[0] + "' aria-hidden='true'></canvas><b>" + esc(T[1]) + "</b><small>" + esc(T[2]) + "</small></button>"; }).join("") + "</div>");
   document.querySelectorAll("[data-vtc]").forEach(function(cv){ var T = VTPL.filter(function(t){ return t[0] === cv.getAttribute("data-vtc"); })[0], d = vNew(T).data; vPrep(d).then(function(){ vDraw(cv.getContext("2d"), 180, 320, d, 1.2); }); });
   document.querySelectorAll("[data-vtpl]").forEach(function(b){ b.onclick = function(){
     var T = VTPL.filter(function(t){ return t[0] === b.getAttribute("data-vtpl"); })[0], it = vNew(T);
@@ -3317,57 +3187,51 @@ function vDraw(ctx, W, H, d, t){
 
 /* ---- editor ---- */
 function vEditor(){
-  if (VSOPEN._id !== VID.id) VSOPEN = {_id:VID.id};
   var v = $("view-videos"), it = VID, d = it.data, F = VFMT[d.fmt] || VFMT["9:16"];
   VPLAY.t = 0; VPLAY.on = false; cancelAnimationFrame(VPLAY.raf);
   var opt = function(list, val){ return list.map(function(o){ return "<option value='" + o[0] + "'" + (o[0] === val ? " selected" : "") + ">" + esc(o[1]) + "</option>"; }).join(""); };
   var sceneHtml = function(s, i){
-    var kind = s.media === "video" ? (/\/video\/ia-/.test(s.src || "") ? "Clip IA" : s.src ? "Tu video" : "Falta tu video") : s.media === "photo" ? (/\/img\/ia/.test(s.src || "") ? "Imagen IA" : s.src === "sample" ? "Foto de ejemplo" : "Tu foto") : "Solo texto";
-    return "<details class='vd-scene' data-sc='" + i + "'" + (VSOPEN[i] ? " open" : "") + "><summary class='vd-sh'><b>Escena " + (i + 1) + "</b><span class='vd-kind'>" + kind + " · " + s.dur + " s</span><small class='adv-muted'>" + esc(String(s.text || "").replace(/\*/g, "").slice(0, 40)) + "</small><i style='flex:1'></i>" +
-      "<button class='btn sm' type='button' data-scgo='" + i + "' title='Ver esta escena'>▶</button><button class='btn sm' type='button' data-scup='" + i + "' aria-label='Subir'" + (i ? "" : " disabled") + ">↑</button><button class='btn sm' type='button' data-scdn='" + i + "' aria-label='Bajar'" + (i < d.scenes.length - 1 ? "" : " disabled") + ">↓</button><button class='btn sm' type='button' data-sccp='" + i + "'>Duplicar</button><button class='btn sm danger' type='button' data-scdel='" + i + "'" + (d.scenes.length > 1 ? "" : " disabled") + ">Quitar</button></summary>" +
+    return "<div class='vd-scene' data-sc='" + i + "'><div class='vd-sh'><b>Escena " + (i + 1) + "</b><small class='adv-muted'>" + esc(String(s.text || "").replace(/\*/g, "").slice(0, 40)) + "</small><i style='flex:1'></i>" +
+      "<button class='btn sm' type='button' data-scgo='" + i + "' title='Ver esta escena'>▶</button><button class='btn sm' type='button' data-scup='" + i + "' aria-label='Subir'" + (i ? "" : " disabled") + ">↑</button><button class='btn sm' type='button' data-scdn='" + i + "' aria-label='Bajar'" + (i < d.scenes.length - 1 ? "" : " disabled") + ">↓</button><button class='btn sm' type='button' data-sccp='" + i + "'>Duplicar</button><button class='btn sm danger' type='button' data-scdel='" + i + "'" + (d.scenes.length > 1 ? "" : " disabled") + ">Quitar</button></div>" +
       "<div class='vd-sf'><div class='f'><label>Texto grande</label><input type='text' data-sk='text' value='" + esc(s.text) + "'><small>Pon *asteriscos* en las palabras que van en tu color.</small></div>" +
       "<div class='f'><label>Texto pequeño</label><input type='text' data-sk='sub' value='" + esc(s.sub) + "'></div>" +
       "<div class='f'><label>Etiqueta (precio, código, fecha)</label><input type='text' data-sk='badge' value='" + esc(s.badge) + "' placeholder='Opcional'></div>" +
       "<div class='f'><label>Foto o clip</label><div class='seg'>" + [["photo", "Foto"], ["video", "Clip"], ["none", "Nada"]].map(function(o){ return "<button type='button' data-smedia='" + o[0] + "' aria-pressed='" + (s.media === o[0]) + "'>" + o[1] + "</button>"; }).join("") + "</div>" +
-      (s.media !== "none" ? "<div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm primary' type='button' data-sup='" + i + "'>" + (s.media === "video" ? "Subir mi video (MP4 o MOV)" : "Subir foto") + "</button><span class='photo-msg' data-supmsg='" + i + "' role='status'>" + (s.src === "sample" ? "Foto de ejemplo" : /\/video\/ia-/.test(s.src || "") ? "Clip creado con IA ✓" : s.src ? "Lista ✓" : "") + "</span></div>" : "") +
-      (s.media === "video" && s.src && !/\/video\/ia-/.test(s.src) ? "<label class='ci-check'><input type='checkbox' data-ssound" + (s.sound ? " checked" : "") + "> <span>Con el sonido de mi video (tu voz)</span></label>" : "") +
+      (s.media !== "none" ? "<div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm primary' type='button' data-sup='" + i + "'>" + (s.media === "video" ? "Subir clip (MP4, menos de 20 MB)" : "Subir foto") + "</button><span class='photo-msg' data-supmsg='" + i + "' role='status'>" + (s.src === "sample" ? "Foto de ejemplo" : /\/video\/ia-/.test(s.src || "") ? "Clip creado con IA ✓" : s.src ? "Lista ✓" : "") + "</span></div>" : "") +
       "<div><button class='btn sm' type='button' data-scai='" + i + "'>✨ Crear clip con IA</button></div></div>" +
       "<div class='f'><label>Movimiento</label><select data-sk='anim'>" + opt(VANIM, s.anim) + "</select></div>" +
       "<div class='f'><label>Dónde va el texto</label><select data-sk='pos'>" + opt(VPOS, s.pos) + "</select></div>" +
-      "<div class='f'><label>Duración: <output data-dout>" + s.dur + " s</output></label><input type='range' min='1' max='" + (s.media === "video" && !/\/video\/ia-/.test(s.src || "") ? 90 : 8) + "' step='0.5' data-sk='dur' value='" + s.dur + "'></div>" +
-      (s.media !== "none" ? "<div class='f'><label>Oscurecer la foto: <output data-shout>" + s.shade + "%</output></label><input type='range' min='0' max='100' step='5' data-sk='shade' value='" + s.shade + "'></div>" : "") + "</div></details>";
+      "<div class='f'><label>Duración: <output data-dout>" + s.dur + " s</output></label><input type='range' min='1' max='8' step='0.5' data-sk='dur' value='" + s.dur + "'></div>" +
+      (s.media !== "none" ? "<div class='f'><label>Oscurecer la foto: <output data-shout>" + s.shade + "%</output></label><input type='range' min='0' max='100' step='5' data-sk='shade' value='" + s.shade + "'></div>" : "") + "</div></div>";
   };
   v.innerHTML = "<div class='pp-ed vd-ed'><div class='pp-top'><button class='btn sm' type='button' id='vd-back'>‹ Videos</button><input type='text' id='vd-name' value='" + esc(it.name) + "' aria-label='Nombre del video'><span class='photo-msg' id='vd-saved'>Guardado ✓</span><i style='flex:1'></i><button class='btn sm' type='button' id='vd-cal'>Al Calendario</button><button class='btn primary' type='button' id='vd-export'>Descargar video</button></div>" +
     "<div class='vd-cols'><div class='vd-form'>" +
-    vAskBox() +
+    "<div class='box vd-ai'><b>✨ Escribir los textos con IA</b><div class='f'><label for='vd-aiq'>¿De qué es este video?</label><textarea id='vd-aiq' rows='2' placeholder='Ej.: Mis lecturas de tarot de $35 para empezar el año con claridad'>" + esc(d.aiq || "") + "</textarea></div><div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm primary' type='button' id='vd-aigo'>Escribir las escenas</button><small class='adv-muted'>Cambia solo los textos; tus fotos se quedan.</small><span class='photo-msg' id='vd-aimsg' role='status'></span></div></div>" +
     "<div class='box'><b>Escenas</b><div id='vd-scenes'>" + d.scenes.map(sceneHtml).join("") + "</div><div><button class='btn sm' type='button' id='vd-add'>+ Añadir escena</button></div></div>" +
-    "<details class='box vd-fold'><summary><b>Escena final</b><span class='vd-kind'>" + (d.end.on ? esc(String(d.end.title || "").replace(/\*/g, "").slice(0, 30)) : "Sin escena final") + "</span></summary><label class='ci-check'><input type='checkbox' id='vd-endon'" + (d.end.on ? " checked" : "") + "> <span>Terminar con una invitación (3 segundos)</span></label><div class='vd-sf'><div class='f'><label>Texto grande</label><input type='text' data-ek='title' value='" + esc(d.end.title) + "'></div><div class='f'><label>Texto pequeño</label><input type='text' data-ek='sub' value='" + esc(d.end.sub) + "' placeholder='Ej.: Enlace en mi perfil · queenspiritual.com'></div><div class='f'><label>Etiqueta</label><input type='text' data-ek='badge' value='" + esc(d.end.badge) + "' placeholder='Opcional: código, precio, @usuario'></div></div></details>" +
-    "<details class='box vd-fold'><summary><b>Formato, letra, colores y música</b><span class='vd-kind'>" + esc(d.fmt) + (d.music ? " · con música" : "") + "</span></summary><div class='vd-sf'><div class='f'><label for='vd-fmt'>Formato</label><select id='vd-fmt'>" + Object.keys(VFMT).map(function(k){ return "<option value='" + k + "'" + (k === d.fmt ? " selected" : "") + ">" + k + " · " + VFMT[k][2] + "</option>"; }).join("") + "</select></div>" +
+    "<div class='box'><b>Escena final</b><label class='ci-check'><input type='checkbox' id='vd-endon'" + (d.end.on ? " checked" : "") + "> <span>Terminar con una invitación (3 segundos)</span></label><div class='vd-sf'><div class='f'><label>Texto grande</label><input type='text' data-ek='title' value='" + esc(d.end.title) + "'></div><div class='f'><label>Texto pequeño</label><input type='text' data-ek='sub' value='" + esc(d.end.sub) + "' placeholder='Ej.: Enlace en mi perfil · queenspiritual.com'></div><div class='f'><label>Etiqueta</label><input type='text' data-ek='badge' value='" + esc(d.end.badge) + "' placeholder='Opcional: código, precio, @usuario'></div></div></div>" +
+    "<div class='box'><b>Formato y estilo</b><div class='vd-sf'><div class='f'><label for='vd-fmt'>Formato</label><select id='vd-fmt'>" + Object.keys(VFMT).map(function(k){ return "<option value='" + k + "'" + (k === d.fmt ? " selected" : "") + ">" + k + " · " + VFMT[k][2] + "</option>"; }).join("") + "</select></div>" +
     "<div class='f'><label for='vd-font'>Letra de los títulos</label><select id='vd-font'>" + opt(VFONT, d.font) + "</select></div>" +
     "<div class='f'><label for='vd-tsize'>Tamaño de las letras</label><select id='vd-tsize'>" + opt([["s", "Pequeñas"], ["m", "Medianas"], ["l", "Grandes"]], d.tsize || "m") + "</select></div>" +
     "<div class='f'><label for='vd-trans'>Paso entre escenas</label><select id='vd-trans'>" + opt([["fade", "Fundido suave"], ["slide", "Deslizar"], ["cut", "Corte directo"]], d.trans) + "</select></div>" +
     "<div class='f'><label>Colores</label><div class='vd-colors'><label>Fondo <input type='color' id='vd-bg' value='" + esc(d.bg) + "'></label><label>Texto <input type='color' id='vd-ink' value='" + esc(d.ink || "#FFFFFF") + "'></label><label>Tu color <input type='color' id='vd-accent' value='" + esc(d.accent) + "'></label></div></div>" +
     "<div class='f'><label>Tu logo (opcional)</label><div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm' type='button' id='vd-logo'>" + (d.logo ? "Cambiar logo" : "Subir logo") + "</button>" + (d.logo ? "<button class='btn sm' type='button' id='vd-logox'>Quitar</button>" : "") + "<span class='photo-msg' id='vd-logomsg' role='status'></span></div></div>" +
-    "<div class='f'><label>Música (opcional)</label><div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm' type='button' id='vd-music'>" + (d.music ? "Cambiar música" : "Subir música (MP3)") + "</button>" + (d.music ? "<button class='btn sm' type='button' id='vd-musicx'>Quitar</button>" : "") + "<span class='photo-msg' id='vd-musicmsg' role='status'>" + (d.music ? "Música lista ✓" : "") + "</span></div><small>Usa música tuya o con licencia para redes. Volumen: <output id='vd-volo'>" + d.vol + "%</output></small><input type='range' min='0' max='100' step='5' id='vd-vol' value='" + d.vol + "'></div></div></details>" +
+    "<div class='f'><label>Música (opcional)</label><div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm' type='button' id='vd-music'>" + (d.music ? "Cambiar música" : "Subir música (MP3)") + "</button>" + (d.music ? "<button class='btn sm' type='button' id='vd-musicx'>Quitar</button>" : "") + "<span class='photo-msg' id='vd-musicmsg' role='status'>" + (d.music ? "Música lista ✓" : "") + "</span></div><small>Usa música tuya o con licencia para redes. Volumen: <output id='vd-volo'>" + d.vol + "%</output></small><input type='range' min='0' max='100' step='5' id='vd-vol' value='" + d.vol + "'></div></div></div>" +
     "</div><div class='vd-prev'><div class='vd-stage' id='vd-stage'><canvas id='vd-cv' width='" + F[0] + "' height='" + F[1] + "'></canvas></div>" +
     "<div class='vd-ctrl'><button class='btn sm primary' type='button' id='vd-play'>▶ Reproducir</button><input type='range' id='vd-seek' min='0' max='1000' value='0' aria-label='Tiempo'><output id='vd-time'>0.0 s</output></div><small class='adv-muted'>" + F[0] + " × " + F[1] + " px · " + esc(F[2]) + "</small></div></div></div>";
   var cv = $("vd-cv"), ctx = cv.getContext("2d");
   var saveT = 0, saveSoon = function(){ $("vd-saved").textContent = "Guardando…"; clearTimeout(saveT); saveT = setTimeout(function(){ vSave(it).then(function(){ if ($("vd-saved")) $("vd-saved").textContent = "Guardado ✓"; }, function(e){ if ($("vd-saved")) $("vd-saved").textContent = apiError(e); }); }, 700); };
   var draw = function(){ vDraw(ctx, cv.width, cv.height, d, VPLAY.t); var tot = vTotal(d); $("vd-seek").value = Math.round(VPLAY.t / tot * 1000); $("vd-time").textContent = VPLAY.t.toFixed(1) + " / " + tot.toFixed(1) + " s"; };
   var redraw = function(){ vPrep(d).then(draw); };
-  var stop = function(){ VPLAY.on = false; cancelAnimationFrame(VPLAY.raf); if ($("vd-play")) $("vd-play").textContent = "▶ Reproducir"; vPauseClips(d); vMusic(d, false); };
+  var stop = function(){ VPLAY.on = false; cancelAnimationFrame(VPLAY.raf); $("vd-play").textContent = "▶ Reproducir"; vPauseClips(d); };
   var loop = function(ts){ if (!VPLAY.on) return; var dt = VPLAY.last ? (ts - VPLAY.last) / 1000 : 0; VPLAY.last = ts; VPLAY.t += dt; var tot = vTotal(d); if (VPLAY.t >= tot){ VPLAY.t = tot - 0.001; draw(); stop(); return; } vSyncClips(d, VPLAY.t); draw(); VPLAY.raf = requestAnimationFrame(loop); };
-  $("vd-play").onclick = function(){ if (VPLAY.on){ stop(); return; } if (VPLAY.t >= vTotal(d) - 0.05) VPLAY.t = 0; VPLAY.on = true; VPLAY.last = 0; $("vd-play").textContent = "❚❚ Pausa"; vPrep(d).then(function(){ vMusic(d, true); VPLAY.raf = requestAnimationFrame(loop); }); };
+  $("vd-play").onclick = function(){ if (VPLAY.on){ stop(); return; } if (VPLAY.t >= vTotal(d) - 0.05) VPLAY.t = 0; VPLAY.on = true; VPLAY.last = 0; $("vd-play").textContent = "❚❚ Pausa"; vPrep(d).then(function(){ VPLAY.raf = requestAnimationFrame(loop); }); };
   $("vd-seek").oninput = function(){ stop(); VPLAY.t = $("vd-seek").value / 1000 * vTotal(d); draw(); };
   var changed = function(full){ saveSoon(); if (full) vEditorKeep(); else redraw(); };
   $("vd-back").onclick = function(){ stop(); clearTimeout(saveT); vSave(it).then(function(){}, function(){}); VID = null; renderVideos(); };
   $("vd-name").oninput = function(){ it.name = $("vd-name").value.trim() || "Video"; saveSoon(); };
   // escenas
-  v.querySelectorAll("summary button").forEach(function(b){ b.addEventListener("click", function(e){ e.preventDefault(); }); });
   v.querySelectorAll(".vd-scene").forEach(function(box){
     var i = Number(box.getAttribute("data-sc")), s = d.scenes[i];
-    box.addEventListener("toggle", function(){ VSOPEN[i] = box.open; });
-    var snd = box.querySelector("[data-ssound]"); if (snd) snd.onchange = function(){ s.sound = snd.checked; if (s.sound && d.vol > 30) d.vol = 25; changed(true); };
     box.querySelectorAll("[data-sk]").forEach(function(inp){ inp.oninput = function(){ var k = inp.getAttribute("data-sk"); s[k] = inp.type === "range" ? Number(inp.value) : inp.value; if (k === "dur") box.querySelector("[data-dout]").textContent = s.dur + " s"; if (k === "shade") box.querySelector("[data-shout]").textContent = s.shade + "%"; if (!VPLAY.on){ VPLAY.t = vScenes(d)[i].t0 + Math.min(1.2, s.dur * 0.6); } changed(false); }; inp.onchange = inp.oninput; });
     box.querySelectorAll("[data-smedia]").forEach(function(b){ b.onclick = function(){ s.media = b.getAttribute("data-smedia"); if (s.media === "photo" && !s.src) s.src = "sample"; if (s.media === "video" && !/^\/video\//.test(s.src || "")) s.src = ""; if (s.media === "none") s.shade = s.shade || 0; changed(true); }; });
   });
@@ -3379,10 +3243,7 @@ function vEditor(){
   v.querySelectorAll("[data-scgo]").forEach(function(b){ b.onclick = function(){ stop(); VPLAY.t = vScenes(d)[+b.getAttribute("data-scgo")].t0 + 0.9; redraw(); if (window.innerWidth < 900) $("vd-stage").scrollIntoView({behavior:"smooth", block:"center"}); }; });
   $("vd-add").onclick = function(){ d.scenes.push({media:"none", src:"", text:"Escribe aquí tu *mensaje*", sub:"", badge:"", dur:3, anim:"fade", pos:"center", shade:0}); changed(true); };
   v.querySelectorAll("[data-scai]").forEach(function(b){ b.onclick = function(){ stop(); vClipAI(d, +b.getAttribute("data-scai"), function(){ changed(true); }); }; });
-  v.querySelectorAll("[data-sup]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-sup"), s = d.scenes[i]; vPick(s.media === "video" ? "video" : "img", v.querySelector("[data-supmsg='" + i + "']"), function(path){ s.src = path;
-    if (s.media !== "video") return changed(true);
-    s.sound = true; s.from = 0; s.anim = "fade"; s.shade = Math.min(Number(s.shade) || 0, 35); if (d.vol > 30) d.vol = 25;
-    vDur(path).then(function(sec){ if (sec) s.dur = Math.max(1, Math.min(90, Math.round(sec * 2) / 2)); changed(true); }); }); }; });
+  v.querySelectorAll("[data-sup]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-sup"), s = d.scenes[i]; vPick(s.media === "video" ? "video" : "img", v.querySelector("[data-supmsg='" + i + "']"), function(path){ s.src = path; changed(true); }); }; });
   // escena final
   $("vd-endon").onchange = function(){ d.end.on = $("vd-endon").checked; changed(false); };
   v.querySelectorAll("[data-ek]").forEach(function(inp){ inp.oninput = function(){ d.end[inp.getAttribute("data-ek")] = inp.value; if (!VPLAY.on) VPLAY.t = vTotal(d) - 1.2; changed(false); }; });
@@ -3397,8 +3258,8 @@ function vEditor(){
   $("vd-music").onclick = function(){ vPick("audio", $("vd-musicmsg"), function(p){ d.music = p; changed(true); }); };
   if ($("vd-musicx")) $("vd-musicx").onclick = function(){ d.music = ""; changed(true); };
   $("vd-vol").oninput = function(){ d.vol = Number($("vd-vol").value); $("vd-volo").textContent = d.vol + "%"; saveSoon(); };
-  // IA: pídele cambios con tus palabras
-  vAskBind(it, function(){ changed(true); });
+  // IA
+  $("vd-aigo").onclick = function(){ vAI(d, function(){ changed(true); }); };
   $("vd-cal").onclick = function(){ vToCal(it); };
   $("vd-export").onclick = function(){ stop(); vExport(it); };
   vScale(); VPLAY.t = Math.min(1.2, (d.scenes[0] || {dur:3}).dur * 0.5); redraw();
@@ -3407,31 +3268,9 @@ function vEditorKeep(){ var y = window.scrollY, m = document.querySelector(".vd-
 function vScale(){ var st = $("vd-stage"), cv = $("vd-cv"); if (!st || !cv) return; var maxH = Math.max(320, Math.min(window.innerHeight - 220, 760)), w = st.clientWidth || 360, r = cv.height / cv.width, cw = Math.min(w, maxH / r); cv.style.width = cw + "px"; cv.style.height = cw * r + "px"; }
 window.addEventListener("resize", function(){ if ($("vd-cv")) vScale(); });
 function vSyncClips(d, t){
-  var want = {};
-  vScenes(d).forEach(function(s){ if (s.media !== "video" || !s.src) return; var on = t >= s.t0 && t < s.t0 + s.dur + 0.4, w = want[s.src]; if (!w || (on && !w.on)) want[s.src] = {on:on, s:s}; });
-  Object.keys(want).forEach(function(k){
-    var w = want[k], ve = vGet(k, "video"), s = w.s; if (!ve) return;
-    if (!w.on){ if (!ve.paused) ve.pause(); return; }
-    var target = (Number(s.from) || 0) + Math.max(0, t - s.t0); if (ve.duration) target = s.sound ? Math.min(target, ve.duration - 0.05) : target % ve.duration;
-    ve.muted = !s.sound; ve.loop = !s.sound;
-    if (ve.paused){ try{ ve.currentTime = target; }catch(_){} ve.play().catch(function(){}); }
-    else if (Math.abs(ve.currentTime - target) > 0.6){ try{ ve.currentTime = target; }catch(_){} }
-  });
+  vScenes(d).forEach(function(s){ if (s.media !== "video") return; var ve = vGet(s.src, "video"); if (!ve) return; var on = t >= s.t0 && t < s.t0 + s.dur + 0.4; if (on && ve.paused){ try{ ve.currentTime = Math.max(0, t - s.t0) % (ve.duration || 999); }catch(_){} ve.play().catch(function(){}); } if (!on && !ve.paused) ve.pause(); });
 }
 function vPauseClips(d){ d.scenes.forEach(function(s){ if (s.media === "video"){ var ve = vGet(s.src, "video"); if (ve) ve.pause(); } }); }
-/* Sube un video o un audio por partes y devuelve su dirección */
-function vUp(f, kind, onPct){
-  return new Promise(function(res, rej){
-    if (f.size > 38.5e6) return rej({detail:"Pesa " + (f.size / 1048576).toFixed(1) + " MB. Usa uno de menos de 38 MB."});
-    var id = slug(f.name.replace(/\.[a-z0-9]+$/i, "")).slice(0, 50) + "-" + Date.now().toString(36), CH = 4000000, n = Math.max(1, Math.ceil(f.size / CH)), i = 0;
-    (function next(){
-      if (i >= n) return api("POST", "pdf-done", {id:id, parts:n, kind:kind}).then(function(r){ res(r.path); }, rej);
-      if (onPct) onPct(Math.round(i / n * 100));
-      api("POST", "pdf-part?id=" + encodeURIComponent(id) + "&part=" + i, undefined, f.slice(i * CH, (i + 1) * CH, f.type || "application/octet-stream")).then(function(){ i++; next(); }, rej);
-    })();
-  });
-}
-function vDur(src){ return new Promise(function(res){ var v = document.createElement("video"); v.preload = "metadata"; v.onloadedmetadata = function(){ res(isFinite(v.duration) ? v.duration : 0); }; v.onerror = function(){ res(0); }; v.src = src; setTimeout(function(){ res(0); }, 15000); }); }
 /* Subir foto, clip, logo o música */
 function vPick(kind, msg, done){
   var fi = document.createElement("input"); fi.type = "file";
@@ -3464,13 +3303,13 @@ function vClipWait(task, kind, onTick){
   return new Promise(function(res, rej){
     (function poll(){
       setTimeout(function(){
-        api("GET", "vidai/" + task + (kind === "img" ? "?kind=img" : kind === "audio" ? "?kind=audio" : "")).then(function(x){
+        api("GET", "vidai/" + task + (kind === "img" ? "?kind=img" : "")).then(function(x){
           if (x.status === "done") return res(x.path);
           if (x.status === "error") return rej({code:x.error, detail:x.detail});
           if (Date.now() - t0 > 8 * 60000) return rej({detail:"Está tardando mucho. Vuelve a intentarlo en un rato."});
           onTick(Math.round((Date.now() - t0) / 1000), x.progress); poll();
         }, function(e){ if (Date.now() - t0 < 8 * 60000) poll(); else rej(e); });
-      }, kind === "video" ? 5000 : 3000);
+      }, kind === "img" ? 3000 : 5000);
     })();
   });
 }
@@ -3550,28 +3389,20 @@ function vExport(it){
   var d = it.data, F = VFMT[d.fmt] || VFMT["9:16"], tot = vTotal(d);
   if (typeof MediaRecorder === "undefined" || !HTMLCanvasElement.prototype.captureStream){ status("Este navegador no puede crear videos. Usa Chrome o Edge en la computadora.", "err"); return; }
   // MP4 con H.264 es lo que aceptan Instagram, TikTok y YouTube sin problema. Chrome y Edge actualizados lo graban.
-  var avc = ["avc1.640028", "avc1.4D401F", "avc1.42E01E"], types = [], hasAudio = !!d.music || d.scenes.some(function(s){ return s.media === "video" && s.sound && s.src; });
-  avc.forEach(function(c){ types.push("video/mp4;codecs=" + c + (hasAudio ? ",mp4a.40.2" : "")); });
-  types = types.concat(["video/mp4", "video/webm;codecs=vp9" + (hasAudio ? ",opus" : ""), "video/webm"]);
+  var avc = ["avc1.640028", "avc1.4D401F", "avc1.42E01E"], types = [];
+  avc.forEach(function(c){ types.push("video/mp4;codecs=" + c + (d.music ? ",mp4a.40.2" : "")); });
+  types = types.concat(["video/mp4", "video/webm;codecs=vp9" + (d.music ? ",opus" : ""), "video/webm"]);
   var mime = types.filter(function(t){ try{ return MediaRecorder.isTypeSupported(t); }catch(_){ return false; } })[0] || "";
   var isMp4 = /mp4/.test(mime), h264 = /avc1/.test(mime);
   openModal("Creando tu video", "<div style='display:grid;gap:12px'><p style='margin:0'>Se está grabando tu video de " + Math.round(tot) + " segundos. <b>No cambies de pestaña ni minimices</b> hasta que termine.</p><div class='vd-bar'><i id='vx-bar'></i></div><p style='margin:0;color:var(--muted)' id='vx-msg'>Preparando…</p>" + (h264 ? "" : "<p style='margin:0;color:#8A5A12'>Este navegador no graba en el formato que prefiere Instagram (MP4 H.264). Si Instagram no lo acepta, crea el video desde Chrome o Edge actualizados en tu computadora.</p>") + "</div>");
   var cv = document.createElement("canvas"); cv.width = F[0]; cv.height = F[1]; var ctx = cv.getContext("2d");
   vPrep(d).then(function(){
-    var stream = cv.captureStream(30), ac = null, au = null, gain = null, routed = [];
-    var voice = d.scenes.filter(function(s){ return s.media === "video" && s.sound && s.src; });
-    if (d.music || voice.length){ try{
-      ac = new (window.AudioContext || window.webkitAudioContext)(); var dest = ac.createMediaStreamDestination();
-      if (d.music){ au = new Audio(); au.crossOrigin = "anonymous"; au.loop = true; au.src = d.music; var src = ac.createMediaElementSource(au); gain = ac.createGain(); gain.gain.value = (d.vol == null ? 70 : d.vol) / 100; src.connect(gain); gain.connect(dest); }
-      voice.forEach(function(s){ var ve = vGet(s.src, "video"); if (!ve || routed.indexOf(ve) >= 0) return; ac.createMediaElementSource(ve).connect(dest); routed.push(ve); });
-      dest.stream.getAudioTracks().forEach(function(t){ stream.addTrack(t); });
-    }catch(_){ ac = null; au = null; } }
+    var stream = cv.captureStream(30), ac = null, au = null, gain = null;
+    if (d.music){ try{ ac = new (window.AudioContext || window.webkitAudioContext)(); au = new Audio(); au.crossOrigin = "anonymous"; au.src = d.music; var src = ac.createMediaElementSource(au); gain = ac.createGain(); gain.gain.value = (d.vol == null ? 70 : d.vol) / 100; var dest = ac.createMediaStreamDestination(); src.connect(gain); gain.connect(dest); dest.stream.getAudioTracks().forEach(function(t){ stream.addTrack(t); }); }catch(_){ ac = null; au = null; } }
     var chunks = [], rec = new MediaRecorder(stream, Object.assign({videoBitsPerSecond:8000000}, mime ? {mimeType:mime} : {}));
     rec.ondataavailable = function(e){ if (e.data && e.data.size) chunks.push(e.data); };
     rec.onstop = function(){
       VPLAY.rec = false; vPauseClips(d); if (au) au.pause(); if (ac) ac.close();
-      // Los clips que pasaron por la grabadora ya no suenan fuera de ella: se vuelven a cargar
-      Object.keys(VASSET).forEach(function(k){ var o = VASSET[k]; if (o && routed.indexOf(o.el) >= 0) delete VASSET[k]; });
       var blob = new Blob(chunks, {type:mime || "video/webm"}), a = document.createElement("a");
       a.href = URL.createObjectURL(blob); a.download = slug(it.name || "video").slice(0, 60) + (isMp4 ? ".mp4" : ".webm"); document.body.appendChild(a); a.click(); a.remove();
       closeModal(); status("Tu video se descargó ✓ (" + (blob.size / 1048576).toFixed(1) + " MB)");
@@ -3587,277 +3418,6 @@ function vExport(it){
       requestAnimationFrame(step);
     };
     vSyncClips(d, 0); requestAnimationFrame(step);
-  });
-}
-/* ---- Video automático: escribes qué quieres y la IA hace guion, escenas, clips, música y montaje ---- */
-var VJOB = null, VRES = null, VAUTO = {q:"", photos:[], fmt:"9:16", len:"short", motion:true};
-var VA_NOTEXT = ", photorealistic, natural light, no text, no words, no letters, no captions, no logos, no watermark";
-function vAutoCost(){
-  var vids = VAUTO.photos.filter(function(m){ return m.t === "video"; }).length, imgs = VAUTO.photos.length - vids;
-  if (vids) return "$" + (imgs * 0.25 + 0.05).toFixed(2);
-  var n = VAUTO.len === "long" ? 5 : 3, per = imgs ? 0.27 : 0.30;
-  return "$" + (n * per + 0.05).toFixed(2);
-}
-function vAutoBox(){
-  var fm = [["9:16", "Reels / TikTok"], ["1:1", "Cuadrado"], ["4:5", "Vertical"], ["16:9", "YouTube"]];
-  return "<div class='box vd-auto'><b class='vd-auto-t'>✨ Crea tu video con IA</b>" +
-    "<div class='f'><label for='va-q'>¿Qué video quieres?</label><textarea id='va-q' rows='3' maxlength='600' placeholder='Ej.: Anuncio de mi planner TIME de $19.99 para empezar 2027 organizada. Tono cálido y elegante.'>" + esc(VAUTO.q) + "</textarea><small>Di qué es, para quién, el precio o la oferta si la hay, y el tono. La IA no inventa precios ni fechas.</small></div>" +
-    "<div class='f'><label>Tus videos o fotos (opcional)</label><div class='va-photos' id='va-photos'>" + VAUTO.photos.map(function(m, i){ return "<span class='va-ph'>" + (m.t === "video" ? "<video src='" + esc(m.src) + "#t=0.5' muted playsinline preload='metadata'></video><em>▶ " + Math.round(m.dur || 0) + " s</em>" : "<img src='" + esc(m.src) + "' alt=''>") + "<button type='button' data-vaph='" + i + "' aria-label='Quitar'>×</button></span>"; }).join("") +
-    (VAUTO.photos.length < 6 ? "<button type='button' class='va-add' id='va-add'>+ Añadir videos o fotos</button>" : "") + "</div><small id='va-phmsg' role='status'>" + (VAUTO.photos.some(function(m){ return m.t === "video"; }) ? "La IA monta tus videos en orden y les pone textos, música y cierre." : VAUTO.photos.length ? "La IA usa tus fotos en las escenas." : "Graba tu video con el teléfono y súbelo aquí, o sube fotos. Sin nada, la IA crea las imágenes.") + "</small></div>" +
-    (VAUTO.photos.some(function(m){ return m.t === "video"; }) ? "<label class='ci-check'><input type='checkbox' id='va-sound'" + (VAUTO.sound !== false ? " checked" : "") + "> <span>Mantener el sonido de mis videos (mi voz)</span></label>" : "") +
-    "<div class='va-row'><div class='f'><label>Formato</label><div class='seg'>" + fm.map(function(o){ return "<button type='button' data-vafmt='" + o[0] + "' aria-pressed='" + (VAUTO.fmt === o[0]) + "'>" + o[1] + "</button>"; }).join("") + "</div></div>" +
-    (VAUTO.photos.some(function(m){ return m.t === "video"; }) ? "" : "<div class='f'><label>Duración</label><div class='seg'><button type='button' data-valen='short' aria-pressed='" + (VAUTO.len === "short") + "'>Corto · 15 s</button><button type='button' data-valen='long' aria-pressed='" + (VAUTO.len === "long") + "'>Largo · 25 s</button></div></div>") + "</div>" +
-    (SET.vidai ? "<label class='ci-check'><input type='checkbox' id='va-motion'" + (VAUTO.motion ? " checked" : "") + "> <span>" + (VAUTO.photos.some(function(m){ return m.t === "video"; }) ? "Música" + (VAUTO.photos.some(function(m){ return m.t === "img"; }) ? " y fotos con movimiento real" : "") : "Clips con movimiento real y música") + " (Runway · aprox. <b id='va-cost'>" + vAutoCost() + "</b>)</span></label>"
-      : "<p class='adv-muted' style='margin:0'>Sin Runway, el video se hace con tus fotos animadas y sin música. <a href='#' id='va-conn'>Conectar Runway</a> para clips con movimiento real y música.</p>") +
-    "<div style='display:flex;gap:10px;align-items:center;flex-wrap:wrap'><button class='btn primary' type='button' id='va-go'>Crear mi video</button><span class='photo-msg' id='va-msg' role='status'></span></div></div>";
-}
-function vAutoBind(){
-  var keep = function(){ VAUTO.q = $("va-q").value; };
-  $("va-q").oninput = keep;
-  var redo = function(){ keep(); var b = document.querySelector(".vd-auto"); if (!b) return; var t = document.createElement("div"); t.innerHTML = vAutoBox(); b.replaceWith(t.firstChild); vAutoBind(); };
-  document.querySelectorAll("[data-vafmt]").forEach(function(x){ x.onclick = function(){ VAUTO.fmt = x.getAttribute("data-vafmt"); redo(); }; });
-  document.querySelectorAll("[data-valen]").forEach(function(x){ x.onclick = function(){ VAUTO.len = x.getAttribute("data-valen"); redo(); }; });
-  document.querySelectorAll("[data-vaph]").forEach(function(x){ x.onclick = function(){ VAUTO.photos.splice(+x.getAttribute("data-vaph"), 1); redo(); }; });
-  if ($("va-motion")) $("va-motion").onchange = function(){ VAUTO.motion = $("va-motion").checked; };
-  if ($("va-sound")) $("va-sound").onchange = function(){ VAUTO.sound = $("va-sound").checked; };
-  if ($("va-conn")) $("va-conn").onclick = function(e){ e.preventDefault(); openConnections("Pega tu clave de Runway (Videos con IA)."); };
-  if ($("va-add")) $("va-add").onclick = function(){
-    var fi = document.createElement("input"); fi.type = "file"; fi.accept = "image/*,video/mp4,video/quicktime,.mp4,.mov"; fi.multiple = true;
-    fi.onchange = function(){
-      var files = [].slice.call(fi.files, 0, 6 - VAUTO.photos.length), msg = $("va-phmsg"), n = 0; if (!files.length) return;
-      $("va-go").disabled = true;
-      var fail = function(e){ $("va-go").disabled = false; msg.textContent = e && e.code === "size" ? "Una foto es demasiado grande." : e && e.code === "notvideo" ? "Ese archivo no parece un video MP4 o MOV." : (e && e.detail) || apiError(e); };
-      (function next(){
-        if (n >= files.length){ $("va-go").disabled = false; return redo(); }
-        var f = files[n], tag = "Subiendo " + (n + 1) + " de " + files.length + "…";
-        msg.textContent = tag;
-        if (/^video\//.test(f.type) || /\.(mp4|mov)$/i.test(f.name)) vUp(f, "video", function(p){ msg.textContent = tag + " " + p + "%"; }).then(function(path){ return vDur(path).then(function(sec){ VAUTO.photos.push({t:"video", src:path, dur:sec || 10}); n++; next(); }); }).catch(fail);
-        else uploadImage(f).then(function(r){ VAUTO.photos.push({t:"img", src:r.url}); n++; next(); }, fail);
-      })();
-    };
-    fi.click();
-  };
-  $("va-go").onclick = function(){
-    keep(); var q = VAUTO.q.trim(); if (q.length < 8){ $("va-msg").textContent = "Escribe en una frase qué video quieres."; $("va-q").focus(); return; }
-    if (!SET.ai){ openConnections("Pega tu clave de Anthropic para que la IA escriba tu video."); return; }
-    vAutoStart({q:q, media:VAUTO.photos.slice(), fmt:VAUTO.fmt, n:VAUTO.len === "long" ? 5 : 3, motion:!!(SET.vidai && VAUTO.motion), sound:VAUTO.sound !== false});
-  };
-}
-/* Pantalla de progreso */
-function vAutoProgress(){
-  var v = $("view-videos"), j = VJOB; if (!v || !j) return;
-  var row = function(id, label, st){ return "<li id='va-st-" + id + "' class='" + (/✓$/.test(st) ? "ok" : /^·/.test(st) ? "" : "on") + "'><b>" + esc(label) + "</b><span>" + esc(st) + "</span></li>"; };
-  v.innerHTML = "<div class='vd-prog box'><b class='vd-auto-t'>Creando tu video…</b><p style='margin:0;color:var(--muted)'>" + esc(j.q) + "</p>" +
-    "<div class='vd-bar'><i id='va-bar' style='width:" + j.pct() + "%'></i></div>" +
-    "<ol class='va-steps'>" + j.rows().map(function(r){ return row(r[0], r[1], r[2]); }).join("") + "</ol>" +
-    "<p class='adv-muted' style='margin:0'>" + (j.cfg.motion ? "Los clips con movimiento tardan de 1 a 3 minutos. " : "") + "Deja el panel abierto; puedes ir a otras secciones y volver.</p></div>";
-}
-function vAutoStart(cfg){
-  var st = {plan:"· Esperando", music:cfg.motion ? "· Esperando" : "· Sin música (puedes subirla después en Editar)", edit:"· Esperando"}, sc = [];
-  VJOB = {cfg:cfg, q:cfg.q, done:false, warn:[],
-    rows:function(){ var r = [["plan", "Guion y escenas", st.plan]]; sc.forEach(function(x, i){ r.push(["s" + i, "Escena " + (i + 1) + (x.t ? " · " + x.t : ""), x.st]); }); r.push(["music", "Música", st.music]); r.push(["edit", "Montaje final", st.edit]); return r; },
-    pct:function(){ var all = this.rows(), ok = all.filter(function(r){ return /✓$/.test(r[2]) || /^·/.test(r[2]) && r[0] === "music" && !cfg.motion; }).length; return Math.round(ok / all.length * 100); }};
-  var j = VJOB, paint = function(){ if (VJOB === j && $("view-videos") && document.querySelector(".vd-prog")) vAutoProgress(); };
-  var set = function(k, t){ if (/^s\d+$/.test(k)) sc[+k.slice(1)].st = t; else st[k] = t; paint(); };
-  VRES = null; VID = null; renderVideos(); set("plan", "La IA está escribiendo…");
-  var F = VFMT[cfg.fmt] || VFMT["9:16"], ratio = VCLIP_RATIO[cfg.fmt] || "720:1280";
-  cfg.photos = cfg.media.filter(function(m){ return m.t === "img"; }).map(function(m){ return m.src; });
-  var mine = cfg.media.some(function(m){ return m.t === "video"; }), segs = [];
-  if (mine){ // tus videos (partidos en trozos para cambiar el texto) y tus fotos, en el orden en que los subiste; hasta 90 s
-    var left = 90;
-    cfg.media.forEach(function(m, k){
-      if (left <= 0) return;
-      if (m.t === "img"){ segs.push({t:"img", src:m.src, from:0, dur:4, k:k}); left -= 4; return; }
-      var D = Math.min(m.dur || 10, left), parts = D <= 8 ? 1 : Math.ceil(D / 6), len = D / parts;
-      for (var q = 0; q < parts; q++) segs.push({t:"video", src:m.src, from:Math.round(q * len * 10) / 10, dur:Math.round(len * 10) / 10, k:k});
-      left -= D;
-    });
-  }
-  var prompt = mine ? "Eres editora de videos cortos para redes sociales. La clienta grabó sus propios videos y los vas a montar con textos encima, música y un cierre. Formato " + cfg.fmt + ".\nLo que pidió la clienta: " + cfg.q +
-    "\n\nSobre el negocio:\n" + profileText() +
-    "\n\nEl video ya está dividido en estos tramos (en orden):\n" + segs.map(function(g, i){ return (i + 1) + ". " + (g.t === "img" ? "una foto suya (4 s)" : "su video " + (g.k + 1) + ", del segundo " + g.from + " al " + Math.round((g.from + g.dur) * 10) / 10) + (g.t === "video" && cfg.sound ? " (con su voz)" : ""); }).join("\n") +
-    "\n\nReglas:\n- Un texto por tramo, en el idioma de la clienta. El tramo 1 lleva un gancho fuerte. «texto»: máximo 6 palabras, marca entre *asteriscos* 1 o 2 palabras clave; puede ir vacío en tramos donde ella está hablando y no hace falta texto. «sub»: máximo 9 palabras o vacío. «etiqueta»: solo precio, código o fecha que ella haya dado; nunca inventes nada.\n- «posicion»: bottom, center o top; normalmente bottom para no tapar la cara.\n- «movimiento» (solo para fotos): en inglés, movimiento suave de cámara.\n- «musica»: en inglés, música instrumental de fondo suave, sin voces.\n- «letra»: dm, playfair, cormorant, bebas, jost o montserrat. «colores» en hex con buen contraste.\n" +
-    "Responde SOLO con JSON: {\"nombre\":\"…\",\"letra\":\"jost\",\"colores\":{\"fondo\":\"#0D0B0C\",\"texto\":\"#FFFFFF\",\"acento\":\"#D8A2B4\"},\"transicion\":\"cut\",\"musica\":\"…\",\"escenas\":[{\"texto\":\"…\",\"sub\":\"\",\"etiqueta\":\"\",\"posicion\":\"bottom\",\"movimiento\":\"\"}],\"final\":{\"texto\":\"…\",\"sub\":\"…\",\"etiqueta\":\"\"}}"
-    : "Eres directora creativa de anuncios cortos para redes sociales. Diseña un video de " + cfg.n + " escenas más una escena final, formato " + cfg.fmt + ".\nLo que pidió la clienta: " + cfg.q +
-    "\n\nSobre el negocio:\n" + profileText() +
-    "\n\nFotos que subió: " + (cfg.photos.length ? cfg.photos.length + " (números 0 a " + (cfg.photos.length - 1) + "). Usa cada foto al menos una vez si hay escenas suficientes." : "ninguna; todas las imágenes las crea la IA.") +
-    "\n\nReglas:\n- Textos en el idioma de lo que pidió la clienta. «texto»: máximo 6 palabras, marca entre *asteriscos* 1 o 2 palabras clave. «sub»: máximo 9 palabras. «etiqueta»: muy corta (precio, código o fecha) solo si aparece en lo que pidió; nunca inventes precios, fechas, códigos ni testimonios.\n- La primera escena engancha en 2 segundos; la final invita a actuar.\n" +
-    "- «como»: \"foto\" = animar la foto tal cual (solo si hay fotos); \"escena\" = poner el producto de la foto dentro de una escena nueva (solo si hay fotos y es un producto); \"ia\" = imagen nueva solo desde la descripción.\n- «imagen»: en inglés, una frase que describe una FOTO realista y bonita para esa escena (sin texto escrito). Si «como» es \"escena\", escribe exactamente @producto donde va el producto.\n- «movimiento»: en inglés, movimiento suave de cámara y de lo que se mueve (sin deformar caras ni productos).\n- «segundos»: entre 3 y 5. «posicion»: bottom, center o top (donde el texto no tape lo importante).\n- «musica»: en inglés, música instrumental de fondo que encaje con el tono, sin voces.\n- «letra»: dm, playfair, cormorant, bebas, jost o montserrat. «colores» en hex con buen contraste (texto sobre fondo).\n" +
-    "Responde SOLO con JSON: {\"nombre\":\"…\",\"letra\":\"dm\",\"colores\":{\"fondo\":\"#0D0B0C\",\"texto\":\"#FFFFFF\",\"acento\":\"#D8A2B4\"},\"transicion\":\"fade\",\"musica\":\"…\",\"escenas\":[{\"texto\":\"…\",\"sub\":\"…\",\"etiqueta\":\"\",\"foto\":-1,\"como\":\"ia\",\"imagen\":\"…\",\"movimiento\":\"…\",\"segundos\":4,\"posicion\":\"bottom\"}],\"final\":{\"texto\":\"…\",\"sub\":\"…\",\"etiqueta\":\"\"}}";
-  var hex = function(x, def){ return /^#[0-9a-f]{6}$/i.test(String(x || "")) ? x : def; };
-  api("POST", "ai", {prompt:prompt, max:2500}).then(function(r){
-    var o = r.result || {}, es = (o.escenas || []).slice(0, mine ? segs.length : 6);
-    if (!es.length && !mine) throw {code:"aiparse"};
-    if (mine) while (es.length < segs.length) es.push({});
-    var c = o.colores || {}, d = JSON.parse(JSON.stringify(VBASE));
-    d.fmt = cfg.fmt; d.aiq = cfg.q; d.font = VFONT.some(function(f){ return f[0] === o.letra; }) ? o.letra : "dm";
-    d.bg = hex(c.fondo, VBASE.bg); d.ink = hex(c.texto, VBASE.ink); d.accent = hex(c.acento, VBASE.accent);
-    if (Math.abs(vLum(d.bg) - vLum(d.ink)) < 0.35) d.ink = vLum(d.bg) > 0.5 ? "#1B1517" : "#FFFFFF";
-    d.trans = ["fade", "slide", "cut"].indexOf(o.transicion) >= 0 ? o.transicion : "fade"; d.vol = mine && cfg.sound ? 20 : 60;
-    var anims = ["zoom", "pan", "zoom", "pop"];
-    d.scenes = mine ? segs.map(function(g, i){
-      var e = es[i] || {};
-      sc.push({t:String(e.texto || (g.t === "video" ? "Tu video" : "Tu foto")).replace(/\*/g, "").slice(0, 34), st:"· En espera"});
-      var txt = String(e.texto || "").slice(0, 120);
-      return {media:g.t === "video" ? "video" : "photo", src:g.src, from:g.from, sound:g.t === "video" && cfg.sound, text:txt, sub:String(e.sub || "").slice(0, 140), badge:String(e.etiqueta || "").slice(0, 40),
-        dur:g.dur, anim:g.t === "video" ? "fade" : "zoom", pos:["bottom", "center", "top"].indexOf(e.posicion) >= 0 ? e.posicion : "bottom", shade:txt ? (g.t === "video" ? 35 : 50) : 0,
-        _mine:g.t === "video", _ph:g.t === "img" ? g.src : "", _como:"foto", _img:"", _mov:String(e.movimiento || "slow cinematic camera push-in, gentle natural movement").slice(0, 400)};
-    }) : es.map(function(e, i){
-      var ph = cfg.photos.length ? (Number(e.foto) >= 0 ? cfg.photos[Number(e.foto) % cfg.photos.length] : "") : "";
-      var como = ph ? (e.como === "escena" ? "escena" : e.como === "ia" ? "ia" : "foto") : "ia";
-      sc.push({t:String(e.texto || "").replace(/\*/g, "").slice(0, 34), st:"· En espera"});
-      return {media:ph ? "photo" : "none", src:ph, text:String(e.texto || "").slice(0, 120), sub:String(e.sub || "").slice(0, 140), badge:String(e.etiqueta || "").slice(0, 40),
-        dur:Math.max(2.5, Math.min(5, Number(e.segundos) || 4)), anim:anims[i % anims.length], pos:["bottom", "center", "top"].indexOf(e.posicion) >= 0 ? e.posicion : "bottom", shade:ph ? 55 : 0,
-        _ph:ph, _como:como, _img:String(e.imagen || cfg.q).slice(0, 700), _mov:String(e.movimiento || "slow cinematic camera push-in, gentle natural movement").slice(0, 400)};
-    });
-    var f = o.final || {}; d.end = {on:true, title:String(f.texto || "").slice(0, 120) || "Escríbeme *hoy*", sub:String(f.sub || "").slice(0, 140), badge:String(f.etiqueta || "").slice(0, 40)};
-    j.d = d; j.name = String(o.nombre || cfg.q).slice(0, 60); j.music = String(o.musica || "").slice(0, 500);
-    set("plan", es.length + " escenas listas ✓");
-    var tasks = d.scenes.map(function(s, i){ return function(){ return vAutoScene(j, s, i, ratio, function(t){ set("s" + i, t); }); }; });
-    var music = cfg.motion ? vAutoMusic(j, function(t){ set("music", t); }) : Promise.resolve();
-    return Promise.all([vPool(tasks, 3), music]);
-  }).then(function(){
-    var d = j.d; set("edit", "Juntando escenas, textos y música…");
-    d.scenes.forEach(function(s){ delete s._ph; delete s._como; delete s._img; delete s._mov; delete s._mine; });
-    var it = {id:"v" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name:j.name, tpl:"auto", data:d, updatedAt:Date.now()};
-    VIDS = VIDS || []; VIDS.push(it);
-    return vSave(it).then(function(){ j.done = true; it._warn = j.warn; VRES = it; set("edit", "Listo ✓"); if (VJOB === j){ VJOB = null; if ($("view-videos") && document.querySelector(".vd-prog")) renderVideos(); if (!j.warn.length) status("Tu video está listo ✓"); } });
-  }).catch(function(e){
-    j.done = true; VJOB = null;
-    var m = e && e.code === "aiparse" ? "La IA no pudo armar el guion. Vuelve a intentarlo (puedes escribirlo un poco distinto)." : aiErr(e);
-    renderVideos(); if ($("va-msg")) $("va-msg").textContent = m; status(m, "err");
-  });
-}
-/* Ejecuta tareas de a pocas a la vez */
-function vPool(tasks, n){
-  var i = 0;
-  var run = function(){ if (i >= tasks.length) return Promise.resolve(); var t = tasks[i++]; return t().then(run, run); };
-  var w = []; for (var k = 0; k < Math.min(n, tasks.length); k++) w.push(run());
-  return Promise.all(w);
-}
-/* Una escena: imagen (tu foto, tu producto en una escena nueva o una imagen nueva) y luego movimiento real */
-function vAutoScene(j, s, i, ratio, set){
-  var ph = s._ph, still = function(src){ if (src){ s.media = "photo"; s.src = src; s.shade = s.text ? 55 : 0; } };
-  if (s._mine){ set("Tu video ✓"); return Promise.resolve(); }
-  if (!j.cfg.motion){ set(ph ? "Tu foto con movimiento suave ✓" : "Texto sobre tu color ✓"); return Promise.resolve(); }
-  var img = function(){
-    if (s._como === "foto" && ph) return Promise.resolve(ph);
-    var mode = s._como === "escena" && ph ? "scene" : "picture";
-    var pt = s._img + VA_NOTEXT; if (mode === "scene" && !/@producto/.test(pt)) pt = "@producto, " + pt;
-    set("Creando la imagen…");
-    return api("POST", "vidai", {mode:mode, img:ph, prompt:pt, ratio:ratio}).then(function(r){ return vClipWait(r.task, "img", function(sec){ set("Creando la imagen… " + sec + " s"); }); });
-  };
-  return img().then(function(path){
-    still(path); if (j.stopRW) throw j.stopRW;
-    set("Dando movimiento real…");
-    return api("POST", "vidai", {mode:"image", img:path, prompt:s._mov, ratio:ratio, duration:5}).then(function(r){
-      return vClipWait(r.task, "video", function(sec, pr){ set("Dando movimiento real… " + sec + " s" + (pr ? " · " + Math.round(pr * 100) + "%" : "")); });
-    }).then(function(v){ s.media = "video"; s.src = v; s.shade = 50; set("Clip con movimiento ✓"); });
-  }).catch(function(e){
-    if (e && /^(novidai|vidaikey|vidaicredit)$/.test(e.code || "")) j.stopRW = j.stopRW || e;
-    if (s.media === "none" && ph) still(ph);
-    var why = vClipErr(j.stopRW || e); if (j.warn.indexOf(why) < 0) j.warn.push(why);
-    set((s.media === "photo" ? "Quedó como foto con movimiento suave" : "Quedó como texto sobre tu color") + " ✓");
-  });
-}
-function vAutoMusic(j, set){
-  var tot = vTotal(j.d);
-  set("Creando música…");
-  return api("POST", "vidai", {mode:"music", prompt:(j.music || "warm elegant instrumental background music, soft piano, light percussion") + ", instrumental, no vocals, background music for a short social media ad", duration:Math.min(30, Math.ceil(tot) + 1)})
-    .then(function(r){ return vClipWait(r.task, "audio", function(sec){ set("Creando música… " + sec + " s"); }); })
-    .then(function(path){ j.d.music = path; set("Música lista ✓"); }, function(e){ var why = vClipErr(e); if (j.warn.indexOf(why) < 0) j.warn.push(why); set("Sin música (puedes subirla en Editar) ✓"); });
-}
-/* El resultado: verlo, descargarlo, llevarlo al calendario o editarlo */
-function vResult(it){
-  var v = $("view-videos"), d = it.data, F = VFMT[d.fmt] || VFMT["9:16"], au = null;
-  VPLAY.t = 0; VPLAY.on = false; cancelAnimationFrame(VPLAY.raf);
-  var warn = it._warn || []; delete it._warn;
-  v.innerHTML = "<div class='vd-res'><div class='pp-top'><button class='btn sm' type='button' id='vr-back'>‹ Videos</button><b class='vr-name'>" + esc(it.name) + "</b></div>" +
-    "<div class='vr-cols'><div class='vd-prev'><div class='vd-stage' id='vd-stage'><canvas id='vd-cv' width='" + F[0] + "' height='" + F[1] + "'></canvas></div>" +
-    "<div class='vd-ctrl'><button class='btn sm primary' type='button' id='vd-play'>▶ Reproducir</button><input type='range' id='vd-seek' min='0' max='1000' value='0' aria-label='Tiempo'><output id='vd-time'>0.0 s</output></div></div>" +
-    "<div class='vr-side box'><b class='vd-auto-t'>Tu video está listo</b><p style='margin:0;color:var(--muted)'>" + d.scenes.length + " escenas · " + Math.round(vTotal(d)) + " s · " + esc(d.fmt) + (d.music ? " · con música" : "") + "</p>" +
-    "<button class='btn primary' type='button' id='vr-dl'>Descargar video</button><button class='btn' type='button' id='vr-cal'>Al Calendario</button><button class='btn' type='button' id='vr-edit'>Editar (modo avanzado)</button><button class='btn' type='button' id='vr-new'>Crear otro video</button>" +
-    (warn.length ? "<p class='vr-warn'>Algunas escenas quedaron sin movimiento: " + esc(warn[0]) + " Puedes cambiarlas en «Editar».</p>" : "") + vAskBox(true) + "<small class='adv-muted'>Al descargar se graba el video completo una vez; deja la pestaña abierta hasta que termine.</small></div></div></div>";
-  var cv = $("vd-cv"), ctx = cv.getContext("2d");
-  var music = function(on){ vMusic(d, on); };
-  var draw = function(){ vDraw(ctx, cv.width, cv.height, d, VPLAY.t); var tot = vTotal(d); $("vd-seek").value = Math.round(VPLAY.t / tot * 1000); $("vd-time").textContent = VPLAY.t.toFixed(1) + " / " + tot.toFixed(1) + " s"; };
-  var stop = function(){ VPLAY.on = false; cancelAnimationFrame(VPLAY.raf); if ($("vd-play")) $("vd-play").textContent = "▶ Reproducir"; vPauseClips(d); music(false); };
-  var loop = function(ts){ if (!VPLAY.on || !$("vd-cv")) { stop(); return; } var dt = VPLAY.last ? (ts - VPLAY.last) / 1000 : 0; VPLAY.last = ts; VPLAY.t += dt; var tot = vTotal(d); if (VPLAY.t >= tot){ VPLAY.t = tot - 0.001; draw(); stop(); return; } vSyncClips(d, VPLAY.t); draw(); VPLAY.raf = requestAnimationFrame(loop); };
-  var play = function(){ if (VPLAY.t >= vTotal(d) - 0.05) VPLAY.t = 0; VPLAY.on = true; VPLAY.last = 0; $("vd-play").textContent = "❚❚ Pausa"; vPrep(d).then(function(){ music(true); VPLAY.raf = requestAnimationFrame(loop); }); };
-  $("vd-play").onclick = function(){ if (VPLAY.on) stop(); else play(); };
-  $("vd-seek").oninput = function(){ stop(); VPLAY.t = $("vd-seek").value / 1000 * vTotal(d); draw(); };
-  $("vr-back").onclick = function(){ stop(); VRES = null; renderVideos(); };
-  $("vr-new").onclick = function(){ stop(); VRES = null; VAUTO.q = ""; VAUTO.photos = []; renderVideos(); if ($("va-q")) $("va-q").focus(); };
-  vAskBind(it, function(){ vResult(it); });
-  $("vr-edit").onclick = function(){ stop(); VRES = null; VID = it; renderVideos(); };
-  $("vr-cal").onclick = function(){ stop(); vToCal(it); };
-  $("vr-dl").onclick = function(){ stop(); vExport(it); };
-  vScale(); VPLAY.t = Math.min(1.2, (d.scenes[0] || {dur:3}).dur * 0.5); vPrep(d).then(draw);
-}
-
-/* ---- Pídele cambios a la IA con tus palabras (textos, escenas, imágenes, música, estilo) ---- */
-function vAskBox(small){
-  return "<div class='" + (small ? "vd-ask" : "box vd-ask") + "'><b>✨ Pídele cambios a la IA</b>" +
-    "<textarea id='vk-q' rows='2' maxlength='500' placeholder='Ej.: Textos más cortos · Cambia la escena 2 por velas encendidas · Música más alegre · Añade una escena con el precio'></textarea>" +
-    "<div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'><button class='btn sm primary' type='button' id='vk-go'>Hacer el cambio</button><span class='photo-msg' id='vk-msg' role='status'></span></div></div>";
-}
-function vAskBind(it, done){
-  var go = $("vk-go"); if (!go) return;
-  go.onclick = function(){
-    var q = $("vk-q").value.trim(), msg = $("vk-msg"); if (!q){ $("vk-q").focus(); return; }
-    if (!SET.ai){ openConnections("Pega tu clave de Anthropic para usar la IA."); return; }
-    go.disabled = true; msg.textContent = "La IA está haciendo el cambio…";
-    vAskRun(it, q, function(t){ if ($("vk-msg")) $("vk-msg").textContent = t; }).then(function(sum){ status(sum || "Cambio hecho ✓"); done(); if ($("vk-msg")) $("vk-msg").textContent = sum || "Cambio hecho ✓"; }, function(e){ go.disabled = false; msg.textContent = e && e.code === "aiparse" ? "La IA no entendió el cambio. Dilo de otra forma." : aiErr(e); });
-  };
-}
-function vAskRun(it, q, say){
-  var d = it.data;
-  var kind = function(s){ return s.media === "video" ? (/\/video\/ia-/.test(s.src || "") ? "clip creado con IA" : "video de la clienta") : s.media === "photo" ? (/\/img\/ia/.test(s.src || "") ? "imagen creada con IA" : "foto de la clienta") : "solo texto sobre color"; };
-  var state = {formato:d.fmt, letra:d.font, colores:{fondo:d.bg, texto:d.ink, acento:d.accent}, transicion:d.trans, tamano:d.tsize || "m", musica:d.music ? "sí" : "no", volumen_musica:d.vol,
-    escenas:d.scenes.map(function(s, i){ return {n:i + 1, tipo:kind(s), texto:s.text, sub:s.sub, etiqueta:s.badge, segundos:s.dur, posicion:s.pos}; }),
-    final:d.end.on ? {texto:d.end.title, sub:d.end.sub, etiqueta:d.end.badge} : "sin escena final"};
-  var prompt = "Eres editora de video. Este es el video corto que tiene la clienta (JSON):\n" + JSON.stringify(state) + "\n\nSobre el negocio:\n" + profileText() + "\n\nLo que pide cambiar: " + q +
-    "\n\nReglas: cambia SOLO lo que pide. Textos: «texto» máximo 6 palabras con 1 o 2 palabras clave entre *asteriscos*; «sub» máximo 9 palabras. Nunca inventes precios, fechas, códigos ni testimonios. Para una imagen nueva escribe «nueva_imagen» en inglés (foto realista, sin texto escrito); nunca cambies la imagen de un «video de la clienta» o «foto de la clienta» salvo que lo pida claramente. «musica»: en inglés, solo si pide otra música. «letra»: dm, playfair, cormorant, bebas, jost o montserrat. «tamano»: s, m o l. «transicion»: fade, slide o cut. «orden»: lista con los números de escena en el nuevo orden, solo si pide reordenar.\n" +
-    "Responde SOLO con JSON e incluye solo lo que cambia: {\"resumen\":\"qué cambiaste, en una frase corta en español\",\"escenas\":[{\"n\":1,\"texto\":\"…\",\"sub\":\"…\",\"etiqueta\":\"…\",\"segundos\":4,\"posicion\":\"bottom\",\"nueva_imagen\":\"…\",\"movimiento\":\"…\",\"quitar\":false}],\"nuevas\":[{\"despues_de\":2,\"texto\":\"…\",\"sub\":\"…\",\"etiqueta\":\"\",\"imagen\":\"…\",\"movimiento\":\"…\",\"segundos\":4}],\"orden\":[],\"final\":{\"texto\":\"…\",\"sub\":\"…\",\"etiqueta\":\"\",\"quitar\":false},\"estilo\":{\"letra\":\"…\",\"colores\":{\"fondo\":\"#…\",\"texto\":\"#…\",\"acento\":\"#…\"},\"transicion\":\"…\",\"tamano\":\"…\"},\"musica\":\"\",\"volumen_musica\":60}";
-  var hex = function(x){ return /^#[0-9a-f]{6}$/i.test(String(x || "")); }, txt = function(x, n){ return String(x == null ? "" : x).slice(0, n); };
-  return api("POST", "ai", {prompt:prompt, max:2500}).then(function(r){
-    var o = r.result || {}, regen = [], old = d.scenes.slice();
-    if (typeof o !== "object") throw {code:"aiparse"};
-    (o.escenas || []).forEach(function(e){
-      var s = old[Number(e.n) - 1]; if (!s) return;
-      if (e.quitar === true){ s._del = true; return; }
-      if (e.texto != null) s.text = txt(e.texto, 120); if (e.sub != null) s.sub = txt(e.sub, 140); if (e.etiqueta != null) s.badge = txt(e.etiqueta, 40);
-      if (Number(e.segundos) > 0) s.dur = Math.max(1, Math.min(s.media === "video" && !/\/video\/ia-/.test(s.src || "") ? 90 : 8, Number(e.segundos)));
-      if (["bottom", "center", "top"].indexOf(e.posicion) >= 0) s.pos = e.posicion;
-      if (e.nueva_imagen) regen.push({s:s, img:txt(e.nueva_imagen, 700), mov:txt(e.movimiento || "slow cinematic camera push-in, gentle natural movement", 400)});
-    });
-    var adds = (o.nuevas || []).slice(0, 4).map(function(e){ var s = {media:"none", src:"", text:txt(e.texto, 120), sub:txt(e.sub, 140), badge:txt(e.etiqueta, 40), dur:Math.max(2.5, Math.min(5, Number(e.segundos) || 4)), anim:"zoom", pos:"bottom", shade:0, _after:Number(e.despues_de) || old.length};
-      if (e.imagen) regen.push({s:s, img:txt(e.imagen, 700), mov:txt(e.movimiento || "slow cinematic camera push-in, gentle natural movement", 400)}); return s; });
-    var ord = Array.isArray(o.orden) && o.orden.length === old.length && o.orden.slice().sort(function(a, b){ return a - b; }).every(function(x, i){ return Number(x) === i + 1; }) ? o.orden.map(function(x){ return old[Number(x) - 1]; }) : old;
-    var list = [];
-    ord.forEach(function(s){ if (!s._del) list.push(s); var n = old.indexOf(s) + 1; adds.forEach(function(a){ if (a._after === n) list.push(a); }); });
-    adds.forEach(function(a){ if (list.indexOf(a) < 0) list.push(a); delete a._after; });
-    if (list.length) d.scenes = list;
-    var f = o.final;
-    if (f && typeof f === "object"){ if (f.quitar === true) d.end.on = false; else { d.end.on = true; if (f.texto != null) d.end.title = txt(f.texto, 120); if (f.sub != null) d.end.sub = txt(f.sub, 140); if (f.etiqueta != null) d.end.badge = txt(f.etiqueta, 40); } }
-    var es = o.estilo || {};
-    if (VFONT.some(function(x){ return x[0] === es.letra; })) d.font = es.letra;
-    if (es.colores){ if (hex(es.colores.fondo)) d.bg = es.colores.fondo; if (hex(es.colores.texto)) d.ink = es.colores.texto; if (hex(es.colores.acento)) d.accent = es.colores.acento; }
-    if (["fade", "slide", "cut"].indexOf(es.transicion) >= 0) d.trans = es.transicion;
-    if (["s", "m", "l"].indexOf(es.tamano) >= 0) d.tsize = es.tamano;
-    if (Number(o.volumen_musica) >= 0 && o.volumen_musica !== "" && o.volumen_musica != null) d.vol = Math.max(0, Math.min(100, Math.round(Number(o.volumen_musica))));
-    // Imágenes, clips y música nuevos con Runway
-    var j = {cfg:{motion:!!SET.vidai}, warn:[], stopRW:null}, ratio = VCLIP_RATIO[d.fmt] || "720:1280", jobs = [];
-    var notes = [];
-    if (regen.length && !SET.vidai) notes.push("Para cambiar imágenes conecta Runway en Cuenta → Conexiones.");
-    if (SET.vidai) regen.forEach(function(x, k){ x.s._ph = ""; x.s._como = "ia"; x.s.from = 0; x.s.sound = false; x.s.anim = "zoom"; x.s._img = x.img; x.s._mov = x.mov;
-      jobs.push(function(){ return vAutoScene(j, x.s, k, ratio, function(t){ say("Escena nueva " + (k + 1) + " de " + regen.length + ": " + t); }).then(function(){ ["_ph", "_como", "_img", "_mov", "_mine"].forEach(function(z){ delete x.s[z]; }); }); }); });
-    var mus = o.musica && SET.vidai ? function(){ j.d = d; j.music = txt(o.musica, 500); return vAutoMusic(j, function(t){ say("Música: " + t); }); } : null;
-    if (o.musica && !SET.vidai) notes.push("Para crear música nueva conecta Runway, o sube tu MP3 en «Formato, letra, colores y música».");
-    if (jobs.length || mus) say("Creando con Runway… (1 a 3 minutos)");
-    return Promise.all([vPool(jobs, 3), mus ? mus() : null]).then(function(){
-      return vSave(it).then(function(){ return txt(o.resumen || "Cambio hecho", 200) + " ✓" + (j.warn.length ? " · " + j.warn[0] : "") + (notes.length ? " · " + notes.join(" ") : ""); });
-    });
   });
 }
 /* ===== FIN VIDEOS ===== */
@@ -3910,7 +3470,7 @@ function botDraw(){
   if ($("bt-avx")) $("bt-avx").onclick = function(){ BOT.avatar = ""; save(true); setTimeout(botDraw, 700); };
   $("bt-fill").onclick = function(){
     var m = $("bt-fillmsg"); m.textContent = "Buscando…";
-    fetch("/asesor-api/data", {headers:authH(), cache:"no-store"}).then(function(r){ return r.json(); }).then(function(dd){
+    fetch("/asesor-api/data", {headers:{"x-panel-pass":PASS || ""}, cache:"no-store"}).then(function(r){ return r.json(); }).then(function(dd){
       var bz = (dd && dd.biz) || []; if (!bz.length){ m.textContent = "No tienes negocios en Business Growth AI → Mis negocios."; return; }
       var z = bz.filter(function(x){ return x.name && BOT.biz && x.name.toLowerCase() === BOT.biz.toLowerCase(); })[0] || bz[0];
       var t = [z.name ? "Negocio: " + z.name : "", z.what ? "Qué vendo: " + z.what : "", z.products ? "Productos y precios:\n" + z.products : "", z.where ? "Dónde se compra: " + z.where : "", z.web ? "Website: " + z.web : "", z.client ? "Para quién es: " + z.client : "", z.notes ? "Otros datos: " + z.notes : ""].filter(Boolean).join("\n\n");
@@ -4617,10 +4177,10 @@ function popCfg(it){
   if (d.media === "video" && !d.video) { d.media = "photo"; if (!d.photo) d.photo = SAMPLE; }
   return d;
 }
-function popCode(it){ return '<script src="' + location.origin + '/popup/' + it.slug + '.js' + (TSLUG ? "?pbt=" + TSLUG : "") + '" async><' + '/script>'; }
+function popCode(it){ return '<script src="' + location.origin + '/popup/' + it.slug + '.js" async><' + '/script>'; }
 function popLoad(){ return POPS ? Promise.resolve(POPS) : Promise.all([api("GET", "popups"), api("GET", "popsites").catch(function(){ return {sites:[]}; })]).then(function(r){ POPSITES = r[1].sites || []; POPS = r[0].items || []; return POPS; }); }
 /* Código general: uno por website. Se pega una vez y en cada popup marcas en qué websites sale. */
-function popSiteCode(s){ return '<script src="' + location.origin + '/popup/w/' + s.id + '.js' + (TSLUG ? "?pbt=" + TSLUG : "") + '" async><' + '/script>'; }
+function popSiteCode(s){ return '<script src="' + location.origin + '/popup/w/' + s.id + '.js" async><' + '/script>'; }
 function popSitesSave(){ return api("PUT", "popsites", {sites:POPSITES}).then(function(r){ POPSITES = r.sites || []; return POPSITES; }); }
 function popSiteModal(s){
   var code = popSiteCode(s), n = (POPS || []).filter(function(x){ return x.data && (x.data.sites || []).indexOf(s.id) >= 0; });
@@ -6087,8 +5647,7 @@ var DOC_SAMPLE = {
 };
 var DOCST = null;
 function docLoad(){ if (DOCST) return; try{ DOCST = JSON.parse(store("lp-doc") || "null"); }catch(_){ DOCST = null; } if (!DOCST || !DOCST.type) DOCST = docNew("checklist"); }
-function docNew(type){ var s = DOC_SAMPLE[type], en = PLANG === "en" && TR, t = function(x){ return en ? String(x).split("\n").map(trLine).join("\n") : x; };
-  return {id:"", type:type, page:"", lang:en ? "en" : "es", eyebrow:DOCT[type][3][en ? "en" : "es"], title:t(s.title), sub:t(s.sub), content:t(s.content), topic:"", pdf:""}; }
+function docNew(type){ var s = DOC_SAMPLE[type]; return {id:"", type:type, page:"", lang:"es", eyebrow:DOCT[type][3].es, title:s.title, sub:s.sub, content:s.content, topic:"", pdf:""}; }
 function docSave(){ store("lp-doc", JSON.stringify(DOCST)); }
 function docColors(){
   var p = S.pages.filter(function(x){ return x.id === DOCST.page; })[0], d = p ? p.data : {};
@@ -6359,7 +5918,13 @@ function wireEtpl(){
 /* ================= Business Growth AI: tu asesora de crecimiento y ventas ================= */
 var ADV = null, ADVTAB = store("lp-adv-tab") || "hoy", ADVBUSY = false, advTimer = null;
 var ADVFORM = (function(){ try{ return JSON.parse(store("lp-adv-form") || "null") || {}; }catch(_){ return {}; } })();
-ADVFORM = Object.assign({biz:"", time:"2 horas", budget:"Solo gratis", web:true, draft:""}, ADVFORM);
+ADVFORM = Object.assign({biz:"", time:"2 horas", budget:"Solo gratis", web:true, draft:"", lang:"es"}, ADVFORM);
+var ADV_LANGS = [["es","Español"],["en","English"],["practice","English + ayuda en español"]];
+function advLangRule(){
+  if (ADVFORM.lang === "en") return "IDIOMA DE LA RESPUESTA: inglés. Escribe TODO en inglés profesional de EE. UU. (títulos, plan, pasos, tareas, sugerencias), claro y sencillo.";
+  if (ADVFORM.lang === "practice") return "IDIOMA DE LA RESPUESTA: inglés para practicar. Ella está practicando su inglés: escribe TODO en inglés profesional, sencillo y claro, con frases cortas (nivel intermedio). Al final del texto (antes del bloque asesor) añade una sección «## Vocabulary» con 5 a 8 palabras o frases útiles de tu respuesta y su traducción al español. Si ella te escribe en inglés y comete errores, añade al final «## Your English» con su frase corregida y una explicación muy breve en español. Si te escribe en español, contesta igual en inglés.";
+  return "IDIOMA DE LA RESPUESTA: español.";
+}
 var ADV_EX = ["Quiero conseguir cinco ventas de TIME esta semana", "¿Qué vamos a hacer hoy?", "Tengo dos horas hoy, ¿qué hacemos primero?", "Quiero crecer mi canal de YouTube", "Necesito encontrar clientes para mis servicios", "Mi página recibe visitas, pero nadie compra"];
 var ADV_TIMES = ["30 minutos","1 hora","2 horas","4 horas","Todo el día"];
 var ADV_BUDGETS = ["Solo gratis","Hasta $20","Hasta $50","Hasta $100","Hasta $300","Lo que haga falta"];
@@ -6392,7 +5957,7 @@ function advFix(d){
   return d;
 }
 function advApi(method, path, body){
-  var h = authH(), opt = {method:method, headers:h, cache:"no-store"};
+  var h = {"x-panel-pass": PASS || ""}, opt = {method:method, headers:h, cache:"no-store"};
   if (body !== undefined){ h["Content-Type"] = "application/json"; opt.body = JSON.stringify(body); }
   return fetch("/asesor-api/" + path, opt).then(function(r){
     return r.json().catch(function(){ return {}; }).then(function(j){
@@ -6435,7 +6000,7 @@ function advNum(v){ var n = parseFloat(String(v == null ? "" : v).replace(/[^0-9
 function advContext(subs){
   var now = new Date(), out = [];
   out.push("FECHA Y HORA: " + now.toLocaleDateString("es", {weekday:"long", day:"numeric", month:"long", year:"numeric"}) + ", " + now.toLocaleTimeString("es", {hour:"2-digit", minute:"2-digit"}) + " (" + (Intl.DateTimeFormat().resolvedOptions().timeZone || "") + "). Hoy es " + advToday() + ".");
-  out.push("PARA ESTA RESPUESTA: tiempo disponible hoy: " + ADVFORM.time + ". Presupuesto para publicidad: " + ADVFORM.budget + "." + (ADVFORM.biz ? " Negocio en el que nos enfocamos: " + advBizName(ADVFORM.biz) + "." : " Puede ser cualquiera de sus negocios."));
+  out.push(advLangRule() + "\nPARA ESTA RESPUESTA: tiempo disponible hoy: " + ADVFORM.time + ". Presupuesto para publicidad: " + ADVFORM.budget + "." + (ADVFORM.biz ? " Negocio en el que nos enfocamos: " + advBizName(ADVFORM.biz) + "." : " Puede ser cualquiera de sus negocios."));
   out.push("\n=== MEMORIA ===");
   if (ADV.biz.length) ADV.biz.forEach(function(b){
     out.push("\nNEGOCIO: " + (b.name || "(sin nombre)") + ADV_BIZF.slice(1).map(function(f){ return b[f[0]] ? "\n- " + f[1] + ": " + b[f[0]] : ""; }).join("") + (b.sales && b.sales.facts ? "\n- VENTAS REALES (calculadas por el panel con su archivo de Stripe; son datos comprobados):\n  · " + b.sales.facts.join("\n  · ") : ""));
@@ -6469,7 +6034,7 @@ var ADV_WAIT = ["Revisando tus metas y tus números…", "Investigando en intern
 function advRun(payload, onTick){
   return advApi("POST", "start", payload).then(function(d){
     var id = d.job, t0 = Date.now(), seenWork = false, direct = false;
-    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id, pbt:TSLUG, pbl:PLANG})}).catch(function(){});
+    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id})}).catch(function(){});
     return new Promise(function(res, rej){
       (function poll(){
         setTimeout(function(){
@@ -6542,7 +6107,7 @@ function advInline(s){
 }
 function advMd(text){
   var lines = String(text || "").replace(/\r/g, "").split("\n"), html = "", list = null, para = [];
-  var flush = function(){ if (para.length){ html += "<p>" + advInline(para.join(" ")) + "</p>"; para = []; } };
+  var flush = function(){ if (para.length){ html += "<p>" + para.map(advInline).join("<br>") + "</p>"; para = []; } };
   var close = function(){ if (list){ html += "</" + list + ">"; list = null; } };
   lines.forEach(function(raw){
     var l = raw.trim(), m;
@@ -6640,7 +6205,7 @@ function advHoy(b){
     h += "<div class='box adv-hero'><label for='adv-q'><h3>¿Qué vamos a lograr hoy?</h3></label>" +
       "<textarea id='adv-q' rows='3' placeholder='Ej.: " + esc(advExamples()[1]) + "'>" + esc(ADVFORM.draft) + "</textarea>" +
       "<div class='co-quick'>" + advExamples().map(function(q){ return "<button type='button' class='btn sm' data-advex='" + esc(q) + "'>" + esc(q) + "</button>"; }).join("") + "</div>" +
-      "<div class='adv-opts'><div class='f'><label for='adv-biz'>Negocio</label><select id='adv-biz'>" + advBizOptions(ADVFORM.biz) + "</select></div>" + advSelect("adv-time", "Tiempo que tengo hoy", ADV_TIMES, ADVFORM.time) + advSelect("adv-budget", "Presupuesto para anuncios", ADV_BUDGETS, ADVFORM.budget) + "</div>" +
+      "<div class='adv-opts'><div class='f'><label for='adv-biz'>Negocio</label><select id='adv-biz'>" + advBizOptions(ADVFORM.biz) + "</select></div>" + advSelect("adv-time", "Tiempo que tengo hoy", ADV_TIMES, ADVFORM.time) + advSelect("adv-budget", "Presupuesto para anuncios", ADV_BUDGETS, ADVFORM.budget) + "<div class='f'><label for='adv-lang'>Idioma</label><select id='adv-lang'>" + ADV_LANGS.map(function(o){ return "<option value='" + o[0] + "'" + (o[0] === ADVFORM.lang ? " selected" : "") + ">" + o[1] + "</option>"; }).join("") + "</select></div>" + "</div>" +
       "<label class='adv-check'><input type='checkbox' id='adv-web'" + (ADVFORM.web ? " checked" : "") + "> 🔎 Investigar en internet (tendencias, competencia, cambios recientes) con fuentes y fechas</label>" +
       "<div class='adv-go'><button class='btn primary' type='button' id='adv-send'>Empezar</button><small class='adv-muted'>" + (ADVFORM.web ? "Con internet tarda 1–3 minutos y cuesta unos centavos." : "Sin internet tarda menos de un minuto.") + "</small></div>" +
       (!ADV.biz.length ? "<p class='adv-note'>💡 Para que sus consejos sean de verdad tuyos, describe tus negocios en <a href='#' data-advgo='neg'>Mis negocios</a>. Toma 5 minutos y lo recordará siempre.</p>" : "") + "</div>";
@@ -6648,13 +6213,13 @@ function advHoy(b){
     h += "<div class='box adv-thread'><div class='adv-thread-h'><b>" + esc(t.title) + "</b><button class='btn sm' type='button' id='adv-new'>+ Nueva conversación</button></div>";
     msgs.forEach(function(m, i){ h += advMsgHtml(m, i); });
     if (ADVBUSY) h += "<div class='adv-msg ai co-wait'><span class='spin' aria-hidden='true'></span> <span id='adv-wait-t'>" + (ADVFORM.web ? ADV_WAIT[0] : "Pensando en tu plan…") + "</span></div>";
-    h += "<div class='adv-follow'><div class='adv-opts'>" + "<div class='f'><label for='adv-biz'>Negocio</label><select id='adv-biz'>" + advBizOptions(ADVFORM.biz) + "</select></div>" + advSelect("adv-time", "Tiempo hoy", ADV_TIMES, ADVFORM.time) + advSelect("adv-budget", "Presupuesto", ADV_BUDGETS, ADVFORM.budget) + "</div>" +
+    h += "<div class='adv-follow'><div class='adv-opts'>" + "<div class='f'><label for='adv-biz'>Negocio</label><select id='adv-biz'>" + advBizOptions(ADVFORM.biz) + "</select></div>" + advSelect("adv-time", "Tiempo hoy", ADV_TIMES, ADVFORM.time) + advSelect("adv-budget", "Presupuesto", ADV_BUDGETS, ADVFORM.budget) + "<div class='f'><label for='adv-lang'>Idioma</label><select id='adv-lang'>" + ADV_LANGS.map(function(o){ return "<option value='" + o[0] + "'" + (o[0] === ADVFORM.lang ? " selected" : "") + ">" + o[1] + "</option>"; }).join("") + "</select></div>" + "</div>" +
       "<label class='adv-check'><input type='checkbox' id='adv-web'" + (ADVFORM.web ? " checked" : "") + "> 🔎 Investigar en internet</label>" +
       "<div class='co-ask'><textarea id='adv-q' rows='2' placeholder='Escribe para seguir: «ya lo hice», «no funcionó», «explícame cómo», «investiga a mi competencia»…'" + (ADVBUSY ? " disabled" : "") + ">" + esc(ADVFORM.draft) + "</textarea><button class='btn primary sm' type='button' id='adv-send'" + (ADVBUSY ? " disabled" : "") + ">Enviar</button></div></div></div>";
   }
   b.innerHTML = h;
-  var read = function(){ var q = $("adv-q"); if (q) ADVFORM.draft = q.value; ADVFORM.biz = $("adv-biz").value; ADVFORM.time = $("adv-time").value; ADVFORM.budget = $("adv-budget").value; ADVFORM.web = $("adv-web").checked; advFormSave(); };
-  ["adv-biz","adv-time","adv-budget","adv-web"].forEach(function(id){ var el = $(id); if (el) el.onchange = read; });
+  var read = function(){ var q = $("adv-q"); if (q) ADVFORM.draft = q.value; ADVFORM.biz = $("adv-biz").value; ADVFORM.time = $("adv-time").value; ADVFORM.budget = $("adv-budget").value; ADVFORM.web = $("adv-web").checked; ADVFORM.lang = $("adv-lang").value; advFormSave(); };
+  ["adv-biz","adv-time","adv-budget","adv-web","adv-lang"].forEach(function(id){ var el = $(id); if (el) el.onchange = read; });
   if ($("adv-q")){ $("adv-q").oninput = function(){ ADVFORM.draft = $("adv-q").value; advFormSave(); }; $("adv-q").onkeydown = function(e){ if (e.key === "Enter" && !e.shiftKey && msgs.length){ e.preventDefault(); $("adv-send").click(); } }; }
   if ($("adv-send")) $("adv-send").onclick = function(){ read(); var q = ADVFORM.draft.trim(); if (!q){ $("adv-q").focus(); return; } advAsk(q); };
   if ($("adv-new")) $("adv-new").onclick = function(){ ADV.cur = ""; advSave(); renderAsesor(); setTimeout(function(){ if ($("adv-q")) $("adv-q").focus(); }, 30); };
@@ -6926,7 +6491,7 @@ function advRepStart(){
     return advApi("POST", "report-start", {question:q, biz:advBizText(z), bizId:bizId, bizName:z ? z.name : "", links:advLinks(z), internal:advInternal(z), model:model, tz:Intl.DateTimeFormat().resolvedOptions().timeZone || ""});
   }).then(function(d){
     ADVREPJOB = {id:d.job, at:Date.now(), q:q, biz:z ? z.name : ""}; store("lp-adv-repjob", JSON.stringify(ADVREPJOB));
-    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:d.job, pbt:TSLUG, pbl:PLANG})}).catch(function(){});
+    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:d.job})}).catch(function(){});
     renderAsesor(); advRepPoll();
   }, function(e){ $("inf-go").disabled = false; $("inf-go").textContent = "Empezar la investigación"; status(advErr(e), "err"); });
 }
@@ -7034,198 +6599,12 @@ function advConv(b){
   b.querySelectorAll("[data-cvdel]").forEach(function(x){ x.onclick = function(){ if (x.textContent !== "¿Seguro?"){ x.textContent = "¿Seguro?"; return; } var id = x.getAttribute("data-cvdel"); ADV.threads = ADV.threads.filter(function(t){ return t.id !== id; }); if (ADV.cur === id) ADV.cur = ""; advSave(); renderAsesor(); }; });
 }
 
-/* ================= PageBloom para tus clientas: su cuenta, su plan y tu «Plataforma» ================= */
-function rawLS(k, v){ try{ if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); }catch(_){ return null; } }
-function saasErr(e){
-  var c = e && e.code;
-  return c === "login" ? "El correo o la contraseña no son correctos." : c === "taken" ? "Ese correo ya tiene una cuenta. Entra con él." : c === "short" ? "La contraseña necesita al menos 8 letras o números." :
-    c === "email" ? "Revisa tu correo." : c === "expired" ? "El enlace ya venció. Pide uno nuevo." : c === "nobilling" ? "Los pagos todavía no están activos. Escríbenos y te ayudamos." :
-    c === "stripekey" ? "Stripe no aceptó esa clave" + (e.detail ? ": " + e.detail : ".") : c === "whsec" ? "La clave del webhook empieza por whsec_." : c === "domain" ? "Escribe solo el dominio, por ejemplo: tudominio.com" : c === "stripe" ? "Stripe respondió: " + (e.detail || "error") : apiError(e);
-}
-function setSession(r){ rawLS("lp-sess", r.token); rawLS("lp-slug", r.me.slug); location.hash = ""; location.reload(); }
-function tenantLogout(){ fetch("/api/logout", {method:"POST", headers:authH()}).catch(function(){}).then(function(){ rawLS("lp-sess", null); rawLS("lp-slug", null); location.href = "/registro.html#entrar"; }); }
-
-/* Entrar con correo (clientas) */
-function clientLogin(intro){
-  status("Entra a tu panel", "busy");
-  openModal("Entra a tu PageBloom",
-    (intro ? "<p style='margin:0 0 10px'><b>" + esc(intro) + "</b></p>" : "") +
-    "<form id='cl-form' style='display:grid;gap:12px' autocomplete='on'>" +
-    "<div class='f'><label for='cl-email'>Correo</label><input type='email' id='cl-email' autocomplete='username' required></div>" +
-    "<div class='f'><label for='cl-pass'>Contraseña</label><input type='password' id='cl-pass' autocomplete='current-password' required></div>" +
-    "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='submit' id='cl-go'>Entrar</button><a href='#' id='cl-forgot' class='adv-muted'>¿Olvidaste tu contraseña?</a></div>" +
-    "<div class='photo-msg' id='cl-msg' role='status'></div>" +
-    "<p class='login-new'>¿Todavía no tienes cuenta? <a href='/app'>Crea tu PageBloom gratis</a></p>" +
-    "<p style='margin:0;font-size:12px'><a href='#' id='cl-owner' class='adv-muted'>Entrar como administradora</a></p></form>");
-  setTimeout(function(){ try{ $("cl-email").focus(); }catch(_){} }, 50);
-  $("cl-owner").onclick = function(e){ e.preventDefault(); rawLS("lp-owner", "1"); openLogin(); };
-  $("cl-forgot").onclick = function(e){ e.preventDefault(); clientForgot($("cl-email").value); };
-  $("cl-form").onsubmit = function(ev){
-    ev.preventDefault(); var msg = $("cl-msg"); $("cl-go").disabled = true; msg.textContent = "Entrando…";
-    fetch("/api/login", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email:$("cl-email").value.trim(), password:$("cl-pass").value})})
-      .then(function(r){ return r.json().then(function(j){ if (!r.ok){ var e = new Error(j.error); e.code = j.error; e.status = r.status; throw e; } return j; }); })
-      .then(setSession, function(e){ $("cl-go").disabled = false; msg.textContent = saasErr(e); });
-  };
-}
-function clientForgot(email){
-  openModal("Crea una contraseña nueva", "<form id='fg-form' style='display:grid;gap:12px'><p style='margin:0'>Escribe el correo de tu cuenta y te mandamos un enlace para crear una contraseña nueva.</p>" +
-    "<div class='f'><label for='fg-email'>Correo</label><input type='email' id='fg-email' value='" + esc(email || "") + "' required></div>" +
-    "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='submit' id='fg-go'>Mandarme el enlace</button><a href='#' id='fg-back' class='adv-muted'>Volver</a></div><div class='photo-msg' id='fg-msg' role='status'></div></form>");
-  $("fg-back").onclick = function(e){ e.preventDefault(); clientLogin(); };
-  $("fg-form").onsubmit = function(ev){ ev.preventDefault(); $("fg-go").disabled = true;
-    fetch("/api/forgot", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email:$("fg-email").value.trim()})}).then(function(r){ return r.json(); })
-      .then(function(j){ $("fg-msg").textContent = j.mail === false ? "No pudimos mandar el correo ahora. Escríbenos y te ayudamos." : "Listo. Si ese correo tiene cuenta, te llega el enlace en unos minutos (mira también en spam)."; }, function(){ $("fg-go").disabled = false; $("fg-msg").textContent = "No hay conexión. Inténtalo otra vez."; });
-  };
-}
-function clientReset(tok){
-  openModal("Tu contraseña nueva", "<form id='rs-form' style='display:grid;gap:12px'>" +
-    "<div class='f'><label for='rs-p1'>Contraseña nueva</label><input type='password' id='rs-p1' autocomplete='new-password' required minlength='8'></div>" +
-    "<div class='f'><label for='rs-p2'>Repítela</label><input type='password' id='rs-p2' autocomplete='new-password' required></div>" +
-    "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='submit' id='rs-go'>Guardar y entrar</button></div><div class='photo-msg' id='rs-msg' role='status'></div></form>");
-  $("rs-form").onsubmit = function(ev){ ev.preventDefault(); var p = $("rs-p1").value, msg = $("rs-msg");
-    if (p.length < 8){ msg.textContent = "Usa al menos 8 letras o números."; return; } if (p !== $("rs-p2").value){ msg.textContent = "Las dos contraseñas no son iguales."; return; }
-    $("rs-go").disabled = true;
-    fetch("/api/reset", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({token:tok, password:p})})
-      .then(function(r){ return r.json().then(function(j){ if (!r.ok){ var e = new Error(j.error); e.code = j.error; e.status = r.status; throw e; } return j; }); })
-      .then(setSession, function(e){ $("rs-go").disabled = false; msg.textContent = saasErr(e); });
-  };
-}
-
-/* Lo que ve la clienta: su nombre arriba, el aviso de su prueba y «Mi plan» */
-function planLine(me){
-  var p = me.plan || {};
-  return p.state === "trial" ? (me.subscribed ? "Prueba gratis con tu plan ya activado · empieza a cobrarse en " + p.daysLeft + " días" : "Prueba gratis · te " + (p.daysLeft === 1 ? "queda 1 día" : "quedan " + p.daysLeft + " días")) :
-    p.state === "active" ? "Plan activo" : p.state === "comp" ? "Plan de regalo" : p.state === "grace" ? "No pudimos cobrar tu plan · actualiza tu tarjeta (" + p.daysLeft + " días)" :
-    p.state === "paused" ? "Tu cuenta está en pausa" : "Tu prueba terminó";
-}
-function tenantChrome(){
-  if (!ME) return;
-  var h = $("pb-title");
-  if (h) h.innerHTML = "<span class='pb-brand'>" + esc(ME.platform || "PageBloom") + "</span> <span class='pb-sep'>·</span> " + esc(ME.name);
-  document.title = (ME.platform || "PageBloom") + " · " + ME.name;
-  var b = $("pb-banner");
-  if (!b){ b = document.createElement("div"); b.id = "pb-banner"; var top = document.querySelector("header.top"); top.parentNode.insertBefore(b, top.nextSibling); }
-  var p = ME.plan || {}, show = !ME.subscribed && (p.state === "trial") || p.state === "grace";
-  b.className = "pb-banner" + (p.state === "grace" ? " warn" : "");
-  b.hidden = !show;
-  b.innerHTML = show ? "<span>" + esc(planLine(ME)) + "</span><button class='btn sm primary' type='button' id='pb-banner-go'>" + (p.state === "grace" ? "Actualizar tarjeta" : "Activar mi plan") + "</button>" : "";
-  if (show) $("pb-banner-go").onclick = function(){ showTab("miplan"); };
-}
-function loadMe(){ return fetch("/api/me", {headers:authH(), cache:"no-store"}).then(function(r){ return r.json().then(function(j){ if (!r.ok){ var e = new Error(j.error); e.status = r.status; e.code = j.error; throw e; } ME = j; tenantChrome(); return j; }); }); }
-function billingGo(kind, btn, msg){
-  btn.disabled = true; msg.textContent = "Abriendo el pago seguro de Stripe…";
-  fetch("/api/billing/" + kind, {method:"POST", headers:authH()}).then(function(r){ return r.json().then(function(j){ if (!r.ok){ var e = new Error(j.error); e.code = j.error; e.detail = j.detail; e.status = r.status; throw e; } return j; }); })
-    .then(function(j){ location.href = j.url; }, function(e){ btn.disabled = false; msg.textContent = saasErr(e); });
-}
-function renderMiPlan(){
-  var v = $("view-miplan"); if (!v) return;
-  if (!ME){ v.innerHTML = "<div class='box'>Cargando…</div>"; loadMe().then(renderMiPlan, function(e){ v.innerHTML = "<div class='box'>" + esc(apiError(e)) + "</div>"; }); return; }
-  var p = ME.plan || {}, okMsg = /plan-ok/.test(location.hash);
-  v.innerHTML = "<div class='home-head'><div><h2>Mi plan</h2><p>Tu espacio en " + esc(ME.platform) + ", tu dirección y tu suscripción.</p></div></div>" +
-    (okMsg ? "<div class='box pb-ok'><b>¡Gracias! Tu plan quedó activado.</b> Puede tardar unos segundos en aparecer aquí.</div>" : "") +
-    "<div class='pb-plan'><div class='box pb-plan-card'><span class='pb-state pb-" + esc(p.state || "") + "'>" + esc(planLine(ME)) + "</span>" +
-    "<p class='pb-price'><b>$" + esc(ME.price) + "</b> al mes</p><p class='adv-muted' style='margin:0'>Páginas, popups, videos con IA, chatbot, correos, calendario, Business Growth AI y números. Cancelas cuando quieras.</p>" +
-    (ME.subscribed ? "<button class='btn' type='button' id='mp-portal'>Cambiar tarjeta, ver facturas o cancelar</button>" : "<button class='btn primary' type='button' id='mp-buy'>" + (p.state === "trial" ? "Activar mi plan (no se cobra hasta que termine la prueba)" : "Activar mi plan") + "</button>") +
-    "<div class='photo-msg' id='mp-msg' role='status'></div></div>" +
-    "<div class='box pb-space'><b>Tu espacio</b><div class='f'><label for='mp-name'>Nombre de tu espacio</label><input type='text' id='mp-name' maxlength='60' value='" + esc(ME.name) + "'><small>Así sale arriba: «" + esc(ME.platform) + " · " + esc(ME.name) + "».</small></div>" +
-    "<div class='f'><label>Tu web</label><div class='pb-url'><a href='" + esc(ME.url) + "' target='_blank' rel='noopener'>" + esc(ME.url.replace(/^https?:\/\//, "")) + "</a><button class='btn sm' type='button' id='mp-copy'>Copiar</button></div></div>" +
-    "<div class='f'><label>Correo de tu cuenta</label><input type='text' value='" + esc(ME.email) + "' disabled></div>" +
-    "<details class='pb-pw'><summary>Cambiar mi contraseña</summary><div class='f'><label for='mp-cur'>Contraseña actual</label><input type='password' id='mp-cur' autocomplete='current-password'></div><div class='f'><label for='mp-new'>Contraseña nueva</label><input type='password' id='mp-new' autocomplete='new-password'></div></details>" +
-    "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='button' id='mp-save'>Guardar</button><button class='btn danger' type='button' id='mp-out'>Salir</button></div><div class='photo-msg' id='mp-msg2' role='status'></div></div></div>";
-  if ($("mp-buy")) $("mp-buy").onclick = function(){ billingGo("checkout", $("mp-buy"), $("mp-msg")); };
-  if ($("mp-portal")) $("mp-portal").onclick = function(){ billingGo("portal", $("mp-portal"), $("mp-msg")); };
-  $("mp-copy").onclick = function(){ copyText(ME.url, $("mp-copy")); };
-  $("mp-out").onclick = tenantLogout;
-  $("mp-save").onclick = function(){
-    var body = {name:$("mp-name").value.trim()}; if ($("mp-new").value){ body.password = $("mp-new").value; body.current = $("mp-cur").value; }
-    fetch("/api/me", {method:"PUT", headers:Object.assign({"Content-Type":"application/json"}, authH()), body:JSON.stringify(body)}).then(function(r){ return r.json().then(function(j){ if (!r.ok){ var e = new Error(j.error); e.code = j.error; e.status = r.status; throw e; } return j; }); })
-      .then(function(j){ ME = j; tenantChrome(); $("mp-msg2").textContent = "Guardado ✓"; $("mp-new").value = ""; $("mp-cur").value = ""; }, function(e){ $("mp-msg2").textContent = e.code === "login" ? "La contraseña actual no es correcta." : saasErr(e); });
-  };
-  if (okMsg) setTimeout(function(){ loadMe().then(function(){ if (curTab === "miplan") renderMiPlan(); }); }, 4000);
-}
-/* Si el plan venció o está en pausa: solo se ve «Mi plan» */
-function planGate(){
-  if (!SESS) return;
-  loadMe().then(function(){ if (ME.plan && ME.plan.ok) return; document.body.classList.add("pb-locked"); showTab("miplan"); }, function(){});
-}
-
-/* Primera vez: su web ya trae páginas de ejemplo con su nombre */
-function seedTenant(){
-  if (!ME || ME.seeded) return;
-  var mark = function(){ return fetch("/api/me", {method:"PUT", headers:Object.assign({"Content-Type":"application/json"}, authH()), body:JSON.stringify({seeded:true})}).then(function(r){ return r.json(); }).then(function(j){ ME = j; }); };
-  if (S.pages.length){ mark(); return; }
-  var want = ["guia", "bio", "contacto"].filter(function(k){ return TEMPLATES[k]; });
-  want.forEach(function(k){
-    var d = newData(k); d.name = TEMPLATES[k].label; d.fileName = uniqueFile(cleanFile(d.name)); d.inMenu = "si"; d.category = defaultCat(k); d.live = "si";
-    if (ME.name){ d.brand = ME.name; }
-    if (PLANG === "en" && TR){ d.lang = "en"; d.name = tr(d.name); d.fileName = uniqueFile(cleanFile(d.name)); d.category = tr(d.category); Object.keys(d).forEach(function(k){ if (typeof d[k] === "string" && /[a-záéíóúñ]{3}/i.test(d[k]) && !/^(https?:|\/|#)/.test(d[k])) d[k] = d[k].split("\n").map(function(x){ return tr(x); }).join("\n"); }); }
-    S.pages.push({id:newId(), updatedAt:Date.now(), data:d});
-  });
-  changed(); if (typeof renderHome === "function") renderHome();
-  api("PUT", "home", {name:ME.name, intro:"", introEn:"", cats:{}, links:{}}).catch(function(){});
-  Promise.resolve(typeof autoPublish === "function" ? autoPublish() : null).then(mark, mark);
-  openModal("¡Bienvenida a " + esc(ME.platform) + "!", "<p style='margin:0 0 10px'>Tu web ya está lista con 3 páginas de ejemplo: un <b>freebie</b>, tu <b>página de enlaces</b> y una de <b>contacto</b>.</p>" +
-    "<ol class='pb-steps'><li>En <b>Mis páginas → Portada de tu web</b> pon tu foto, tu frase y tus redes.</li><li>Abre cada página y cambia los textos y la foto por los tuyos.</li><li>En <b>Cuenta → Conexiones</b> pega tus claves de IA y de correos cuando quieras usarlas.</li></ol>" +
-    "<p style='margin:10px 0 0'>Tu web: <a href='" + esc(ME.url) + "' target='_blank' rel='noopener'>" + esc(ME.url.replace(/^https?:\/\//, "")) + "</a></p><div class='modal-row'><button class='btn primary' type='button' id='pb-wel-ok'>Empezar</button></div>");
-  $("pb-wel-ok").onclick = function(){ closeModal(); showTab("pages"); };
-}
-
-/* ---- Tu sección «Plataforma» (solo tú) ---- */
-var PLATF = null;
-function renderPlataforma(){
-  var v = $("view-plataforma"); if (!v) return;
-  v.innerHTML = "<div class='home-head'><div><h2>Plataforma</h2><p>Tus clientas, su plan y cómo cobras. Ellas se registran solas en tu página de registro.</p></div></div><div id='pf-body'><div class='box'>Cargando…</div></div>";
-  Promise.all([api("GET", "platform/tenants"), api("GET", "platform/settings")]).then(function(r){
-    var d = r[0], st = r[1], s = d.stats, b = $("pf-body"); if (!b) return;
-    var pill = function(t){ var p = t.plan, cls = p.state; return "<span class='pb-state pb-" + cls + "'>" + (p.state === "trial" ? (p.paid ? "Prueba · con tarjeta" : "Prueba · " + p.daysLeft + " d") : p.state === "active" ? "Pagando" : p.state === "comp" ? "Regalo" : p.state === "grace" ? "Pago fallido" : p.state === "paused" ? "En pausa" : "Vencida") + "</span>"; };
-    b.innerHTML = "<div class='pf-stats'>" + [["Clientas", s.total], ["En prueba", s.trial], ["Pagando", s.paying], ["Ingreso al mes", "$" + s.mrr]].map(function(x){ return "<div class='box'><small>" + x[0] + "</small><b>" + esc(x[1]) + "</b></div>"; }).join("") + "</div>" +
-      "<div class='box'><div class='pf-link'><span>Tu página de registro:</span><a href='" + esc(st.signupUrl) + "' target='_blank' rel='noopener'>" + esc(st.signupUrl.replace(/^https?:\/\//, "")) + "</a><button class='btn sm' type='button' id='pf-copy'>Copiar</button></div></div>" +
-      "<div class='box'><b>Tus clientas</b>" + (d.rows.length ? "<div class='pf-table'>" + d.rows.map(function(t){
-        return "<div class='pf-row'><div><b>" + esc(t.name) + "</b><small>" + esc(t.email) + (PLANG === "en" ? " · since " : " · desde ") + esc(new Date(t.at).toLocaleDateString(PLANG)) + "</small><a href='" + esc(t.url) + "' target='_blank' rel='noopener'>" + esc(t.url.replace(/^https?:\/\//, "")) + "</a></div>" + pill(t) +
-          "<div class='pf-act'><button class='btn sm' data-pf='extend' data-s='" + esc(t.slug) + "'>+14 días</button>" + (t.comp ? "<button class='btn sm' data-pf='uncomp' data-s='" + esc(t.slug) + "'>Quitar regalo</button>" : "<button class='btn sm' data-pf='comp' data-s='" + esc(t.slug) + "'>Regalar</button>") +
-          (t.paused ? "<button class='btn sm' data-pf='resume' data-s='" + esc(t.slug) + "'>Reanudar</button>" : "<button class='btn sm' data-pf='pause' data-s='" + esc(t.slug) + "'>Pausar</button>") + "<button class='btn sm danger' data-pf='delete' data-s='" + esc(t.slug) + "'>Borrar</button></div></div>";
-      }).join("") + "</div>" : "<p class='adv-muted' style='margin:8px 0 0'>Todavía no hay clientas. Comparte tu página de registro.</p>") + "</div>" +
-      "<details class='box vd-fold'" + (st.stripe ? "" : " open") + "><summary><b>Cobro con Stripe y precio</b><span class='vd-kind'>" + (st.stripe && st.webhook ? (PLANG === "en" ? "Active · $" + st.price + "/mo" : "Activo · $" + st.price + "/mes") : "Falta configurar") + "</span></summary>" +
-      "<div class='pf-set'><div class='f'><label for='pf-name'>Nombre de la plataforma</label><input type='text' id='pf-name' value='" + esc(st.name) + "' maxlength='40'></div>" +
-      "<div class='f'><label for='pf-price'>Precio al mes (USD)</label><input type='number' id='pf-price' min='1' step='1' value='" + esc(st.price) + "'></div>" +
-      "<div class='f'><label for='pf-trial'>Días de prueba gratis</label><input type='number' id='pf-trial' min='0' max='60' value='" + esc(st.trialDays) + "'></div>" +
-      "<div class='f'><label for='pf-sk'>Clave secreta de Stripe</label><input type='password' id='pf-sk' placeholder='" + (st.stripe ? esc(st.stripe) + " (guardada)" : "sk_live_…") + "' autocomplete='off'><small>Stripe → Developers → API keys → Secret key.</small></div>" +
-      "<div class='f'><label for='pf-wh'>Clave del webhook</label><input type='password' id='pf-wh' placeholder='" + (st.webhook ? "whsec_… (guardada)" : "whsec_…") + "' autocomplete='off'><small>En Stripe → Developers → Webhooks → Add endpoint, pega esta dirección: <code>" + esc(st.webhookUrl) + "</code> y elige los eventos <code>checkout.session.completed</code>, <code>customer.subscription.updated</code>, <code>customer.subscription.deleted</code>, <code>invoice.paid</code> e <code>invoice.payment_failed</code>.</small></div>" +
-      "<div class='f'><label for='pf-dom'>Tu dominio (cuando lo compres)</label><input type='text' id='pf-dom' value='" + esc(st.domain || "") + "' placeholder='tudominio.com'><small>Déjalo vacío por ahora. Cuando tengas tu dominio, cada clienta tendrá su-negocio.tudominio.com. Antes de escribirlo aquí hay que conectarlo en Netlify (te ayudo a hacerlo).</small></div>" +
-      "<label class='ci-check'><input type='checkbox' id='pf-closed'" + (st.closed ? " checked" : "") + "> <span>Cerrar el registro de clientas nuevas por ahora</span></label>" +
-      "<div class='modal-row' style='justify-content:flex-start'><button class='btn primary' type='button' id='pf-save'>Guardar</button><span class='photo-msg' id='pf-msg' role='status'></span></div></div></details>";
-    $("pf-copy").onclick = function(){ copyText(st.signupUrl, $("pf-copy")); };
-    b.querySelectorAll("[data-pf]").forEach(function(x){ x.onclick = function(){
-      var a = x.getAttribute("data-pf"), sl = x.getAttribute("data-s"), body = {action:a};
-      if (a === "delete"){ var c = prompt("Esto borra su cuenta, su web y sus datos para siempre. Escribe su dirección para confirmar: " + sl); if (c !== sl) return; body.confirm = sl; }
-      x.disabled = true; api("POST", "platform/tenant/" + sl, body).then(renderPlataforma, function(e){ x.disabled = false; status(apiError(e), "err"); });
-    }; });
-    $("pf-save").onclick = function(){
-      var body = {name:$("pf-name").value, price:Number($("pf-price").value), trialDays:Number($("pf-trial").value), closed:$("pf-closed").checked, domain:$("pf-dom").value.trim()};
-      if ($("pf-sk").value.trim()) body.stripeKey = $("pf-sk").value.trim(); if ($("pf-wh").value.trim()) body.webhookSecret = $("pf-wh").value.trim();
-      $("pf-msg").textContent = "Guardando…"; $("pf-save").disabled = true;
-      api("PUT", "platform/settings", body).then(function(){ renderPlataforma(); status("Plataforma guardada ✓"); }, function(e){ $("pf-save").disabled = false; $("pf-msg").textContent = saasErr(e); });
-    };
-  }, function(e){ var b = $("pf-body"); if (b) b.innerHTML = "<div class='box'>" + esc(apiError(e)) + "</div>"; });
-}
-
 /* ================= arranque ================= */
 var draft = null;
 try{ draft = JSON.parse(store("lp-draft") || "null"); }catch(_){ draft = null; }
 if (draft && Array.isArray(draft.pages)){ S = {pages:draft.pages, deleted:draft.deleted || [], delIds:draft.delIds || [], dirty:!!draft.dirty, savedAt:Number(draft.savedAt) || 0}; migratePages(); }
-document.querySelectorAll("[data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === PLANG); b.onclick = function(){ if (b.getAttribute("data-lang") !== PLANG) setLang(b.getAttribute("data-lang")); }; });
 showHome();
-var RESET = (location.hash.match(/^#reset=([a-f0-9]{48})$/) || [])[1];
-if (RESET) clientReset(RESET);
-else if (SESS){
-  status("Entrando…", "busy");
-  loadMe().then(function(me){
-    authed = true;
-    if (!me.plan || !me.plan.ok){ document.body.classList.add("pb-locked"); status(planLine(me), "err"); showTab("miplan"); return; }
-    afterLogin(); if (/^#plan/.test(location.hash)) showTab("miplan");
-    setTimeout(seedTenant, 1500);
-  }, function(e){ if (e && e.status === 401){ rawLS("lp-sess", null); rawLS("lp-slug", null); SESS = ""; } clientLogin(e && e.status !== 401 ? apiError(e) : ""); });
-} else if (PASS){
+if (PASS){
   status("Entrando…", "busy");
   api("POST", "login").then(function(){ authed = true; afterLogin(); }, function(e){ if (e && e.status === 401){ store("lp-pass", null); PASS = ""; } openLogin(e && e.status !== 401 ? apiError(e) : ""); });
 } else openLogin();
