@@ -1,7 +1,7 @@
 // Business Growth AI: tu asesora personal de crecimiento y ventas.
 // Es independiente del resto del panel: guarda su propia memoria (negocios, metas, tareas, resultados,
 // conversaciones) y usa la misma clave de Anthropic que ya tienes en «Cuenta → Conexiones».
-import { store, tenant, withTenant, sessionTenant, planState, getTenant } from "../lib/tenant.mjs";
+import { store, tenant, withTenant, sessionTenant, planState, getTenant, panelLang, EN_RULE } from "../lib/tenant.mjs";
 const AUTHED = new WeakSet();
 const json = (o, status = 200) =>
   new Response(JSON.stringify(o), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
@@ -67,6 +67,8 @@ function aiReason(status, txt) {
   return "aifail";
 }
 async function call(key, body) {
+  if (panelLang() === "en" && body && body.system != null) body = Object.assign({}, body, { system: (Array.isArray(body.system) ? body.system.map((x) => x.text || "").join("\n") : String(body.system)) + EN_RULE });
+  else if (panelLang() === "en" && body && body.messages) body = Object.assign({}, body, { system: EN_RULE.trim() });
   const r = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
@@ -421,9 +423,9 @@ export default async (req) => {
     if (!ten) return json({ error: "auth" }, 401);
     if (!planState(ten).ok) return json({ error: "plan" }, 402);
     AUTHED.add(req);
-    return withTenant(ten.slug, () => main(req));
+    return withTenant(ten.slug, () => main(req), req.headers.get("x-pb-lang"));
   }
-  return main(req);
+  return withTenant("", () => main(req), req.headers.get("x-pb-lang"));
 };
 async function main(req) {
   const url = new URL(req.url), m = req.method;

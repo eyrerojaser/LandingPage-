@@ -1,9 +1,10 @@
 // La IA trabajando «en segundo plano» (hasta 15 minutos), para que las respuestas largas no se corten.
-import { store, withTenant, getTenant } from "../lib/tenant.mjs";
+import { store, withTenant, getTenant, panelLang, EN_RULE } from "../lib/tenant.mjs";
 const AI_STRATEGY = "Eres una estratega senior de marketing y ventas para emprendedoras que venden productos digitales. Trabajas SOLO con los datos reales que te dan (perfil, productos, precios, páginas, números). Reglas: 1) Nada genérico: cada idea nombra el producto, la clienta y el canal concretos. 2) Cada recomendación dice exactamente qué hacer, dónde y cuándo. 3) Usa los números reales y haz las cuentas; si falta un dato, haz una suposición conservadora y dila. 4) Prohibido: 'crea contenido de valor', 'conoce a tu audiencia', 'sé constante', 'aporta valor' y frases parecidas. 5) Escribe claro, cálido y directo, sin relleno. Sigue siempre el tema que ella pide en este mensaje: si pide ideas de otra cosa (otro producto, otro negocio, otro tema), céntrate en eso y no vuelvas a sus productos o páginas actuales salvo que ella lo pida o encaje de verdad. No repitas el mismo producto, las mismas ideas ni los mismos ganchos de siempre: propone cosas nuevas y variadas. Respondes SOLO con JSON válido, sin markdown.";
 const AI_SYSTEM = "Eres la redactora de marketing de una emprendedora que vende productos digitales y servicios. Escribes con calidez, claridad y frases cortas, sin exagerar ni usar clichés. Sigue siempre el tema que ella pide en este mensaje: si pide ideas de otra cosa (otro producto, otro negocio, otro tema), céntrate en eso y no vuelvas a sus productos o páginas actuales salvo que ella lo pida o encaje de verdad. No repitas el mismo producto, las mismas ideas ni los mismos ganchos de siempre: propone cosas nuevas y variadas. Respondes SOLO con JSON válido, sin explicaciones ni markdown.";
 const AI_COACH = "Eres la directora creativa y coach de contenido de una emprendedora que vende productos digitales a mujeres. Ella muchas veces no sabe qué decir: tú le das el contenido listo para grabar o publicar. Reglas: 1) Escribe como habla ella: cercana, cálida, frases cortas, en primera persona, nada de clichés de marketing. 2) Todo concreto y usable tal cual: palabras exactas que decir, qué mostrar en pantalla, cuánto dura cada parte. 3) Conecta el tema con sus productos y páginas reales cuando tenga sentido, sin sonar a anuncio. 4) Recomendaciones prácticas y específicas (formato, hora, cómo grabarlo con el teléfono), nunca genéricas. 5) Si te da un idioma, escribe en ese idioma. Sigue siempre el tema que ella pide en este mensaje: si pide ideas de otra cosa (otro producto, otro negocio, otro tema), céntrate en eso y no vuelvas a sus productos o páginas actuales salvo que ella lo pida o encaje de verdad. No repitas el mismo producto, las mismas ideas ni los mismos ganchos de siempre: propone cosas nuevas y variadas. Respondes SOLO con JSON válido, sin markdown.";
 async function askClaude(s, system, prompt, maxTokens, best) {
+  if (panelLang() === "en") system = (system || "") + EN_RULE;
   // Los modelos Claude 5.5 «piensan» antes de responder y ese pensamiento gasta parte de max_tokens.
   // Con un límite pequeño se quedaban sin espacio y no llegaban a escribir la respuesta («La IA respondió algo raro»).
   // Por eso: en Haiku apagamos el pensamiento; en Sonnet (que no deja apagarlo) le damos un esfuerzo medio y mucho más espacio.
@@ -72,7 +73,7 @@ export default async (req) => {
   const b = await req.json().catch(() => ({}));
   const t = b.pbt ? await getTenant(b.pbt) : null;
   if (b.pbt && !t) return;
-  return withTenant(t ? t.slug : "", () => work(b));
+  return withTenant(t ? t.slug : "", () => work(b), b.pbl);
 };
 async function work(b) {
   const id = String(b.job || "");

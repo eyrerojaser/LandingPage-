@@ -1,5 +1,5 @@
 // API de tu panel: contraseña, páginas, fotos y suscriptores.
-import { store, tenant, withTenant, sessionTenant, planState, getTenant } from "../lib/tenant.mjs";
+import { store, tenant, withTenant, sessionTenant, planState, getTenant, panelLang, setPanelLang, EN_RULE } from "../lib/tenant.mjs";
 import { saasRoute } from "../lib/saas.mjs";
 // Peticiones de una clienta que ya entró con su correo (su sesión vale como contraseña dentro de su espacio)
 const AUTHED = new WeakSet();
@@ -72,6 +72,7 @@ async function brevoSend(s, payload) {
   return r.json().catch(() => ({}));
 }
 async function askClaude(s, system, prompt, maxTokens, best) {
+  if (panelLang() === "en") system = (system || "") + EN_RULE;
   // Los modelos Claude 5.5 «piensan» antes de responder y ese pensamiento gasta parte de max_tokens.
   // Con un límite pequeño se quedaban sin espacio y no llegaban a escribir la respuesta («La IA respondió algo raro»).
   // Por eso: en Haiku apagamos el pensamiento; en Sonnet (que no deja apagarlo) le damos un esfuerzo medio y mucho más espacio.
@@ -170,6 +171,7 @@ export default async (req) => {
   return withTenant(t, () => route0(req, url, route, m));
 };
 async function route0(req, url, route, m) {
+  setPanelLang(req.headers.get("x-pb-lang"));
   // Las páginas descargadas y puestas en otra web también pueden enviar registros y visitas a tu panel.
   const cors = { "access-control-allow-origin": "*", "access-control-allow-methods": "POST, OPTIONS", "access-control-allow-headers": "content-type" };
   if (m === "OPTIONS" && (route === "lead" || route === "track" || route === "vote" || route === "chat")) return new Response(null, { status: 204, headers: cors });

@@ -8,7 +8,7 @@ export default async (req) => {
   if (!/^[a-z0-9]{8,30}$/.test(id)) return;
   const t = b.pbt ? await getTenant(b.pbt) : null;
   if (b.pbt && !t) return;
-  await withTenant(t ? t.slug : "", () => runJob(id));
+  await withTenant(t ? t.slug : "", () => runJob(id), b.pbl);
 };
 
 export const config = { path: "/asesor-api-bg/run", background: true };

@@ -11,7 +11,11 @@ export const store = (name) => {
   const t = tenant();
   return getStore({ name: t && !SHARED.has(name) ? "t-" + t + "-" + name : name, consistency: "strong" });
 };
-export const withTenant = (t, fn) => TCTX.run({ t: t || "" }, fn);
+export const withTenant = (t, fn, lang) => TCTX.run({ t: t || "", lang: lang || "" }, fn);
+// Idioma del panel de quien pide (para que la IA conteste en inglés si el panel está en inglés)
+export const panelLang = () => (TCTX.getStore() || {}).lang || "";
+export const setPanelLang = (l) => { const s = TCTX.getStore(); if (s) s.lang = l === "en" ? "en" : ""; };
+export const EN_RULE = "\n\nIMPORTANT: The person's panel is in English. Write every text meant for her (including every JSON value) in natural US English, even though these instructions are in Spanish. Keep JSON keys and any fixed code values the instructions list as options (for example type labels like dato, hipotesis, recomendacion, or ids) exactly as specified; only free text changes language. If the instructions explicitly ask for a specific text in another language (for example a translation or a Spanish version), follow that for that text.";
 export const platform = () => getStore({ name: "platform", consistency: "strong" });
 
 const enc = new TextEncoder();

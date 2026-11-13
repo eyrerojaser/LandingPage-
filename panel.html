@@ -1078,6 +1078,11 @@ table.leads{width:100%;border-collapse:collapse;font-size:14px}table.leads th,ta
 @media (prefers-reduced-motion:reduce){.lp *,.lp *::before,.lp *::after{animation:none!important;transition:none!important}}
 </script>
 <style id="pb-saas">
+.i18n-wait body{visibility:hidden}
+.pb-lang{display:inline-flex;gap:2px;border:1px solid var(--line);border-radius:10px;padding:2px;margin-right:8px;vertical-align:middle}
+.pb-lang button{font:inherit;font-size:12px;font-weight:600;border:0;background:none;color:var(--muted);padding:6px 9px;border-radius:7px;cursor:pointer}
+.pb-lang button[aria-pressed=true]{background:var(--fg);color:#fff}
+
 /* ---- PageBloom para clientas ---- */
 .pb-brand{font-family:var(--f-head);color:var(--accent)}.pb-sep{color:var(--muted);margin:0 2px}
 .pb-banner{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;padding:9px 16px;background:#1B1517;color:#F4D3DE;font-size:14px}.pb-banner[hidden]{display:none}.pb-banner.warn{background:#7A2E2E;color:#fff}
@@ -1107,7 +1112,7 @@ body.pb-locked .sidenav .navit:not(#tab-miplan){opacity:.35;pointer-events:none}
   </div>
   <span class="status" id="status" role="status"><i></i><span id="status-t">Cargando…</span></span>
   <button class="btn" type="button" id="leads-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Suscriptores</button>
-  <button class="btn" type="button" id="gh-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Cuenta</button>
+  <span class="pb-lang notr" role="group" aria-label="Idioma / Language"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></span><button class="btn" type="button" id="gh-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Cuenta</button>
   <div class="mode-edit"><button class="btn hide-sm" type="button" id="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>Descargar</button></div>
   <button class="btn primary" type="button" id="pub-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Publicar</button>
 </header>
@@ -1174,10 +1179,59 @@ body.pb-locked .sidenav .navit:not(#tab-miplan){opacity:.35;pointer-events:none}
 "use strict";
 var SAMPLE = "/img/ejemplo.jpg";
 function $(id){ return document.getElementById(id); }
+
+/* ================= Idioma del panel: español o inglés ================= */
+var PLANG = (function(){ var l = ""; try{ l = localStorage.getItem("pb-lang") || ""; }catch(_){} if (l !== "es" && l !== "en") l = /^es/i.test(navigator.language || "") ? "es" : "en"; return l; })();
+document.documentElement.lang = PLANG;
+var TR = null, TRSKIP = ",SCRIPT,STYLE,TEXTAREA,CODE,PRE,IFRAME,CANVAS,NOSCRIPT,";
+function trNorm(t){ return t.replace(/\d+([.,]\d+)?/g, "#"); }
+function tr(t){
+  if (!TR || !t) return t;
+  var m = t.match(/^(\s*)([\s\S]*?)(\s*)$/), core = m[2].replace(/\s+/g, " "); if (!core) return t;
+  var k = trNorm(core), v = TR[k];
+  if (v == null){ var end = core.match(/[:.…]$/); if (end){ v = TR[trNorm(core.slice(0, -1))]; if (v != null) v += end[0]; } }
+  if (v == null){ var lead = core.match(/^([:·,]\s*)([\s\S]+)$/); if (lead && TR[trNorm(lead[2])] != null) v = lead[1] + TR[trNorm(lead[2])]; }
+  if (v == null && /^Editar /.test(core)){ var rest = core.slice(7), tv = TR[trNorm(rest)]; v = "Edit " + (tv != null ? tv : rest); }
+  if (v == null) return t;
+  var nums = core.match(/\d+([.,]\d+)?/g) || [], i = 0;
+  v = v.replace(/#/g, function(h){ return i < nums.length ? nums[i++] : h; });
+  return m[1] + v + m[3];
+}
+function trNode(root){
+  if (!TR || !root) return;
+  if (root.nodeType === 3){ var p = root.parentElement; if (p && TRSKIP.indexOf("," + p.tagName + ",") < 0 && !p.closest("[contenteditable=true],.notr,#frame,#doc-prev,#ed-stage,#ed-pthumbs,.thumb")){ var n = tr(root.nodeValue); if (n !== root.nodeValue) root.nodeValue = n; } return; }
+  if (root.nodeType !== 1 || TRSKIP.indexOf("," + root.tagName + ",") >= 0 || (root.closest && root.closest("[contenteditable=true],.notr,#frame,#doc-prev,#ed-stage,#ed-pthumbs,.thumb"))) return;
+  var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:function(x){ var p = x.parentElement; return !p || TRSKIP.indexOf("," + p.tagName + ",") >= 0 || p.closest("[contenteditable=true],.notr,#frame,#doc-prev,#ed-stage,#ed-pthumbs,.thumb") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }}), x;
+  var list = []; while ((x = w.nextNode())) list.push(x);
+  list.forEach(function(t){ var n = tr(t.nodeValue); if (n !== t.nodeValue) t.nodeValue = n; });
+  var els = root.querySelectorAll ? [root].concat([].slice.call(root.querySelectorAll("[placeholder],[title],[aria-label]"))) : [];
+  els.forEach(function(e){ ["placeholder","title","aria-label"].forEach(function(a){ var v = e.getAttribute && e.getAttribute(a); if (v){ var n = tr(v); if (n !== v) e.setAttribute(a, n); } }); });
+}
+// Una línea de contenido con marcas (# título, - casilla, 1. paso, ? pregunta, > consejo, o «texto | detalle»)
+function trLine(x){
+  var m = x.match(/^(\s*(?:#|-|\d+\.|\?|>)\s+)([\s\S]*)$/); if (m) return m[1] + trLine(m[2]);
+  if (x.indexOf(" | ") > 0 && tr(x) === x) return x.split(" | ").map(function(y){ return tr(y); }).join(" | ");
+  return tr(x);
+}
+function setLang(l){ try{ localStorage.setItem("pb-lang", l); }catch(_){} location.reload(); }
+window.pbTr = function(t){ return [!!TR, tr(t)]; };
+if (PLANG === "en"){
+  document.documentElement.classList.add("i18n-wait");
+  var trStart = function(){
+    document.documentElement.classList.remove("i18n-wait");
+    if (!TR) return;
+    trNode(document.body); document.title = tr(document.title);
+    new MutationObserver(function(ms){ ms.forEach(function(mu){ if (mu.type === "characterData") trNode(mu.target); else mu.addedNodes.forEach(trNode); if (mu.type === "attributes") trNode(mu.target); }); }).observe(document.body, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:["placeholder","title","aria-label"]});
+    ["alert","confirm","prompt"].forEach(function(f){ var o = window[f]; window[f] = function(msg, def){ return o.call(window, tr(String(msg == null ? "" : msg)), def); }; });
+  };
+  fetch("/i18n-en.json", {cache:"force-cache"}).then(function(r){ return r.json(); }).then(function(d){ TR = d; }, function(){}).then(function(){ if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", trStart); else trStart(); });
+  setTimeout(function(){ document.documentElement.classList.remove("i18n-wait"); }, 2500);
+}
+
 var SESS = "", TSLUG = "", ME = null;
 try{ SESS = localStorage.getItem("lp-sess") || ""; TSLUG = localStorage.getItem("lp-slug") || ""; }catch(_){}
 if (!SESS || !TSLUG){ SESS = ""; TSLUG = ""; }
-function authH(){ return SESS ? {"x-pb-session": SESS} : {"x-panel-pass": PASS || ""}; }
+function authH(){ var h = SESS ? {"x-pb-session": SESS} : {"x-panel-pass": PASS || ""}; h["x-pb-lang"] = PLANG; return h; }
 function store(k, v){ if (TSLUG) k = "t:" + TSLUG + ":" + k; try{ if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); return true; }catch(_){ return v === undefined ? null : false; } }
 
 /* ================= catálogo ================= */
@@ -1390,7 +1444,12 @@ var TEMPLATES = {
     sections:["photo",{t:"Tu perfil",k:["brand","sub"]},{t:"Tus botones",k:["links"]},{t:"Formulario (opcional)",k:["formTitle","cta","note","pdfUrl","thanksTitle","thanks"]},"colors",
       {t:"Redes",k:["instagram","pinterest","tiktok","website"]},{t:"Avanzado (opcional)",k:["endpoint"]}]}
 };
-function newData(tpl){ return Object.assign({template:tpl}, BASE, TEMPLATES[tpl].defaults); }
+function newData(tpl){
+  var d = Object.assign({template:tpl}, BASE, TEMPLATES[tpl].defaults);
+  // Con el panel en inglés, las plantillas nuevas empiezan en inglés
+  if (PLANG === "en" && TR){ d.lang = "en"; Object.keys(d).forEach(function(k){ if (k !== "template" && k !== "fileName" && typeof d[k] === "string" && /[a-záéíóúñ]{3}/i.test(d[k]) && !/^(https?:|\/|#|sample$)/.test(d[k])) d[k] = d[k].split("\n").map(trLine).join("\n"); }); }
+  return d;
+}
 
 var LANG = {
   es:{name:"Nombre", last:"Apellido", email:"Correo electrónico", ph1:"María", ph2:"López", ph3:"maria@correo.com", dl:"Descargar el PDF", web:"Mi web", cover:"Guía gratuita", st1:"Descarga", st2:"en PDF ♥", cd:["días","horas","min","seg"], send:"Enviar", nolink:"(falta el enlace)", consent:"Acepto recibir correos de {marca} y la", policy:"Política de privacidad", privFile:"privacidad.html"},
@@ -2842,7 +2901,7 @@ function runAI(body){
   var sync = function(){ return api("POST", "ai", body).then(function(d){ return d.result; }); };
   return api("POST", "ai-start", body).then(function(d){
     var id = d.job, t0 = Date.now(), seenWork = false;
-    fetch("/api-bg/ai", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id, pbt:TSLUG})}).catch(function(){});
+    fetch("/api-bg/ai", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id, pbt:TSLUG, pbl:PLANG})}).catch(function(){});
     return new Promise(function(res, rej){
       (function poll(){
         setTimeout(function(){
@@ -6028,7 +6087,8 @@ var DOC_SAMPLE = {
 };
 var DOCST = null;
 function docLoad(){ if (DOCST) return; try{ DOCST = JSON.parse(store("lp-doc") || "null"); }catch(_){ DOCST = null; } if (!DOCST || !DOCST.type) DOCST = docNew("checklist"); }
-function docNew(type){ var s = DOC_SAMPLE[type]; return {id:"", type:type, page:"", lang:"es", eyebrow:DOCT[type][3].es, title:s.title, sub:s.sub, content:s.content, topic:"", pdf:""}; }
+function docNew(type){ var s = DOC_SAMPLE[type], en = PLANG === "en" && TR, t = function(x){ return en ? String(x).split("\n").map(trLine).join("\n") : x; };
+  return {id:"", type:type, page:"", lang:en ? "en" : "es", eyebrow:DOCT[type][3][en ? "en" : "es"], title:t(s.title), sub:t(s.sub), content:t(s.content), topic:"", pdf:""}; }
 function docSave(){ store("lp-doc", JSON.stringify(DOCST)); }
 function docColors(){
   var p = S.pages.filter(function(x){ return x.id === DOCST.page; })[0], d = p ? p.data : {};
@@ -6409,7 +6469,7 @@ var ADV_WAIT = ["Revisando tus metas y tus números…", "Investigando en intern
 function advRun(payload, onTick){
   return advApi("POST", "start", payload).then(function(d){
     var id = d.job, t0 = Date.now(), seenWork = false, direct = false;
-    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id, pbt:TSLUG})}).catch(function(){});
+    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:id, pbt:TSLUG, pbl:PLANG})}).catch(function(){});
     return new Promise(function(res, rej){
       (function poll(){
         setTimeout(function(){
@@ -6866,7 +6926,7 @@ function advRepStart(){
     return advApi("POST", "report-start", {question:q, biz:advBizText(z), bizId:bizId, bizName:z ? z.name : "", links:advLinks(z), internal:advInternal(z), model:model, tz:Intl.DateTimeFormat().resolvedOptions().timeZone || ""});
   }).then(function(d){
     ADVREPJOB = {id:d.job, at:Date.now(), q:q, biz:z ? z.name : ""}; store("lp-adv-repjob", JSON.stringify(ADVREPJOB));
-    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:d.job, pbt:TSLUG})}).catch(function(){});
+    fetch("/asesor-api-bg/run", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({job:d.job, pbt:TSLUG, pbl:PLANG})}).catch(function(){});
     renderAsesor(); advRepPoll();
   }, function(e){ $("inf-go").disabled = false; $("inf-go").textContent = "Empezar la investigación"; status(advErr(e), "err"); });
 }
@@ -7098,6 +7158,7 @@ function seedTenant(){
   want.forEach(function(k){
     var d = newData(k); d.name = TEMPLATES[k].label; d.fileName = uniqueFile(cleanFile(d.name)); d.inMenu = "si"; d.category = defaultCat(k); d.live = "si";
     if (ME.name){ d.brand = ME.name; }
+    if (PLANG === "en" && TR){ d.lang = "en"; d.name = tr(d.name); d.fileName = uniqueFile(cleanFile(d.name)); d.category = tr(d.category); Object.keys(d).forEach(function(k){ if (typeof d[k] === "string" && /[a-záéíóúñ]{3}/i.test(d[k]) && !/^(https?:|\/|#)/.test(d[k])) d[k] = d[k].split("\n").map(function(x){ return tr(x); }).join("\n"); }); }
     S.pages.push({id:newId(), updatedAt:Date.now(), data:d});
   });
   changed(); if (typeof renderHome === "function") renderHome();
@@ -7120,11 +7181,11 @@ function renderPlataforma(){
     b.innerHTML = "<div class='pf-stats'>" + [["Clientas", s.total], ["En prueba", s.trial], ["Pagando", s.paying], ["Ingreso al mes", "$" + s.mrr]].map(function(x){ return "<div class='box'><small>" + x[0] + "</small><b>" + esc(x[1]) + "</b></div>"; }).join("") + "</div>" +
       "<div class='box'><div class='pf-link'><span>Tu página de registro:</span><a href='" + esc(st.signupUrl) + "' target='_blank' rel='noopener'>" + esc(st.signupUrl.replace(/^https?:\/\//, "")) + "</a><button class='btn sm' type='button' id='pf-copy'>Copiar</button></div></div>" +
       "<div class='box'><b>Tus clientas</b>" + (d.rows.length ? "<div class='pf-table'>" + d.rows.map(function(t){
-        return "<div class='pf-row'><div><b>" + esc(t.name) + "</b><small>" + esc(t.email) + " · desde " + esc(new Date(t.at).toLocaleDateString("es")) + "</small><a href='" + esc(t.url) + "' target='_blank' rel='noopener'>" + esc(t.url.replace(/^https?:\/\//, "")) + "</a></div>" + pill(t) +
+        return "<div class='pf-row'><div><b>" + esc(t.name) + "</b><small>" + esc(t.email) + (PLANG === "en" ? " · since " : " · desde ") + esc(new Date(t.at).toLocaleDateString(PLANG)) + "</small><a href='" + esc(t.url) + "' target='_blank' rel='noopener'>" + esc(t.url.replace(/^https?:\/\//, "")) + "</a></div>" + pill(t) +
           "<div class='pf-act'><button class='btn sm' data-pf='extend' data-s='" + esc(t.slug) + "'>+14 días</button>" + (t.comp ? "<button class='btn sm' data-pf='uncomp' data-s='" + esc(t.slug) + "'>Quitar regalo</button>" : "<button class='btn sm' data-pf='comp' data-s='" + esc(t.slug) + "'>Regalar</button>") +
           (t.paused ? "<button class='btn sm' data-pf='resume' data-s='" + esc(t.slug) + "'>Reanudar</button>" : "<button class='btn sm' data-pf='pause' data-s='" + esc(t.slug) + "'>Pausar</button>") + "<button class='btn sm danger' data-pf='delete' data-s='" + esc(t.slug) + "'>Borrar</button></div></div>";
       }).join("") + "</div>" : "<p class='adv-muted' style='margin:8px 0 0'>Todavía no hay clientas. Comparte tu página de registro.</p>") + "</div>" +
-      "<details class='box vd-fold'" + (st.stripe ? "" : " open") + "><summary><b>Cobro con Stripe y precio</b><span class='vd-kind'>" + (st.stripe && st.webhook ? "Activo · $" + st.price + "/mes" : "Falta configurar") + "</span></summary>" +
+      "<details class='box vd-fold'" + (st.stripe ? "" : " open") + "><summary><b>Cobro con Stripe y precio</b><span class='vd-kind'>" + (st.stripe && st.webhook ? (PLANG === "en" ? "Active · $" + st.price + "/mo" : "Activo · $" + st.price + "/mes") : "Falta configurar") + "</span></summary>" +
       "<div class='pf-set'><div class='f'><label for='pf-name'>Nombre de la plataforma</label><input type='text' id='pf-name' value='" + esc(st.name) + "' maxlength='40'></div>" +
       "<div class='f'><label for='pf-price'>Precio al mes (USD)</label><input type='number' id='pf-price' min='1' step='1' value='" + esc(st.price) + "'></div>" +
       "<div class='f'><label for='pf-trial'>Días de prueba gratis</label><input type='number' id='pf-trial' min='0' max='60' value='" + esc(st.trialDays) + "'></div>" +
@@ -7152,6 +7213,7 @@ function renderPlataforma(){
 var draft = null;
 try{ draft = JSON.parse(store("lp-draft") || "null"); }catch(_){ draft = null; }
 if (draft && Array.isArray(draft.pages)){ S = {pages:draft.pages, deleted:draft.deleted || [], delIds:draft.delIds || [], dirty:!!draft.dirty, savedAt:Number(draft.savedAt) || 0}; migratePages(); }
+document.querySelectorAll("[data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === PLANG); b.onclick = function(){ if (b.getAttribute("data-lang") !== PLANG) setLang(b.getAttribute("data-lang")); }; });
 showHome();
 var RESET = (location.hash.match(/^#reset=([a-f0-9]{48})$/) || [])[1];
 if (RESET) clientReset(RESET);
