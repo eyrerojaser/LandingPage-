@@ -1,5 +1,6 @@
 // Muestra tus páginas publicadas desde el panel (y sus fotos).
-import { getStore } from "@netlify/blobs";
+import { store, withTenant, getTenant, planState, platSettings, tenant } from "../lib/tenant.mjs";
+const getStore = ({ name }) => store(name);
 
 const NOT_FOUND = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Página no encontrada</title><link rel="icon" href="/favicon.png">
@@ -18,7 +19,7 @@ h1{font-weight:400;font-size:2rem;margin:0 0 8px;max-width:22ch}p{color:#D8CCD1;
 <script>try{document.getElementById("w").textContent=new Date(${when.getTime()}).toLocaleString(${en ? '"en"' : '"es"'},{day:"numeric",month:"long",hour:"numeric",minute:"2-digit"})}catch(e){}</script></body></html>`;
 };
 const escH = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-async function menuPage(live) {
+async function menuPage(live, base = "/") {
   const saved = (await getStore({ name: "panel", consistency: "strong" }).get("pages", { type: "json" }).catch(() => null)) || { pages: [] };
   const info = {};
   (saved.pages || []).forEach((p) => { if (p && p.data && p.data.fileName) info[p.data.fileName] = p.data; });
@@ -52,7 +53,7 @@ async function menuPage(live) {
     Object.keys(NET).filter((k) => L[k] && toUrl(k, L[k])).map((k) => '<a href="' + escH(toUrl(k, L[k])) + '" target="_blank" rel="noopener">' + NET[k][0] + '</a>').join("");
   const intro2 = intro || introEn ? two(intro || introEn, introEn || intro) : "";
   const card = (k) => {
-    const d = info[k] || {}, href = "/" + k.replace(/\.html$/, "");
+    const d = info[k] || {}, href = base + k.replace(/\.html$/, "");
     const photo = d.photo === "sample" ? "/img/ejemplo.jpg" : (/^(\/img\/|https?:)/.test(d.photo || "") ? d.photo : "");
     const title = String(d.title || d.name || k).replace(/\*/g, "");
     const free = !d.price && /gratis|free|regalo/i.test(String(d.category || "") + " " + String(d.eyebrow || ""));
@@ -92,14 +93,48 @@ async function menuPage(live) {
     '.social a.web{flex-basis:100%;background:' + accent + ';color:#1F161A;font-weight:500}' +
     'footer{text-align:center;margin-top:40px;font-size:13px}footer a{color:' + accent + '}</style></head><body><div class="wrap"><div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es">ES</button><button type="button" data-l="en">EN</button></div>' +
     hero + chips + cards +
-    '' + (socials ? '<nav class="social">' + socials + '</nav>' : '') + '<footer><a href="/privacidad">' + two("Política de privacidad", "Privacy policy") + '</a></footer></div>' +
+    '' + (socials ? '<nav class="social">' + socials + '</nav>' : '') + '<footer><a href="' + base + 'privacidad">' + two("Política de privacidad", "Privacy policy") + '</a></footer></div>' +
     '<script>(function(){var d=document.documentElement,b=document.querySelectorAll(".lang button"),l;try{l=localStorage.getItem("lang")}catch(e){}if(l!=="es"&&l!=="en")l=/^es/i.test(navigator.language||"")?"es":"en";' +
     'function set(x){d.lang=x;d.classList.toggle("en",x==="en");b.forEach(function(e){e.setAttribute("aria-pressed",e.dataset.l===x)});try{localStorage.setItem("lang",x)}catch(e){}}' +
     'b.forEach(function(e){e.onclick=function(){set(e.dataset.l)}});set(l)})()</script></body></html>';
 }
 
+const OFF = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Volvemos pronto</title><link rel="icon" href="/favicon.png">
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0D0B0C;color:#fff;font:16px/1.5 Georgia,serif;text-align:center;padding:24px}
+h1{font-weight:400;font-size:2rem;margin:0 0 8px}p{color:#D8CCD1;margin:0}i{display:block;width:56px;height:56px;margin:0 auto 18px;border-radius:50%;background:#F4D3DE}</style></head>
+<body><div><i></i><h1>Volvemos muy pronto</h1><p>We'll be back very soon.</p></div></body></html>`;
+// Para las páginas de una clienta: sus formularios y visitas llegan a su panel, y sus enlaces internos quedan dentro de su espacio.
+const tenantHtml = (html, slug, base) => {
+  const patch = '<script>(function(){var t=' + JSON.stringify(slug) + ',q=function(u){return typeof u==="string"&&/^\\/api\\//.test(u)?u+(u.indexOf("?")<0?"?":"&")+"pbt="+t:u};var f=window.fetch;if(f)window.fetch=function(u,o){return f.call(this,q(u),o)};var n=navigator,sb=n.sendBeacon&&n.sendBeacon.bind(n);if(sb)n.sendBeacon=function(u,d){return sb(q(u),d)}})()</script>';
+  html = String(html).replace(/(href=["'])\/(?!\/|s\/|img\/|pdf\/|video\/|popup\/|api\/|favicon|icono|stickers\/)([a-z0-9-]*)(["'#?])/gi, (m0, a, k, z) => a + base + k + z);
+  return /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (h) => h + patch) : patch + html;
+};
 export default async (req) => {
-  const path = decodeURIComponent(new URL(req.url).pathname);
+  const u = new URL(req.url), raw = decodeURIComponent(u.pathname);
+  if (/^\/(img|pdf|video)\//.test(raw)) return serve(req, raw, "/");
+  if (raw === "/registro" || raw === "/registro/") return Response.redirect(u.origin + "/registro.html", 302);
+  // Espacio de una clienta: /s/su-negocio/… o, con tu dominio, su-negocio.tudominio.com
+  let slug = "", path = raw, base = "/";
+  const ps = await platSettings(), host = (req.headers.get("host") || u.host).toLowerCase().replace(/:\d+$/, "");
+  const dom = String(ps.domain || "").toLowerCase().replace(/^\.+/, "");
+  if (dom && (host === dom || host === "www." + dom) && raw === "/") return Response.redirect(u.origin + "/registro.html", 302);
+  if (dom && host.endsWith("." + dom) && host !== "www." + dom) { slug = host.slice(0, -dom.length - 1); }
+  else if (raw === "/s" || raw.indexOf("/s/") === 0) {
+    const parts = raw.split("/"); slug = parts[2] || "";
+    if (!slug) return new Response(NOT_FOUND, { status: 404, headers: { "content-type": "text/html; charset=utf-8" } });
+    if (raw === "/s/" + slug) return Response.redirect(u.origin + "/s/" + slug + "/", 301);
+    path = "/" + parts.slice(3).join("/"); base = "/s/" + slug + "/";
+  }
+  if (!slug) return serve(req, path, "/");
+  const t = await getTenant(slug);
+  if (!t) return new Response(NOT_FOUND, { status: 404, headers: { "content-type": "text/html; charset=utf-8" } });
+  if (!planState(t).ok) return new Response(OFF, { status: 503, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
+  const r = await withTenant(slug, () => serve(req, path, base));
+  if (!/text\/html/.test(r.headers.get("content-type") || "")) return r;
+  return new Response(tenantHtml(await r.text(), slug, base), { status: r.status, headers: r.headers });
+};
+async function serve(req, path, base) {
 
   if (path.startsWith("/img/")) {
     const id = path.slice(5);
@@ -152,7 +187,7 @@ export default async (req) => {
     // El inicio de tu web es siempre el menú con todas tus páginas, ordenadas por categoría.
     const { blobs } = await siteStore.list();
     const live = blobs.map((b) => b.key).filter((k) => /\.html$/.test(k) && !/^(privacidad|privacy|index)\.html$/.test(k));
-    if (live.length) html = await menuPage(live);
+    if (live.length) html = await menuPage(live, base);
   } else if (/^[a-z0-9][a-z0-9-]{0,60}\.html$/.test(key)) {
     html = await siteStore.get(key);
     // Página programada: hasta su fecha muestra «Muy pronto» (tú puedes verla añadiendo ?vista=previa).
@@ -172,13 +207,13 @@ export default async (req) => {
   // Popups marcados «también en mis landing pages»: se añaden solos a cada página (no al menú de inicio).
   if (html != null && path !== "/") {
     const pops = ((await getStore({ name: "panel", consistency: "strong" }).get("popups", { type: "json" }).catch(() => null)) || {}).items || [];
-    const tags = pops.filter((x) => x && x.active && x.data && x.data.onSite && /^[a-z0-9-]+$/.test(x.slug || "")).map((x) => '<script src="/popup/' + x.slug + '.js" async></script>').join("");
+    const tags = pops.filter((x) => x && x.active && x.data && x.data.onSite && /^[a-z0-9-]+$/.test(x.slug || "")).map((x) => '<script src="/popup/' + x.slug + '.js' + (tenant() ? "?pbt=" + tenant() : "") + '" async></script>').join("");
     const bot = (await getStore({ name: "panel", consistency: "strong" }).get("chatbot", { type: "json" }).catch(() => null)) || {};
-    const all = tags + (bot.on && bot.onSite ? '<script src="/popup/w/__landing.js" async></script>' : "");
+    const all = tags + (bot.on && bot.onSite ? '<script src="/popup/w/__landing.js' + (tenant() ? "?pbt=" + tenant() : "") + '" async></script>' : "");
     if (all) html = String(html).replace(/<\/body>(?![\s\S]*<\/body>)/i, all + "</body>");
   }
   if (html == null) return new Response(NOT_FOUND, { status: 404, headers: { "content-type": "text/html; charset=utf-8" } });
   return new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=0, must-revalidate" } });
-};
+}
 
-export const config = { path: ["/", "/:page", "/img/:id", "/pdf/:file", "/video/:file"], preferStatic: true };
+export const config = { path: ["/", "/:page", "/img/:id", "/pdf/:file", "/video/:file", "/s", "/s/*"], preferStatic: true };

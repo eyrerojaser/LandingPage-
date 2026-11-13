@@ -1,9 +1,8 @@
 // Business Growth AI: tu asesora personal de crecimiento y ventas.
 // Es independiente del resto del panel: guarda su propia memoria (negocios, metas, tareas, resultados,
 // conversaciones) y usa la misma clave de Anthropic que ya tienes en «Cuenta → Conexiones».
-import { getStore } from "@netlify/blobs";
-
-const store = (name) => getStore({ name, consistency: "strong" });
+import { store, tenant, withTenant, sessionTenant, planState, getTenant } from "../lib/tenant.mjs";
+const AUTHED = new WeakSet();
 const json = (o, status = 200) =>
   new Response(JSON.stringify(o), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 const enc = new TextEncoder();
@@ -13,6 +12,7 @@ async function sha(s) {
 }
 const envPass = () => (globalThis.Netlify && Netlify.env.get("PANEL_PASSWORD")) || "";
 async function checkPass(req) {
+  if (tenant()) return AUTHED.has(req);
   const p = req.headers.get("x-panel-pass") || "";
   if (!p) return false;
   if (envPass()) return p === envPass();
@@ -416,6 +416,16 @@ const jobInput = (b) => ({
 });
 
 export default async (req) => {
+  if (req.headers.get("x-pb-session")) {
+    const ten = await sessionTenant(req);
+    if (!ten) return json({ error: "auth" }, 401);
+    if (!planState(ten).ok) return json({ error: "plan" }, 402);
+    AUTHED.add(req);
+    return withTenant(ten.slug, () => main(req));
+  }
+  return main(req);
+};
+async function main(req) {
   const url = new URL(req.url), m = req.method;
   const route = url.pathname.replace(/^\/asesor-api\/?/, "").replace(/\/+$/, "");
   try {
@@ -496,6 +506,6 @@ export default async (req) => {
   } catch (e) {
     return json({ error: "server", message: clean(e && e.message, 200) }, 500);
   }
-};
+}
 
 export const config = { path: "/asesor-api/*" };

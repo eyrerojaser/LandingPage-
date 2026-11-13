@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PageBloom · Crea tu cuenta</title>
+<meta name="description" content="Tu web, tus freebies, popups, videos con IA, chatbot, correos y calendario de contenido en un solo panel. Prueba gratis.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+:root{--ink:#0D0B0C;--ink2:#1B1517;--pink:#D8A2B4;--blush:#F4D3DE;--paper:#F7F3EF;--line:#E7DFDA;--muted:#7C6F74;--fg:#1B1517;--ok:#1E6B3D;--err:#9B2C2C}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--fg);font:400 16px/1.6 Jost,system-ui,sans-serif}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
+.logo{font-family:"DM Serif Display",Georgia,serif;font-size:1.55rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:10px}
+.logo i{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--blush),var(--pink) 60%,#9C4462);display:inline-block}
+.nav a.in{color:#fff;text-decoration:none;font-weight:500;border:1px solid rgba(244,211,222,.4);padding:9px 18px;border-radius:99px}
+.nav a.in:hover{border-color:var(--pink)}
+.hero{background:var(--ink);color:#fff;position:relative;overflow:hidden;padding-bottom:70px}
+.hero:before{content:"";position:absolute;width:720px;height:720px;right:-220px;top:-260px;border-radius:50%;background:radial-gradient(circle,rgba(216,162,180,.28),transparent 65%)}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:center;padding-top:34px}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);font-weight:500}
+h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:clamp(2.5rem,5.4vw,4.3rem);line-height:1.04;margin:16px 0 18px;letter-spacing:-.01em}
+h1 em{color:var(--pink)}
+.lead{font-size:1.15rem;color:#E6D9DE;font-weight:300;max-width:34rem;margin:0 0 26px}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px;color:#F1E7EA}
+.ticks li{display:flex;gap:10px;align-items:flex-start}.ticks li:before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230D0B0C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+.card{background:#fff;color:var(--fg);border-radius:22px;padding:30px;box-shadow:0 30px 80px -30px rgba(0,0,0,.55)}
+.card h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:1.75rem;margin:0 0 4px;line-height:1.15}
+.card .sub{margin:0 0 20px;color:var(--muted);font-size:15px}
+.f{display:grid;gap:6px;margin-bottom:14px}
+.f label{font-weight:500;font-size:14px}
+.f input{font:inherit;font-size:16px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#FCFAF9;color:var(--fg);width:100%}
+.f input:focus{outline:2px solid var(--pink);outline-offset:1px;border-color:var(--pink)}
+.f small{color:var(--muted);font-size:13px}
+.preview{border:1px dashed var(--pink);border-radius:12px;padding:10px 12px;margin:-4px 0 14px;font-size:14px;background:#FDF6F8;display:grid;gap:2px}
+.preview b{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:1.05rem}.preview b span{color:#9C4462}.preview code{font-family:inherit;color:var(--muted);word-break:break-all}
+.go{width:100%;font:inherit;font-weight:600;font-size:16px;padding:15px;border:0;border-radius:12px;background:var(--ink);color:#fff;cursor:pointer}
+.go:hover{background:#2A2023}.go:disabled{opacity:.6;cursor:wait}
+.note{text-align:center;color:var(--muted);font-size:13px;margin:12px 0 0}
+.msg{min-height:1.3em;font-size:14px;color:var(--err);margin:10px 0 0}
+.have{text-align:center;margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:14px}.have a{font-weight:600;color:#9C4462}
+.hp{position:absolute;left:-9999px}
+section.band{padding:84px 0}
+.h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:clamp(2rem,3.6vw,2.8rem);line-height:1.1;margin:10px 0 12px}
+.kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#9C4462;font-weight:600}
+.intro{color:var(--muted);max-width:40rem;margin:0 0 34px;font-size:1.05rem}
+.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.feat div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.feat b{display:block;font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:1.2rem;margin:12px 0 6px}
+.feat p{margin:0;color:var(--muted);font-size:15px}
+.ico{width:42px;height:42px;border-radius:12px;background:#F9EBF0;display:grid;place-items:center}.ico svg{width:22px;height:22px;stroke:#9C4462}
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:center}
+.pcard{background:var(--ink);color:#fff;border-radius:22px;padding:34px;position:relative;overflow:hidden}
+.pcard:after{content:"";position:absolute;right:-80px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(216,162,180,.35),transparent 65%)}
+.pcard .amt{font-family:"DM Serif Display",Georgia,serif;font-size:4rem;line-height:1}.pcard .amt small{font-family:Jost,sans-serif;font-size:1rem;color:#D8CCD1}
+.pcard ul{list-style:none;padding:0;margin:22px 0;display:grid;gap:8px;color:#EADCE1}.pcard li:before{content:"✓  ";color:var(--pink)}
+.pcard a{display:inline-block;background:var(--pink);color:var(--ink);text-decoration:none;font-weight:600;padding:14px 26px;border-radius:12px;position:relative;z-index:1}
+.faq details{border-top:1px solid var(--line);padding:16px 0}.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}.faq summary::-webkit-details-marker{display:none}.faq summary:after{content:"+";color:#9C4462;font-size:1.3rem;line-height:1}.faq details[open] summary:after{content:"–"}
+.faq p{margin:10px 0 0;color:var(--muted)}
+footer{background:var(--ink);color:#BFB2B7;padding:30px 0;font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}footer a{color:#F4D3DE}
+@media (max-width:900px){.hero-grid,.price{grid-template-columns:1fr;gap:34px}.feat{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.feat{grid-template-columns:1fr}.card{padding:24px 20px}section.band{padding:60px 0}.nav a.in{padding:8px 14px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal"><a class="logo" href="/registro"><i aria-hidden="true"></i><span class="pname">PageBloom</span></a><a class="in" href="/panel.html">Entrar</a></nav>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Tu negocio en un solo panel</span>
+        <h1>Crea, vende y crece <em>desde un solo lugar.</em></h1>
+        <p class="lead">Tu web con freebies y páginas de venta, popups, videos con IA, chatbot, correos y tu calendario de contenido. Todo listo para usar: solo pones tu información.</p>
+        <ul class="ticks">
+          <li>Tu web lista en minutos, con páginas de ejemplo que cambias por las tuyas</li>
+          <li><span><b class="tdays">14</b> días gratis, sin tarjeta</span></li>
+          <li>Sin comisiones por tus ventas · cancelas cuando quieras</li>
+        </ul>
+      </div>
+      <div class="card" id="signup">
+        <h2>Crea tu PageBloom</h2>
+        <p class="sub">Prueba gratis <span class="tdays">14</span> días. Después, <span class="tprice">$29</span> al mes.</p>
+        <form id="f" novalidate>
+          <div class="f"><label for="name">Nombre de tu espacio</label><input id="name" maxlength="60" autocomplete="organization" placeholder="Ej.: El negocio de María" required></div>
+          <div class="preview" id="pv" hidden><b><span class="pname">PageBloom</span> · <em id="pv-name"></em></b><code id="pv-url"></code></div>
+          <div class="f"><label for="email">Tu correo</label><input id="email" type="email" autocomplete="email" required></div>
+          <div class="f"><label for="pw">Contraseña</label><input id="pw" type="password" autocomplete="new-password" minlength="8" required><small>Al menos 8 letras o números.</small></div>
+          <input class="hp" id="bot" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="go" type="submit" id="go">Crear mi cuenta gratis</button>
+          <p class="msg" id="msg" role="alert"></p>
+          <p class="note">Al crear tu cuenta aceptas la <a href="/privacidad">política de privacidad</a>.</p>
+        </form>
+        <p class="have">¿Ya tienes cuenta? <a href="/panel.html">Entra aquí</a></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="band"><div class="wrap">
+  <span class="kick">Todo incluido</span>
+  <h2 class="h2">Lo que necesitas para vender, en un solo panel</h2>
+  <p class="intro">Sin pagar cinco herramientas distintas ni conectar nada a mano. Lo creas, lo publicas y ves los resultados en el mismo lugar.</p>
+  <div class="feat">
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><b>Tu web y tus freebies</b><p>Más de 20 plantillas: freebies, ventas, cupones, link en bio y más. En español e inglés.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="M17 10l4-2.5v9L17 14"/></svg></span><b>Videos con IA</b><p>Escribe qué video quieres, o sube el que grabaste, y la IA hace el guion, los textos y la música.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="7" y="8" width="10" height="8" rx="1.5"/></svg></span><b>Popups y chatbot</b><p>Captura correos en cualquier web y responde a tus clientas a cualquier hora.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><b>Correos</b><p>Bienvenida automática con tu regalo y envíos a toda tu lista, programados.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><b>Calendario de contenido</b><p>La IA te arma el mes de publicaciones con textos listos para copiar.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>Business Growth AI</b><p>Tu asesora de ventas: investiga tu mercado y te dice qué hacer esta semana.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1"/></svg></span><b>Tus contactos</b><p>Cada persona que descarga o compra queda guardada, lista para tus correos.</p></div>
+    <div><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><b>Tus números</b><p>Visitas, registros y lo que mejor funciona, sin hojas de cálculo.</p></div>
+  </div>
+</div></section>
+
+<section class="band" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap price">
+  <div>
+    <span class="kick">Un solo plan</span>
+    <h2 class="h2">Simple y sin sorpresas</h2>
+    <p class="intro" style="margin-bottom:0">Pruébalo gratis. Si te gusta, activas tu plan con tarjeta y sigues sin perder nada de lo que hiciste. Si no, no pagas nada.</p>
+  </div>
+  <div class="pcard">
+    <div class="amt"><span class="tprice">$29</span> <small>al mes</small></div>
+    <ul><li>Todas las funciones del panel</li><li>Tu web con tu nombre</li><li><span class="tdays">14</span> días gratis, sin tarjeta</li><li>Cancelas cuando quieras</li></ul>
+    <a href="#signup">Empezar gratis</a>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap" style="max-width:820px">
+  <span class="kick">Preguntas</span>
+  <h2 class="h2">Lo que más nos preguntan</h2>
+  <div class="faq">
+    <details><summary>¿Necesito tarjeta para la prueba?</summary><p>No. Creas tu cuenta con tu correo y usas todo durante la prueba. Activas tu plan cuando quieras desde «Mi plan».</p></details>
+    <details><summary>¿Qué pasa con mi web si no activo el plan?</summary><p>Al terminar la prueba tu web se pausa, pero no se borra nada. Cuando activas tu plan, vuelve tal como la dejaste.</p></details>
+    <details><summary>¿Cómo funciona la inteligencia artificial?</summary><p>En tu panel pegas tu propia clave de IA (Anthropic) y, si quieres videos con movimiento, la de Runway. Así pagas solo lo que usas, directo a ellos, y nadie más ve tus datos.</p></details>
+    <details><summary>¿Puedo cancelar cuando quiera?</summary><p>Sí. Desde «Mi plan» cambias tu tarjeta, ves tus facturas o cancelas, sin llamar a nadie.</p></details>
+    <details><summary>¿Cobran comisión por mis ventas?</summary><p>No. Solo pagas tu mensualidad.</p></details>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> <span class="pname">PageBloom</span></span><a href="/privacidad">Política de privacidad</a></div></footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  $("yr").textContent = new Date().getFullYear();
+  var slugify = function(s){ return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40); };
+  var plat = "PageBloom";
+  fetch("/api/plans", {cache:"no-store"}).then(function(r){ return r.json(); }).then(function(p){
+    plat = p.name || plat;
+    document.querySelectorAll(".pname").forEach(function(x){ x.textContent = plat; });
+    document.querySelectorAll(".tprice").forEach(function(x){ x.textContent = "$" + p.price; });
+    document.querySelectorAll(".tdays").forEach(function(x){ x.textContent = p.trialDays; });
+    document.title = plat + " · Crea tu cuenta";
+    if (p.open === false){ $("go").disabled = true; $("msg").textContent = "Por ahora no estamos abriendo cuentas nuevas. Vuelve pronto."; }
+  }).catch(function(){});
+  var show = function(){ var n = $("name").value.trim(), s = slugify(n); $("pv").hidden = !n; $("pv-name").textContent = n; $("pv-url").textContent = location.host + "/s/" + (s || "tu-negocio"); };
+  $("name").oninput = show;
+  var err = {name:"Escribe el nombre de tu espacio.", email:"Revisa tu correo.", short:"La contraseña necesita al menos 8 letras o números.", taken:"Ese correo ya tiene una cuenta. Entra con él.", slug:"Ese nombre no está disponible. Prueba con otro.", slugtaken:"Ya hay un espacio con ese nombre. Prueba con otro (por ejemplo, añade tu ciudad).", limit:"Demasiados intentos hoy desde esta conexión. Inténtalo mañana.", closed:"Por ahora no estamos abriendo cuentas nuevas."};
+  $("f").onsubmit = function(ev){
+    ev.preventDefault(); var msg = $("msg"); msg.textContent = "";
+    var b = {name:$("name").value.trim(), email:$("email").value.trim(), password:$("pw").value, bot:$("bot").value};
+    if (b.name.length < 2){ msg.textContent = err.name; $("name").focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)){ msg.textContent = err.email; $("email").focus(); return; }
+    if (b.password.length < 8){ msg.textContent = err.short; $("pw").focus(); return; }
+    $("go").disabled = true; $("go").textContent = "Creando tu espacio…";
+    fetch("/api/signup", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(b)}).then(function(r){ return r.json().then(function(j){ if (!r.ok) throw j; return j; }); })
+      .then(function(j){ try{ localStorage.setItem("lp-sess", j.token); localStorage.setItem("lp-slug", j.me.slug); localStorage.removeItem("lp-owner"); }catch(_){} location.href = "/panel.html"; },
+        function(j){ $("go").disabled = false; $("go").textContent = "Crear mi cuenta gratis"; msg.textContent = (j && err[j.error]) || "No hay conexión. Inténtalo otra vez."; });
+  };
+})();
+</script>
+</body>
+</html>

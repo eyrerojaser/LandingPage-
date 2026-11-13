@@ -1,7 +1,9 @@
 // API de tu panel: contraseña, páginas, fotos y suscriptores.
-import { getStore } from "@netlify/blobs";
-
-const store = (name) => getStore({ name, consistency: "strong" });
+import { store, tenant, withTenant, sessionTenant, planState, getTenant } from "../lib/tenant.mjs";
+import { saasRoute } from "../lib/saas.mjs";
+// Peticiones de una clienta que ya entró con su correo (su sesión vale como contraseña dentro de su espacio)
+const AUTHED = new WeakSet();
+const tq = () => (tenant() ? "pbt=" + tenant() + "&" : "");
 const json = (o, status = 200) =>
   new Response(JSON.stringify(o), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 const enc = new TextEncoder();
@@ -11,10 +13,12 @@ async function sha(s) {
 }
 const envPass = () => (globalThis.Netlify && Netlify.env.get("PANEL_PASSWORD")) || "";
 async function hasPassword() {
+  if (tenant()) return true;
   if (envPass()) return true;
   return !!(await store("panel").get("auth", { type: "json" }));
 }
 async function checkPass(req) {
+  if (tenant()) return AUTHED.has(req);
   const p = req.headers.get("x-panel-pass") || "";
   if (!p) return false;
   if (envPass()) return p === envPass();
@@ -147,6 +151,25 @@ export default async (req) => {
   const url = new URL(req.url);
   const route = url.pathname.replace(/^\/api\/?/, "").replace(/\/+$/, "");
   const m = req.method;
+  // Plataforma: registro, entrada con correo, plan con Stripe y tu sección «Plataforma»
+  const sx = await withTenant("", () => saasRoute(req, url, route, m, { owner: () => checkPass(req) }));
+  if (sx) return sx;
+  // ¿De quién es esta petición? Tú (sin nada), una clienta con su sesión, o una página pública de una clienta (?pbt=)
+  let t = "";
+  if (req.headers.get("x-pb-session")) {
+    const ten = await sessionTenant(req);
+    if (!ten) return json({ error: "auth" }, 401);
+    const st = planState(ten);
+    if (!st.ok) return json({ error: "plan", state: st.state }, 402);
+    t = ten.slug; AUTHED.add(req);
+  } else if (url.searchParams.get("pbt")) {
+    const ten = await getTenant(url.searchParams.get("pbt"));
+    if (!ten || !planState(ten).ok) return json({ error: "off" }, 403);
+    t = ten.slug;
+  }
+  return withTenant(t, () => route0(req, url, route, m));
+};
+async function route0(req, url, route, m) {
   // Las páginas descargadas y puestas en otra web también pueden enviar registros y visitas a tu panel.
   const cors = { "access-control-allow-origin": "*", "access-control-allow-methods": "POST, OPTIONS", "access-control-allow-headers": "content-type" };
   if (m === "OPTIONS" && (route === "lead" || route === "track" || route === "vote" || route === "chat")) return new Response(null, { status: 204, headers: cors });
@@ -156,11 +179,11 @@ export default async (req) => {
     return new Response(res.body, { status: res.status, headers: h });
   }
   return handle(req, url, route, m);
-};
+}
 /* Envía un correo a todas las suscriptoras (cada una en el idioma de la página donde se registró). */
 async function sendToAll(s, origin, msg) {
   const { subject, body, subjectEn, bodyEn } = msg, hasEn = !!(subjectEn && bodyEn);
-  const mk = async (email) => origin + "/api/unsub?e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
+  const mk = async (email) => origin + "/api/unsub?" + tq() + "e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
       const pagesPub = ((await store("panel").get("pages", { type: "json" })) || {}).pages || [];
       const langOf = {}; for (const pg of pagesPub) if (pg.data && pg.data.fileName) langOf[pg.data.fileName] = pg.data.lang === "en" ? "en" : "es";
       const ls = store("leads"), { blobs } = await ls.list();
@@ -266,7 +289,7 @@ async function handle(req, url, route, m) {
           const d = (pg && pg.data) || {};
           const origin = url.origin;
           const pdf = d.pdfUrl ? (/^https?:/.test(d.pdfUrl) ? d.pdfUrl : origin + d.pdfUrl) : "";
-          const unsub = origin + "/api/unsub?e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
+          const unsub = origin + "/api/unsub?" + tq() + "e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
           const fill = (x) => String(x || "").replace(/\{nombre\}/g, lead.nombre || "");
           const en = d.lang === "en" && (s.welcome.subjectEn || s.welcome.bodyEn);
           const wSub = en ? s.welcome.subjectEn : s.welcome.subject, wBody = en ? s.welcome.bodyEn : s.welcome.body;
@@ -748,7 +771,7 @@ async function handle(req, url, route, m) {
       const hasEn = !!(subjectEn && bodyEn);
       if (!subject || !body) return json({ error: "bad" }, 400);
       const origin = url.origin;
-      const mk = async (email) => origin + "/api/unsub?e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
+      const mk = async (email) => origin + "/api/unsub?" + tq() + "e=" + encodeURIComponent(email) + "&t=" + (await unsubToken(s.secret, email));
       if (b.test) {
         const to = s.senderEmail;
         await brevoSend(s, { to: [{ email: to }], subject: "[Prueba] " + subject, htmlContent: mailHtml(body.replace(/\{nombre\}/g, "María"), { brand: s.senderName, address: s.address, unsub: await mk(to) }) });
